@@ -1,6 +1,6 @@
 /* ==============================================================
    ZYNDESK v2 — KINETIC BRUTALISM (UI/UX Pro Max design system)
-   Acid #DFE104 on ink #0A0A0A · 0px radius · 2px borders
+   Accent baby-blue #89CFF0 on ink #0A0A0A · 0px radius · 2px borders
    Archivo (display, uppercase) / Space Grotesk (body)
    Arabic: IBM Plex Sans Arabic
    ============================================================== */
@@ -10,7 +10,7 @@
   --ink-2: #111111;
   --paper: #f2f2ec;
   --paper-dim: #b9b9ae;
-  --acid: #dfe104;
+  --acid: #89CFF0;
   --line: rgba(242, 242, 236, 0.18);
   --border: 2px solid var(--paper);
   --font-display: 'Archivo', 'IBM Plex Sans Arabic', sans-serif;
