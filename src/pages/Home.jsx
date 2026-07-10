@@ -1,8 +1,10 @@
 import { useRef } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { motion, useScroll, useTransform } from 'framer-motion'
-import { MarqueeBand, RevealLines, Magnetic, inView, StatCounter } from '../components/ui.jsx'
+import { MarqueeBand, RevealLines, Magnetic, inView, StatCounter, RotatingText } from '../components/ui.jsx'
 import RoiCalculator from '../components/RoiCalculator.jsx'
+import CompareSlider from '../components/CompareSlider.jsx'
+import PackageBuilder from '../components/PackageBuilder.jsx'
 import { DASHBOARD_IMG, MOBILE_IMG, HERO_IMG } from '../images.js'
 import { TECH_STACK } from '../i18n.js'
 
@@ -45,6 +47,10 @@ export default function Home({ t, tw }) {
             <motion.p className="hero-sub" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.1 }}>
               {t.heroSub}
             </motion.p>
+            <motion.div className="hero-rotate" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ delay: 1.15 }}>
+              <span className="mono-label">{t.heroRotateLabel}</span>
+              <RotatingText items={tw.marquee} />
+            </motion.div>
             <motion.div className="hero-ctas" initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 1.2 }}>
               <Magnetic><button className="btn btn-acid" onClick={() => navigate('/contact')}>{t.cta1} ↗</button></Magnetic>
               <Magnetic><button className="btn btn-line" onClick={() => navigate('/work')}>{t.cta2}</button></Magnetic>
@@ -93,6 +99,17 @@ export default function Home({ t, tw }) {
         </div>
       </section>
 
+      {/* BEFORE / AFTER */}
+      <section className="section">
+        <div className="container">
+          <div className="sec-head">
+            <h2 className="display sec-title">{t.compare.label}</h2>
+            <p className="sec-sub">{t.compare.sub}</p>
+          </div>
+          <CompareSlider t={t.compare} />
+        </div>
+      </section>
+
       {/* TESTIMONIALS */}
       <section className="section">
         <div className="container">
@@ -115,6 +132,25 @@ export default function Home({ t, tw }) {
         </div>
       </section>
 
+      {/* ASK ZYN — surfaces the real AI */}
+      <section className="section">
+        <div className="container">
+          <div className="sec-head">
+            <h2 className="display sec-title">{t.askZyn.label}</h2>
+            <p className="sec-sub">{t.askZyn.sub}</p>
+          </div>
+          <div className="ask-chips">
+            {t.askZyn.chips.map((c) => (
+              <Magnetic key={c}>
+                <button className="ask-chip" onClick={() => window.dispatchEvent(new CustomEvent('zyn:ask', { detail: c }))}>
+                  {c} →
+                </button>
+              </Magnetic>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* ROI CALCULATOR */}
       <section className="section">
         <div className="container">
@@ -123,6 +159,17 @@ export default function Home({ t, tw }) {
             <p className="sec-sub">{t.roi.sub}</p>
           </div>
           <RoiCalculator t={t.roi} />
+        </div>
+      </section>
+
+      {/* PACKAGE BUILDER */}
+      <section className="section">
+        <div className="container">
+          <div className="sec-head">
+            <h2 className="display sec-title">{t.builder.label}</h2>
+            <p className="sec-sub">{t.builder.sub}</p>
+          </div>
+          <PackageBuilder t={t.builder} />
         </div>
       </section>
 

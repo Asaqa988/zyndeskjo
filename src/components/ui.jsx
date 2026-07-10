@@ -1,5 +1,25 @@
 import { useEffect, useRef, useState } from 'react'
-import { motion, useMotionValue, useSpring, useInView } from 'framer-motion'
+import { motion, AnimatePresence, useMotionValue, useSpring, useInView } from 'framer-motion'
+
+/* Cycles through words with a vertical slide — used in the hero. */
+export function RotatingText({ items, interval = 2200 }) {
+  const [i, setI] = useState(0)
+  useEffect(() => {
+    const id = setInterval(() => setI((n) => (n + 1) % items.length), interval)
+    return () => clearInterval(id)
+  }, [items.length, interval])
+  return (
+    <span className="rotating">
+      <AnimatePresence mode="wait">
+        <motion.span key={i} className="acid"
+          initial={{ y: '110%', opacity: 0 }} animate={{ y: 0, opacity: 1 }} exit={{ y: '-110%', opacity: 0 }}
+          transition={{ duration: 0.35, ease: [0.22, 1, 0.36, 1] }}>
+          {items[i]}
+        </motion.span>
+      </AnimatePresence>
+    </span>
+  )
+}
 
 /* Custom cursor: acid dot + trailing ring */
 export function Cursor() {

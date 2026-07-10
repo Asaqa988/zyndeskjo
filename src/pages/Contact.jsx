@@ -6,7 +6,14 @@ import { LINKEDIN_URL, PHONE, PHONE_DISPLAY, WEB3FORMS_ACCESS_KEY, CONTACT_EMAIL
 export default function Contact({ t }) {
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
-  const [msg, setMsg] = useState('')
+  // Prefill from the "Build your package" tool if a scope was handed off.
+  const [msg, setMsg] = useState(() => {
+    try {
+      const s = sessionStorage.getItem('zyn_scope')
+      if (s) { sessionStorage.removeItem('zyn_scope'); return s }
+    } catch { /* ignore */ }
+    return ''
+  })
   const [status, setStatus] = useState('idle') // idle | sending | ok | error
   const [faq, setFaq] = useState(-1)
 

@@ -54,6 +54,13 @@ export default function ChatWidget({ t }) {
     }
   }
 
+  // Let other parts of the site open Zyn with a preset question (Ask-Zyn chips).
+  useEffect(() => {
+    const handler = (e) => { setOpen(true); send(e.detail) }
+    window.addEventListener('zyn:ask', handler)
+    return () => window.removeEventListener('zyn:ask', handler)
+  })
+
   return (
     <AnimatePresence>
       {!open ? (
