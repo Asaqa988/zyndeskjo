@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import { motion, useMotionValue, useSpring } from 'framer-motion'
+import { motion, useMotionValue, useSpring, useInView } from 'framer-motion'
 
 /* Custom cursor: acid dot + trailing ring */
 export function Cursor() {
@@ -88,6 +88,23 @@ export const inView = {
   whileInView: { opacity: 1, y: 0 },
   viewport: { once: true, margin: '-60px' },
   transition: { duration: 0.6, ease: 'easeOut' },
+}
+
+/* Stat cell whose number counts up the first time it scrolls into view.
+   Splits "87%" / "50+" / "24/7" into prefix + number + suffix so the
+   formatting is preserved while only the number animates. */
+export function StatCounter({ v, l }) {
+  const ref = useRef(null)
+  const seen = useInView(ref, { once: true, margin: '-40px' })
+  const parts = String(v).match(/^(\D*)([\d.]+)([\s\S]*)$/)
+  const val = useCountUp(parts ? parts[2] : v, seen)
+  const shown = parts && val != null ? `${parts[1]}${val}${parts[3]}` : v
+  return (
+    <div className="stat-cell" ref={ref}>
+      <div className="stat-v" style={{ direction: 'ltr' }}>{shown}</div>
+      <div className="stat-l">{l}</div>
+    </div>
+  )
 }
 
 /* Odometer-style stat (counts up when visible) */

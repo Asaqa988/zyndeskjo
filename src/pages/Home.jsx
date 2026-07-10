@@ -1,8 +1,10 @@
 import { useRef } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { motion, useScroll, useTransform } from 'framer-motion'
-import { MarqueeBand, RevealLines, Magnetic, inView } from '../components/ui.jsx'
+import { MarqueeBand, RevealLines, Magnetic, inView, StatCounter } from '../components/ui.jsx'
+import RoiCalculator from '../components/RoiCalculator.jsx'
 import { DASHBOARD_IMG, MOBILE_IMG, HERO_IMG } from '../images.js'
+import { TECH_STACK } from '../i18n.js'
 
 function WorkPreview({ item, img, note }) {
   return (
@@ -113,18 +115,32 @@ export default function Home({ t, tw }) {
         </div>
       </section>
 
-      {/* STATS */}
+      {/* ROI CALCULATOR */}
       <section className="section">
         <div className="container">
-          <motion.div className="stats-band" {...inView}>
-            {t.stats.map((s) => (
-              <div className="stat-cell" key={s.l}>
-                <div className="stat-v">{s.v}</div>
-                <div className="stat-l">{s.l}</div>
-              </div>
-            ))}
-          </motion.div>
+          <div className="sec-head">
+            <h2 className="display sec-title">{t.roi.label}</h2>
+            <p className="sec-sub">{t.roi.sub}</p>
+          </div>
+          <RoiCalculator t={t.roi} />
         </div>
+      </section>
+
+      {/* STATS (count up on scroll) */}
+      <section className="section">
+        <div className="container">
+          <div className="stats-band">
+            {t.stats.map((s) => (
+              <StatCounter key={s.l} v={s.v} l={s.l} />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* BUILT WITH — tech marquee */}
+      <section className="stack-section">
+        <div className="container"><span className="mono-label stack-label">{t.stackLabel}</span></div>
+        <MarqueeBand items={TECH_STACK} speed={24} inverse />
       </section>
 
       {/* CTA BAND */}

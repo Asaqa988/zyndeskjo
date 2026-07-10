@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import { NavLink, useNavigate, useLocation } from 'react-router-dom'
-import { motion, AnimatePresence } from 'framer-motion'
+import { motion, AnimatePresence, useScroll } from 'framer-motion'
 import { LINKEDIN_URL, PHONE } from '../i18n.js'
 import { Cursor } from './ui.jsx'
 import ChatWidget from './ChatWidget.jsx'
@@ -23,9 +23,11 @@ export default function Layout({ t, lang, setLang, children }) {
   const [open, setOpen] = useState(false)
   const navigate = useNavigate()
   const location = useLocation()
+  const { scrollYProgress } = useScroll()
 
   return (
     <>
+      <motion.div className="scroll-progress" style={{ scaleX: scrollYProgress }} />
       <Cursor />
       <nav className="nav">
         <div className="container nav-inner">

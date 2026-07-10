@@ -8,6 +8,12 @@ export const PHONE_DISPLAY = '+962 7 9770 0235'
 export const WEB3FORMS_ACCESS_KEY = 'ca11e18b-f1fe-4809-8423-b665bf830c9b'
 export const CONTACT_EMAIL = 'hello@zyndeskjo.com'
 
+// Tech we build with — shown in the "BUILT WITH" marquee (brand names, locale-independent).
+export const TECH_STACK = [
+  'LANGCHAIN', 'OPENAI', 'CLAUDE', 'GEMINI', 'PINECONE', 'RAG', 'ODOO',
+  'AWS', 'AZURE', 'KUBERNETES', 'FLUTTER', 'REACT NATIVE', 'NEXT.JS', 'FASTAPI', 'TWILIO', 'ELEVENLABS',
+]
+
 export const translations = {
   en: {
     dir: 'ltr',
@@ -41,6 +47,18 @@ export const translations = {
         { q: 'They didn’t sell us AI. They shipped it — weekly demos, real code, zero slide decks.', a: 'Omar K.', r: 'Founder — Logistics Startup' },
         { q: 'Our Odoo rollout finally made sense. One source of truth across six branches, live in weeks.', a: 'Rana S.', r: 'Operations Director' },
       ],
+      stackLabel: 'BUILT WITH',
+      roi: {
+        label: 'SAVINGS CALCULATOR',
+        sub: 'See what automating your busywork could return — drag the sliders.',
+        team: 'Team size',
+        hours: 'Hours/week on repetitive tasks (per person)',
+        rate: 'Average hourly cost (USD)',
+        resultLabel: 'ESTIMATED ANNUAL SAVINGS',
+        hoursLabel: 'HOURS RECLAIMED / YEAR',
+        note: 'A rough estimate assuming ~70% of repetitive work is automatable. Book a free consultation for a real assessment.',
+        cta: 'Get a real estimate ↗',
+      },
     },
     services: {
       title: 'SERVICES',
@@ -60,11 +78,12 @@ export const translations = {
       title: 'WORK',
       sub: 'Concept builds & client stories from the studio.',
       demoNote: 'CONCEPT PREVIEW',
+      filters: { all: 'All', ai: 'AI & Agents', mobile: 'Mobile', odoo: 'Odoo / ERP', voice: 'Voice AI' },
       items: [
-        { t: 'ZYNDESK HELPDESK', c: 'AI Support Platform', d: 'An LLM-powered helpdesk that reads, routes, and resolves. 87% of tier-1 tickets closed with zero human touch.', m: [['87%', 'auto-resolved'], ['3s', 'avg. response'], ['24/7', 'coverage']] },
-        { t: 'ZYNDESK MOBILE', c: 'AI Support, Pocket Edition', d: 'Voice-first mobile support agent with real-time waveform UX. Your customers talk; the AI does the rest.', m: [['4.8★', 'store rating'], ['60%', 'fewer calls'], ['2 wks', 'to MVP']] },
-        { t: 'ODOO AT SCALE', c: 'ERP Rollout — Retail Group', d: 'Full Odoo ERP: inventory, POS, accounting, HR — unified for a multi-branch retailer in Jordan.', m: [['6', 'branches unified'], ['-40%', 'closing time'], ['1', 'source of truth']] },
-        { t: 'VOICE AI CALL CENTER', c: 'Conversational AI — Logistics', d: 'Arabic-first voice agents handling booking, tracking, and complaints. Callers can’t tell. That’s the point.', m: [['70%', 'calls automated'], ['AR/EN', 'bilingual'], ['0', 'hold music']] },
+        { g: 'ai', t: 'ZYNDESK HELPDESK', c: 'AI Support Platform', d: 'An LLM-powered helpdesk that reads, routes, and resolves. 87% of tier-1 tickets closed with zero human touch.', m: [['87%', 'auto-resolved'], ['3s', 'avg. response'], ['24/7', 'coverage']] },
+        { g: 'mobile', t: 'ZYNDESK MOBILE', c: 'AI Support, Pocket Edition', d: 'Voice-first mobile support agent with real-time waveform UX. Your customers talk; the AI does the rest.', m: [['4.8★', 'store rating'], ['60%', 'fewer calls'], ['2 wks', 'to MVP']] },
+        { g: 'odoo', t: 'ODOO AT SCALE', c: 'ERP Rollout — Retail Group', d: 'Full Odoo ERP: inventory, POS, accounting, HR — unified for a multi-branch retailer in Jordan.', m: [['6', 'branches unified'], ['-40%', 'closing time'], ['1', 'source of truth']] },
+        { g: 'voice', t: 'VOICE AI CALL CENTER', c: 'Conversational AI — Logistics', d: 'Arabic-first voice agents handling booking, tracking, and complaints. Callers can’t tell. That’s the point.', m: [['70%', 'calls automated'], ['AR/EN', 'bilingual'], ['0', 'hold music']] },
       ],
     },
     about: {
@@ -155,6 +174,18 @@ export const translations = {
         { q: 'لم يبيعونا ذكاءً اصطناعياً، بل أطلقوه — عروض أسبوعية، كود حقيقي، بلا عروض تقديمية.', a: 'عمر ك.', r: 'مؤسس — شركة لوجستيات ناشئة' },
         { q: 'أصبح نظام أودو لدينا منطقياً أخيراً. مصدر حقيقة واحد عبر ستة فروع، خلال أسابيع.', a: 'رنا س.', r: 'مديرة العمليات' },
       ],
+      stackLabel: 'مبني بـ',
+      roi: {
+        label: 'حاسبة التوفير',
+        sub: 'شاهد ما يمكن أن توفره أتمتة أعمالك الروتينية — حرّك المؤشرات.',
+        team: 'حجم الفريق',
+        hours: 'ساعات أسبوعياً على المهام المتكررة (لكل شخص)',
+        rate: 'متوسط التكلفة بالساعة (دولار)',
+        resultLabel: 'التوفير السنوي التقديري',
+        hoursLabel: 'ساعات موفَّرة / سنة',
+        note: 'تقدير تقريبي بافتراض أن ~70% من العمل المتكرر قابل للأتمتة. احجز استشارة مجانية لتقييم فعلي.',
+        cta: 'احصل على تقدير فعلي ↗',
+      },
     },
     services: {
       title: 'خدماتنا',
@@ -174,11 +205,12 @@ export const translations = {
       title: 'أعمالنا',
       sub: 'نماذج تجريبية وقصص عملاء من الاستوديو.',
       demoNote: 'معاينة تجريبية',
+      filters: { all: 'الكل', ai: 'ذكاء ووكلاء', mobile: 'موبايل', odoo: 'أودو / ERP', voice: 'ذكاء صوتي' },
       items: [
-        { t: 'زِندِسك هيلب دسك', c: 'منصة دعم ذكية', d: 'نظام دعم مدعوم بالنماذج اللغوية يقرأ ويوجّه ويحل. 87% من تذاكر المستوى الأول تُغلق دون تدخل بشري.', m: [['87%', 'حل تلقائي'], ['3ث', 'متوسط الرد'], ['24/7', 'تغطية']] },
-        { t: 'زِندِسك موبايل', c: 'دعم ذكي في جيبك', d: 'وكيل دعم صوتي أولاً مع تجربة موجات صوتية لحظية. عملاؤك يتكلمون؛ الذكاء يتكفل بالباقي.', m: [['4.8★', 'تقييم المتجر'], ['60%', 'مكالمات أقل'], ['أسبوعان', 'حتى MVP']] },
-        { t: 'أودو على نطاق واسع', c: 'نشر ERP — مجموعة تجزئة', d: 'نظام أودو كامل: مخزون ونقاط بيع ومحاسبة وموارد بشرية — موحّد لمجموعة تجزئة متعددة الفروع في الأردن.', m: [['6', 'فروع موحدة'], ['-40%', 'زمن الإغلاق'], ['1', 'مصدر حقيقة']] },
-        { t: 'مركز اتصال صوتي ذكي', c: 'ذكاء محادثة — لوجستيات', d: 'وكلاء صوتيون بالعربية أولاً يتولون الحجز والتتبع والشكاوى. المتصلون لا يفرّقون. وهذا هو المطلوب.', m: [['70%', 'مكالمات مؤتمتة'], ['ع/E', 'ثنائي اللغة'], ['0', 'موسيقى انتظار']] },
+        { g: 'ai', t: 'زِندِسك هيلب دسك', c: 'منصة دعم ذكية', d: 'نظام دعم مدعوم بالنماذج اللغوية يقرأ ويوجّه ويحل. 87% من تذاكر المستوى الأول تُغلق دون تدخل بشري.', m: [['87%', 'حل تلقائي'], ['3ث', 'متوسط الرد'], ['24/7', 'تغطية']] },
+        { g: 'mobile', t: 'زِندِسك موبايل', c: 'دعم ذكي في جيبك', d: 'وكيل دعم صوتي أولاً مع تجربة موجات صوتية لحظية. عملاؤك يتكلمون؛ الذكاء يتكفل بالباقي.', m: [['4.8★', 'تقييم المتجر'], ['60%', 'مكالمات أقل'], ['أسبوعان', 'حتى MVP']] },
+        { g: 'odoo', t: 'أودو على نطاق واسع', c: 'نشر ERP — مجموعة تجزئة', d: 'نظام أودو كامل: مخزون ونقاط بيع ومحاسبة وموارد بشرية — موحّد لمجموعة تجزئة متعددة الفروع في الأردن.', m: [['6', 'فروع موحدة'], ['-40%', 'زمن الإغلاق'], ['1', 'مصدر حقيقة']] },
+        { g: 'voice', t: 'مركز اتصال صوتي ذكي', c: 'ذكاء محادثة — لوجستيات', d: 'وكلاء صوتيون بالعربية أولاً يتولون الحجز والتتبع والشكاوى. المتصلون لا يفرّقون. وهذا هو المطلوب.', m: [['70%', 'مكالمات مؤتمتة'], ['ع/E', 'ثنائي اللغة'], ['0', 'موسيقى انتظار']] },
       ],
     },
     about: {
