@@ -5,6 +5,9 @@ import Layout from './components/Layout.jsx'
 import Home from './pages/Home.jsx'
 import Services from './pages/Services.jsx'
 import Work from './pages/Work.jsx'
+import WorkDetail from './pages/WorkDetail.jsx'
+import Insights from './pages/Insights.jsx'
+import InsightPost from './pages/InsightPost.jsx'
 import About from './pages/About.jsx'
 import Contact from './pages/Contact.jsx'
 
@@ -28,6 +31,7 @@ export default function App() {
     const pages = {
       '/services': t.nav.services,
       '/work': t.nav.work,
+      '/insights': t.nav.insights,
       '/about': t.nav.about,
       '/contact': t.nav.contact,
     }
@@ -41,6 +45,9 @@ export default function App() {
         <Route path="/" element={<Home t={t.home} tw={t} />} />
         <Route path="/services" element={<Services t={t.services} />} />
         <Route path="/work" element={<Work t={t.work} />} />
+        <Route path="/work/:id" element={<WorkDetail t={t.work} />} />
+        <Route path="/insights" element={<Insights t={t.insights} />} />
+        <Route path="/insights/:slug" element={<InsightPost t={t.insights} />} />
         <Route path="/about" element={<About t={t.about} tw={t} />} />
         <Route path="/contact" element={<Contact t={t.contact} />} />
         <Route path="*" element={<Home t={t.home} tw={t} />} />

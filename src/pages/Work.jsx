@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
+import { Link } from 'react-router-dom'
 import { inView } from '../components/ui.jsx'
 import { DASHBOARD_IMG, MOBILE_IMG } from '../images.js'
 
@@ -9,7 +10,7 @@ export default function Work({ t }) {
   const [active, setActive] = useState('all')
 
   // keep each item's image tied to its ORIGINAL position, then filter
-  const items = t.items.map((w, i) => ({ ...w, img: IMGS[i] }))
+  const items = t.items.map((w, i) => ({ ...w, img: IMGS[i], idx: i }))
   const shown = active === 'all' ? items : items.filter((w) => w.g === active)
 
   return (
@@ -37,6 +38,7 @@ export default function Work({ t }) {
                 <motion.article layout className="work-card" key={w.t}
                   initial={{ opacity: 0, scale: 0.96 }} animate={{ opacity: 1, scale: 1 }}
                   exit={{ opacity: 0, scale: 0.96 }} transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}>
+                  <Link to={`/work/${w.idx}`} className="work-card-link">
                   <div className="work-media">
                     <span className="demo-tag">{t.demoNote}</span>
                     {w.img ? (
@@ -56,6 +58,7 @@ export default function Work({ t }) {
                       ))}
                     </div>
                   </div>
+                  </Link>
                 </motion.article>
               ))}
             </AnimatePresence>

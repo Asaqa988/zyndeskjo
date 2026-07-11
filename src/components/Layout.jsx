@@ -5,11 +5,12 @@ import { LINKEDIN_URL, PHONE } from '../i18n.js'
 import { Cursor } from './ui.jsx'
 import ChatWidget from './ChatWidget.jsx'
 import StatusStrip from './StatusStrip.jsx'
+import Newsletter from './Newsletter.jsx'
 
 function Links({ t, onClick }) {
   const routes = [
     ['/', t.nav.home], ['/services', t.nav.services], ['/work', t.nav.work],
-    ['/about', t.nav.about], ['/contact', t.nav.contact],
+    ['/insights', t.nav.insights], ['/about', t.nav.about], ['/contact', t.nav.contact],
   ]
   return routes.map(([to, label]) => (
     <NavLink key={to} to={to} end={to === '/'} onClick={onClick}
@@ -66,6 +67,10 @@ export default function Layout({ t, lang, setLang, children }) {
       </AnimatePresence>
 
       {children}
+
+      <section className="newsletter-band">
+        <div className="container"><Newsletter t={t.newsletter} /></div>
+      </section>
 
       <StatusStrip t={t.status} />
 

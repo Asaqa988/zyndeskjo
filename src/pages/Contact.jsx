@@ -1,7 +1,7 @@
 import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { RevealLines, inView } from '../components/ui.jsx'
-import { LINKEDIN_URL, PHONE, PHONE_DISPLAY, WEB3FORMS_ACCESS_KEY, CONTACT_EMAIL } from '../i18n.js'
+import { LINKEDIN_URL, PHONE, PHONE_DISPLAY, WEB3FORMS_ACCESS_KEY, CONTACT_EMAIL, CAL_LINK, MAP_EMBED } from '../i18n.js'
 
 export default function Contact({ t }) {
   const [name, setName] = useState('')
@@ -103,6 +103,36 @@ export default function Contact({ t }) {
               )}
             </motion.form>
           </div>
+        </div>
+      </section>
+
+      {/* BOOK A CALL */}
+      <section className="section">
+        <div className="container">
+          <motion.div className="booking" {...inView}>
+            <div className="booking-copy">
+              <span className="mono-label">{t.booking.label}</span>
+              <p className="booking-sub">{t.booking.sub}</p>
+            </div>
+            {CAL_LINK ? (
+              <a className="btn btn-acid" href={CAL_LINK} target="_blank" rel="noreferrer">{t.booking.cta}</a>
+            ) : (
+              <a className="btn btn-acid" href={`tel:${PHONE}`}>{t.booking.cta}</a>
+            )}
+          </motion.div>
+          {CAL_LINK && <span className="booking-note">{t.booking.note}</span>}
+        </div>
+      </section>
+
+      {/* MAP */}
+      <section className="section">
+        <div className="container">
+          <div className="sec-head">
+            <h2 className="display sec-title">{t.mapLabel}</h2>
+          </div>
+          <motion.div className="map-embed" {...inView}>
+            <iframe title={t.mapLabel} src={MAP_EMBED} loading="lazy" referrerPolicy="no-referrer-when-downgrade" />
+          </motion.div>
         </div>
       </section>
 

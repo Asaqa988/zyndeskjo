@@ -8,6 +8,13 @@ export const PHONE_DISPLAY = '+962 7 9770 0235'
 export const WEB3FORMS_ACCESS_KEY = 'ca11e18b-f1fe-4809-8423-b665bf830c9b'
 export const CONTACT_EMAIL = 'hello@zyndeskjo.com'
 
+// Your Cal.com booking link (create a free account at cal.com, then paste your
+// public URL here, e.g. 'https://cal.com/zyndesk/intro'). Leave blank to hide.
+export const CAL_LINK = ''
+
+// OpenStreetMap embed for the studio location (University Street, Amman).
+export const MAP_EMBED = 'https://www.openstreetmap.org/export/embed.html?bbox=35.86%2C31.97%2C35.885%2C31.99&layer=mapnik&marker=31.98%2C35.8725'
+
 // Tech we build with — shown in the "BUILT WITH" marquee (brand names, locale-independent).
 export const TECH_STACK = [
   'LANGCHAIN', 'OPENAI', 'CLAUDE', 'GEMINI', 'PINECONE', 'RAG', 'ODOO',
@@ -17,7 +24,7 @@ export const TECH_STACK = [
 export const translations = {
   en: {
     dir: 'ltr',
-    nav: { home: 'Home', services: 'Services', work: 'Work', about: 'About', contact: 'Contact', cta: "Let's Talk" },
+    nav: { home: 'Home', services: 'Services', work: 'Work', insights: 'Insights', about: 'About', contact: 'Contact', cta: "Let's Talk" },
     marquee: ['AI AGENTS', 'AUTOMATION', 'LLM & RAG', 'CUSTOM SOFTWARE', 'VOICE AI', 'ODOO ERP', 'CLOUD', 'DATA'],
     home: {
       heroLines: ['WE BUILD', 'AI THAT', 'ACTUALLY WORKS'],
@@ -152,6 +159,8 @@ export const translations = {
         { q: 'Is our data safe with AI?', a: 'Yes. We build RAG systems grounded in your own knowledge base, with access controls. Your data powers your AI — it doesn’t leak into public models.' },
         { q: 'Do you support Arabic?', a: 'Bilingual by default. Every agent, interface, and voice we build is first-class in both Arabic (RTL) and English (LTR).' },
       ],
+      mapLabel: 'FIND US',
+      booking: { label: 'BOOK A FREE CONSULTATION', sub: 'Grab a 30-minute slot that suits you — no obligation.', cta: 'Pick a time ↗', note: 'Booking opens in a new tab.' },
     },
     chat: {
       open: 'ASK ZYN',
@@ -167,11 +176,51 @@ export const translations = {
       chips: ['Services?', 'Location?', 'Pricing?'],
     },
     status: { live: 'STUDIO ONLINE', ops: 'ALL SYSTEMS OPERATIONAL', agents: 'AI AGENTS LIVE', loc: 'AMMAN' },
+    insights: {
+      title: 'INSIGHTS',
+      sub: 'Field notes on AI agents, automation, and shipping software that works.',
+      readMore: 'Read',
+      back: '← All insights',
+      posts: [
+        {
+          slug: 'agents-that-actually-ship',
+          tag: 'AI AGENTS', date: 'JUL 2026', read: '4 min',
+          title: 'AI agents that actually ship',
+          excerpt: 'Most “AI agents” are demos. Here’s how we take one from prototype to production without the hallucinations.',
+          body: [
+            'Everyone can spin up a chatbot in an afternoon. Getting one that survives real users, edge cases, and accountability is a different job entirely.',
+            'We ground every agent in your own data with retrieval, gate its actions behind explicit tools, and measure it against real tickets before it ever touches a customer. The result is an agent you can trust on your P&L, not just in a demo.',
+            'The difference is boring but decisive: evals, guardrails, and a human-in-the-loop until the numbers earn autonomy.',
+          ],
+        },
+        {
+          slug: 'automation-roi',
+          tag: 'AUTOMATION', date: 'JUN 2026', read: '3 min',
+          title: 'How to find automation that pays for itself',
+          excerpt: 'Not every process is worth automating. The trick is hunting for the repetitive, high-volume, rules-based work first.',
+          body: [
+            'The best automation candidates share three traits: they’re repetitive, high-volume, and rules-based. Start there and the ROI is almost mechanical.',
+            'We map your workflows, tag every step by frequency and cost, and automate the boring 20% that eats 80% of your team’s week — then reinvest the hours into work only humans can do.',
+          ],
+        },
+        {
+          slug: 'bilingual-by-default',
+          tag: 'PRODUCT', date: 'MAY 2026', read: '3 min',
+          title: 'Why we build bilingual by default',
+          excerpt: 'Arabic isn’t an afterthought or a translation pass. Here’s how RTL-first design changes the whole build.',
+          body: [
+            'Bolting Arabic onto an English product later always shows. Layouts break, typography clips, and the experience feels second-class.',
+            'We design RTL and LTR as equals from day one — logical CSS, mirrored layouts, and Arabic type tuned for line-height and spacing. First-class, not an afterthought.',
+          ],
+        },
+      ],
+    },
+    newsletter: { label: 'STAY IN THE LOOP', sub: 'Occasional notes on AI, automation, and what we ship. No spam.', placeholder: 'your@email.com', cta: 'Subscribe →', ok: 'You’re in. Talk soon.', error: 'Something went wrong — try again.' },
     footer: { tag: 'AI studio — Amman, Jordan', rights: '© 2026 ZYNDESK®. ALL RIGHTS RESERVED.' },
   },
   ar: {
     dir: 'rtl',
-    nav: { home: 'الرئيسية', services: 'خدماتنا', work: 'أعمالنا', about: 'من نحن', contact: 'تواصل', cta: 'لنتحدث' },
+    nav: { home: 'الرئيسية', services: 'خدماتنا', work: 'أعمالنا', insights: 'مقالات', about: 'من نحن', contact: 'تواصل', cta: 'لنتحدث' },
     marquee: ['وكلاء ذكاء اصطناعي', 'أتمتة', 'نماذج لغوية و RAG', 'برمجيات مخصصة', 'ذكاء صوتي', 'أودو ERP', 'سحابة', 'بيانات'],
     home: {
       heroLines: ['نبني ذكاءً', 'اصطناعياً', 'يعمل فعلاً'],
@@ -306,6 +355,8 @@ export const translations = {
         { q: 'هل بياناتنا آمنة مع الذكاء الاصطناعي؟', a: 'نعم. نبني أنظمة RAG مبنية على قاعدة معرفتك مع ضبط للوصول. بياناتك تشغّل ذكاءك — ولا تتسرب إلى النماذج العامة.' },
         { q: 'هل تدعمون العربية؟', a: 'ثنائيو اللغة افتراضياً. كل وكيل وواجهة وصوت نبنيه هو درجة أولى بالعربية (RTL) والإنجليزية (LTR).' },
       ],
+      mapLabel: 'زُرنا',
+      booking: { label: 'احجز استشارة مجانية', sub: 'احجز موعداً مدته 30 دقيقة يناسبك — دون أي التزام.', cta: 'اختر وقتاً ↗', note: 'يفتح الحجز في تبويب جديد.' },
     },
     chat: {
       open: 'اسأل زِن',
@@ -321,6 +372,46 @@ export const translations = {
       chips: ['الخدمات؟', 'الموقع؟', 'الأسعار؟'],
     },
     status: { live: 'الاستوديو يعمل', ops: 'كل الأنظمة تعمل', agents: 'وكلاء الذكاء يعملون', loc: 'عمّان' },
+    insights: {
+      title: 'مقالات',
+      sub: 'ملاحظات من الميدان حول وكلاء الذكاء والأتمتة وإطلاق برمجيات تعمل فعلاً.',
+      readMore: 'اقرأ',
+      back: '← كل المقالات',
+      posts: [
+        {
+          slug: 'agents-that-actually-ship',
+          tag: 'وكلاء الذكاء', date: 'تموز 2026', read: '4 دقائق',
+          title: 'وكلاء ذكاء اصطناعي يصلون إلى الإنتاج فعلاً',
+          excerpt: 'معظم «وكلاء الذكاء» مجرد عروض. إليك كيف ننقل الوكيل من نموذج أولي إلى إنتاج دون هلوسة.',
+          body: [
+            'يستطيع أي أحد بناء شات بوت في ظهيرة واحدة. لكن بناء وكيل يصمد أمام مستخدمين حقيقيين وحالات حدّية ومساءلة فهو عمل مختلف تماماً.',
+            'نؤسّس كل وكيل على بياناتك عبر الاسترجاع، ونضبط أفعاله خلف أدوات صريحة، ونقيسه على تذاكر حقيقية قبل أن يلمس أي عميل. النتيجة وكيل تثق به على أرباحك لا في عرض فقط.',
+            'الفرق ممل لكنه حاسم: تقييمات، وحواجز أمان، وإنسان في الحلقة حتى تستحق الأرقام الاستقلالية.',
+          ],
+        },
+        {
+          slug: 'automation-roi',
+          tag: 'أتمتة', date: 'حزيران 2026', read: '3 دقائق',
+          title: 'كيف تجد أتمتة تدفع ثمن نفسها',
+          excerpt: 'ليست كل عملية تستحق الأتمتة. الحيلة أن تصطاد العمل المتكرر عالي الحجم القائم على قواعد أولاً.',
+          body: [
+            'أفضل مرشحي الأتمتة يجمعون ثلاث صفات: متكرر، عالي الحجم، وقائم على قواعد. ابدأ من هناك ويصبح العائد شبه تلقائي.',
+            'نرسم خريطة سير عملك، ونصنّف كل خطوة حسب التكرار والتكلفة، ونؤتمت الـ20% المملة التي تلتهم 80% من أسبوع فريقك.',
+          ],
+        },
+        {
+          slug: 'bilingual-by-default',
+          tag: 'منتج', date: 'أيار 2026', read: '3 دقائق',
+          title: 'لماذا نبني ثنائي اللغة افتراضياً',
+          excerpt: 'العربية ليست فكرة لاحقة أو مجرد ترجمة. إليك كيف يغيّر التصميم بالعربية أولاً البناء بأكمله.',
+          body: [
+            'إلحاق العربية بمنتج إنجليزي لاحقاً يظهر دائماً: تنكسر التخطيطات ويُقصّ الخط وتبدو التجربة درجة ثانية.',
+            'نصمّم RTL وLTR على قدم المساواة من اليوم الأول — خصائص CSS منطقية وتخطيطات معكوسة وخط عربي مضبوط.',
+          ],
+        },
+      ],
+    },
+    newsletter: { label: 'ابقَ على اطلاع', sub: 'ملاحظات من حين لآخر حول الذكاء والأتمتة وما نطلقه. بلا إزعاج.', placeholder: 'your@email.com', cta: 'اشترك →', ok: 'تم! نراك قريباً.', error: 'حدث خطأ ما — حاول مجدداً.' },
     footer: { tag: 'استوديو ذكاء اصطناعي — عمّان، الأردن', rights: '© 2026 زِندِسك®. جميع الحقوق محفوظة.' },
   },
 }
