@@ -6,12 +6,14 @@
    ============================================================== */
 
 :root {
-  --ink: #0a0a0a;
-  --ink-2: #111111;
-  --paper: #f2f2ec;
-  --paper-dim: #b9b9ae;
-  --acid: #89CFF0;
-  --line: rgba(242, 242, 236, 0.18);
+  --ink: #0a0e1a;          /* deep navy-black (dashboard bg) */
+  --ink-2: #141a2b;        /* raised navy surface */
+  --paper: #f2f4fb;
+  --paper-dim: #9aa3bd;
+  --acid: #22d3ee;         /* primary accent: cyan */
+  --violet: #8b5cf6;       /* secondary accent: violet */
+  --grad: linear-gradient(120deg, #22d3ee 0%, #8b5cf6 100%);
+  --line: rgba(242, 244, 251, 0.16);
   --border: 2px solid var(--paper);
   --font-display: 'Archivo', 'IBM Plex Sans Arabic', sans-serif;
   --font-body: 'Space Grotesk', 'IBM Plex Sans Arabic', sans-serif;
@@ -22,7 +24,11 @@
 html { scroll-behavior: smooth; }
 
 body {
-  background: var(--ink);
+  background:
+    radial-gradient(1100px 520px at 80% -10%, rgba(139, 92, 246, 0.18), transparent 60%),
+    radial-gradient(900px 480px at 0% 108%, rgba(34, 211, 238, 0.12), transparent 55%),
+    var(--ink);
+  background-attachment: fixed;
   color: var(--paper);
   font-family: var(--font-body);
   line-height: 1.55;
@@ -142,7 +148,12 @@ img { max-width: 100%; display: block; }
   color: transparent;
   -webkit-text-stroke: 2px var(--paper);
 }
-.hero-h .acid { color: var(--acid); }
+.hero-h .acid {
+  background: var(--grad);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
 .hero-sub { max-width: 480px; color: var(--paper-dim); font-size: 1.1rem; margin: 30px 0 40px; }
 .hero-ctas { display: flex; gap: 16px; flex-wrap: wrap; margin-bottom: 70px; }
 .hero-coords {
