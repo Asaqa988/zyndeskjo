@@ -1,0 +1,36 @@
+<svg width="1200" height="630" viewBox="0 0 1200 630" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Zyndesk.jo — Build Smarter. Automate Faster. Grow Without Limits.">
+  <defs>
+    <linearGradient id="ogBg" x1="0" y1="0" x2="1200" y2="630" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#294C73"/>
+      <stop offset="1" stop-color="#102A43"/>
+    </linearGradient>
+    <radialGradient id="ogGlow" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(1010 120) rotate(120) scale(520)">
+      <stop offset="0" stop-color="#38D1E0" stop-opacity="0.45"/>
+      <stop offset="0.55" stop-color="#38D1E0" stop-opacity="0.12"/>
+      <stop offset="1" stop-color="#38D1E0" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="ogMark" x1="96" y1="96" x2="176" y2="176" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#3E6C96"/>
+      <stop offset="1" stop-color="#0B1F31"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background -->
+  <rect width="1200" height="630" fill="url(#ogBg)"/>
+  <rect width="1200" height="630" fill="url(#ogGlow)"/>
+
+  <!-- Logo mark -->
+  <rect x="96" y="96" width="80" height="80" rx="18" fill="url(#ogMark)"/>
+  <path d="M120 122 H152 L124 150 H152" fill="none" stroke="#38D1E0" stroke-width="5.2" stroke-linecap="round" stroke-linejoin="round"/>
+
+  <!-- Wordmark -->
+  <text x="96" y="360" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="140" font-weight="800" letter-spacing="-4">
+    <tspan fill="#FFFFFF">Zyndesk</tspan><tspan fill="#38D1E0">.jo</tspan>
+  </text>
+
+  <!-- Tagline -->
+  <text x="98" y="440" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="42" font-weight="600" fill="#DCECF7">Build Smarter. Automate Faster. Grow Without Limits.</text>
+
+  <!-- Sub line -->
+  <text x="98" y="510" font-family="'Segoe UI', 'Helvetica Neue', Arial, sans-serif" font-size="28" font-weight="400" fill="#9FC0DE" letter-spacing="1">AI · Automation · Software · QA · Training — Amman, Jordan</text>
+</svg>

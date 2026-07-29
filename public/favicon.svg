@@ -1,0 +1,10 @@
+<svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Zyndesk">
+  <defs>
+    <linearGradient id="zynBg" x1="4" y1="4" x2="36" y2="36" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#3E6C96"/>
+      <stop offset="1" stop-color="#102A43"/>
+    </linearGradient>
+  </defs>
+  <rect x="1" y="1" width="38" height="38" rx="9" fill="url(#zynBg)"/>
+  <path d="M13 13.5 H27 L14 26.5 H27" fill="none" stroke="#38D1E0" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

@@ -1,0 +1,314 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ═══════════════════════════════════════════════════════════════
+   ZYNDESK DESIGN SYSTEM — Light navy glassmorphism
+   Design tokens live here as CSS custom properties (mirrored in
+   tailwind.config.ts). Edit brand values in BOTH places.
+   ═══════════════════════════════════════════════════════════════ */
+
+:root {
+  /* Brand palette */
+  --navy: #294c73;
+  --navy-deep: #102a43;
+  --navy-medium: #3e6c96;
+  --navy-soft: #7ca6c8;
+  --ice: #dcecf7;
+  --offwhite: #f5f9fc;
+  --ink: #0d1b2a;
+  --cyan: #38d1e0;
+
+  /* Glass surfaces */
+  --glass-bg: rgba(255, 255, 255, 0.55);
+  --glass-bg-strong: rgba(255, 255, 255, 0.72);
+  --glass-border: rgba(255, 255, 255, 0.7);
+  --glass-border-soft: rgba(41, 76, 115, 0.12);
+  --glass-blur: 16px;
+
+  /* Depth */
+  --shadow-glass: 0 8px 32px rgba(16, 42, 67, 0.14);
+  --shadow-glass-lg: 0 24px 60px rgba(16, 42, 67, 0.22);
+
+  /* Radius / spacing / motion */
+  --radius: 20px;
+  --radius-sm: 14px;
+  --ease: cubic-bezier(0.22, 1, 0.36, 0.3);
+  --dur: 240ms;
+
+  /* Semantic (light theme = default) */
+  --page-bg: var(--offwhite);
+  --text: var(--ink);
+  --text-dim: #48607a;
+
+  color-scheme: light;
+}
+
+/* Dark navy immersive sections opt in via .theme-dark */
+.theme-dark {
+  --glass-bg: rgba(41, 76, 115, 0.28);
+  --glass-bg-strong: rgba(41, 76, 115, 0.42);
+  --glass-border: rgba(124, 166, 200, 0.28);
+  --glass-border-soft: rgba(124, 166, 200, 0.16);
+  --text: var(--offwhite);
+  --text-dim: #a9c4dd;
+  color-scheme: dark;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+body {
+  margin: 0;
+  background: var(--page-bg);
+  color: var(--text);
+  font-family: var(--font-sans), system-ui, sans-serif;
+  line-height: 1.6;
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+[dir='rtl'] body {
+  font-family: var(--font-arabic), system-ui, sans-serif;
+  line-height: 1.85;
+}
+
+/* ───────────── Ambient page background (subtle navy aurora) ───────────── */
+.aurora-bg {
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  overflow: hidden;
+  pointer-events: none;
+  background:
+    radial-gradient(60rem 60rem at 12% -10%, rgba(124, 166, 200, 0.35), transparent 60%),
+    radial-gradient(50rem 50rem at 100% 0%, rgba(56, 209, 224, 0.18), transparent 55%),
+    radial-gradient(70rem 70rem at 50% 120%, rgba(41, 76, 115, 0.22), transparent 60%),
+    var(--page-bg);
+}
+.aurora-bg::before {
+  content: '';
+  position: absolute;
+  inset: -20%;
+  background: radial-gradient(30rem 30rem at 30% 40%, rgba(62, 108, 150, 0.22), transparent 60%);
+  animation: aurora 22s ease-in-out infinite alternate;
+}
+@keyframes aurora {
+  from {
+    transform: translate3d(-6%, -4%, 0) scale(1);
+  }
+  to {
+    transform: translate3d(8%, 6%, 0) scale(1.15);
+  }
+}
+/* Fine grid overlay for tech texture */
+.grid-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgba(41, 76, 115, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(41, 76, 115, 0.045) 1px, transparent 1px);
+  background-size: 56px 56px;
+  mask-image: radial-gradient(circle at 50% 30%, #000 0%, transparent 78%);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .aurora-bg::before {
+    animation: none;
+  }
+  .animate-float,
+  .animate-marquee,
+  .animate-pulse-node {
+    animation: none !important;
+  }
+}
+
+/* ───────────── Glass primitives (component layer) ───────────── */
+@layer components {
+  .glass {
+    background: var(--glass-bg);
+    backdrop-filter: blur(var(--glass-blur)) saturate(140%);
+    -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(140%);
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--shadow-glass);
+    border-radius: var(--radius);
+  }
+  .glass-strong {
+    background: var(--glass-bg-strong);
+  }
+  /* Light sheen along the top edge of glass cards */
+  .glass-sheen {
+    position: relative;
+    overflow: hidden;
+  }
+  .glass-sheen::after {
+    content: '';
+    position: absolute;
+    inset: 0 0 auto 0;
+    height: 1px;
+    background: linear-gradient(
+      90deg,
+      transparent,
+      rgba(255, 255, 255, 0.9),
+      transparent
+    );
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.55rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    border-radius: var(--radius-sm);
+    padding: 0.85rem 1.5rem;
+    cursor: pointer;
+    transition: transform var(--dur) var(--ease), box-shadow var(--dur) var(--ease),
+      background var(--dur) var(--ease);
+    will-change: transform;
+    text-decoration: none;
+    line-height: 1;
+  }
+  .btn-primary {
+    background: linear-gradient(135deg, var(--navy-medium), var(--navy-deep));
+    color: #fff;
+    box-shadow: 0 8px 22px rgba(16, 42, 67, 0.32);
+  }
+  .btn-primary:hover {
+    box-shadow: 0 12px 30px rgba(16, 42, 67, 0.42), var(--shadow-glow, 0 0 0 0 transparent);
+    transform: translateY(-2px);
+  }
+  .btn-secondary {
+    background: var(--glass-bg-strong);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    color: var(--text);
+    border: 1px solid var(--glass-border);
+  }
+  .btn-secondary:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-glass);
+  }
+  .z-input {
+    width: 100%;
+    border-radius: 14px;
+    border: 1px solid var(--glass-border);
+    background: rgba(255, 255, 255, 0.6);
+    padding: 0.7rem 0.9rem;
+    font-size: 0.9rem;
+    color: var(--text);
+    outline: none;
+    transition: border-color 160ms var(--ease);
+  }
+  .z-input:focus {
+    border-color: var(--cyan);
+  }
+  .chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.4rem 0.85rem;
+    border-radius: 999px;
+    font-size: 0.8rem;
+    font-weight: 500;
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border-soft);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+}
+
+/* ───────────── Typography helpers ───────────── */
+.display {
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1.02;
+}
+[dir='rtl'] .display {
+  letter-spacing: 0;
+  line-height: 1.25;
+}
+.text-gradient {
+  background: linear-gradient(120deg, var(--navy-deep), var(--navy-medium) 55%, var(--cyan));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 0.22em;
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--navy-medium);
+}
+[dir='rtl'] .eyebrow {
+  letter-spacing: 0.06em;
+}
+
+/* ───────────── Layout utilities ───────────── */
+.container-z {
+  width: 100%;
+  max-width: 1200px;
+  margin-inline: auto;
+  padding-inline: clamp(1.1rem, 4vw, 2.5rem);
+}
+.section-pad {
+  padding-block: clamp(4rem, 9vw, 8rem);
+}
+
+/* ───────────── Accessibility ───────────── */
+:focus-visible {
+  outline: 3px solid var(--cyan);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+.skip-link {
+  position: absolute;
+  inset-inline-start: 1rem;
+  top: -100px;
+  z-index: 200;
+  padding: 0.7rem 1.1rem;
+  background: var(--navy-deep);
+  color: #fff;
+  border-radius: 10px;
+  transition: top 160ms var(--ease);
+}
+.skip-link:focus {
+  top: 1rem;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 11px;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(41, 76, 115, 0.35);
+  border-radius: 999px;
+  border: 3px solid transparent;
+  background-clip: content-box;
+}
+
+/* Marquee track stays LTR even in RTL */
+.marquee-track {
+  direction: ltr;
+}
+.tel {
+  direction: ltr;
+  unicode-bidi: embed;
+}
