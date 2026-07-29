@@ -8,6 +8,7 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { leadSchema, stepFields, type LeadForm } from './leadSchema';
 import { Icon } from '@/components/ui/Icon';
 import { Link } from '@/i18n/navigation';
+import { trackLead } from '@/lib/metaPixel';
 
 const NEEDS = ['ai', 'automation', 'website', 'mobile', 'qa', 'training', 'marketing', 'chatbot', 'other'];
 const STEP_KEYS = ['need', 'goal', 'details', 'contact'] as const;
@@ -59,6 +60,7 @@ export function MultiStepForm({ defaultNeed }: { defaultNeed?: string }) {
         body: JSON.stringify({ source: 'multi-step', ...data }),
       });
       setStatus(res.ok ? 'success' : 'error');
+      if (res.ok) trackLead({ content_name: 'Contact form', source: 'multi-step' });
     } catch {
       setStatus('error');
     }

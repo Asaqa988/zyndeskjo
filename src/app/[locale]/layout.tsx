@@ -10,6 +10,7 @@ import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
 import { FloatingWhatsApp } from '@/components/layout/FloatingWhatsApp';
 import { OrganizationSchema } from '@/components/seo/JsonLd';
+import { MetaPixel } from '@/components/analytics/MetaPixel';
 import '../globals.css';
 
 const sans = Plus_Jakarta_Sans({
@@ -91,6 +92,7 @@ export default async function LocaleLayout({
   return (
     <html lang={locale} dir={dir} className={`${sans.variable} ${arabic.variable}`}>
       <body>
+        <MetaPixel />
         <NextIntlClientProvider messages={messages}>
           <Providers>
             <div className="aurora-bg" aria-hidden />
