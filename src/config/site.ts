@@ -10,7 +10,7 @@ export const siteConfig = {
   name: 'Zyndesk Jo',
   shortName: 'Zyndesk',
   /** Used for <title> templates, schema, OG. */
-  domain: process.env.NEXT_PUBLIC_SITE_URL ?? 'https://zyndeskjo.com',
+  domain: process.env.NEXT_PUBLIC_SITE_URL ?? 'https://www.zyndeskjo.com',
   chatMascot: 'Zyn',
 
   contact: {

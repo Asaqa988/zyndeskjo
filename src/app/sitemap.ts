@@ -2,7 +2,7 @@ import type { MetadataRoute } from 'next';
 
 export const dynamic = 'force-static';
 
-const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://zyndeskjo.com';
+const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://www.zyndeskjo.com';
 
 const LOCALES = ['en', 'ar'] as const;
 
