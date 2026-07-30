@@ -11,6 +11,7 @@ import { Footer } from '@/components/layout/Footer';
 import { FloatingWhatsApp } from '@/components/layout/FloatingWhatsApp';
 import { OrganizationSchema } from '@/components/seo/JsonLd';
 import { MetaPixel } from '@/components/analytics/MetaPixel';
+import { GoogleAnalytics } from '@/components/analytics/GoogleAnalytics';
 import '../globals.css';
 
 const sans = Plus_Jakarta_Sans({
@@ -66,6 +67,9 @@ export async function generateMetadata({
       },
     },
     icons: { icon: '/favicon.svg' },
+    verification: process.env.NEXT_PUBLIC_GSC_VERIFICATION
+      ? { google: process.env.NEXT_PUBLIC_GSC_VERIFICATION }
+      : undefined,
   };
 }
 
@@ -93,6 +97,7 @@ export default async function LocaleLayout({
     <html lang={locale} dir={dir} className={`${sans.variable} ${arabic.variable}`}>
       <body>
         <MetaPixel />
+        <GoogleAnalytics />
         <NextIntlClientProvider messages={messages}>
           <Providers>
             <div className="aurora-bg" aria-hidden />
