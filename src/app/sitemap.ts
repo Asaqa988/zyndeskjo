@@ -6,19 +6,14 @@ const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://www.zyndeskjo.com'
 
 const LOCALES = ['en', 'ar'] as const;
 
+/**
+ * Only routes that are actually linked from the site. The marketing pages
+ * still render if visited directly, but while the site is stripped back to the
+ * assistant they are deliberately not advertised to search engines.
+ */
 const ROUTES = [
   '',
-  '/services',
-  '/training',
-  '/ai-solutions',
-  '/development',
-  '/qa-testing',
-  '/marketing',
-  '/projects',
-  '/about',
   '/contact',
-  '/consultation',
-  '/corporate-training',
   '/privacy',
   '/terms',
 ] as const;

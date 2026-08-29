@@ -26,6 +26,16 @@ export interface Transcript {
   content: string;
 }
 
+/**
+ * Spoken the moment the call connects. Browsers block autoplay audio, so this
+ * is the earliest a visitor can actually hear her — pressing the call button
+ * IS the gesture that unlocks it.
+ */
+const GREETING: Record<string, string> = {
+  ar: 'أهلا وسهلا فيك! أنا ليلى، مساعدة عبدالرحيم السقا. تفضّل، كيف بقدر أساعدك؟',
+  en: "Welcome! I'm Zyn, Abdulraheem Alsaqqa's assistant. How can I help you?",
+};
+
 /** Short interjections we should not treat as questions. */
 const FILLERS = ['اه', 'آه', 'ام', 'مم', 'همم', 'اها', 'ها', 'هم', 'ايه', 'أه', 'uh', 'um', 'hmm', 'ok'];
 
@@ -228,6 +238,10 @@ export function useVoiceCall(locale: string) {
             },
           })
         );
+
+        const hello = GREETING[locale === 'ar' ? 'ar' : 'en'];
+        setTranscripts((t) => [...t, { role: 'assistant', content: hello }]);
+        speak(hello);
       };
       dc.onmessage = onServerEvent;
 
@@ -253,7 +267,7 @@ export function useVoiceCall(locale: string) {
       setError(denied ? 'mic_denied' : 'connect_failed');
       setStatus('error');
     }
-  }, [locale, hangUp, onServerEvent]);
+  }, [locale, hangUp, onServerEvent, speak]);
 
   return { status, error, transcripts, remoteStream, call, hangUp };
 }

@@ -9,6 +9,7 @@ import { Providers } from '@/components/Providers';
 import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
 import { FloatingWhatsApp } from '@/components/layout/FloatingWhatsApp';
+import { SiteChrome } from '@/components/layout/SiteChrome';
 import { AgentWidget } from '@/components/agent/AgentWidget';
 import { OrganizationSchema } from '@/components/seo/JsonLd';
 import { MetaPixel } from '@/components/analytics/MetaPixel';
@@ -101,16 +102,23 @@ export default async function LocaleLayout({
         <GoogleAnalytics />
         <NextIntlClientProvider messages={messages}>
           <Providers>
-            <div className="aurora-bg" aria-hidden />
-            <div className="grid-overlay" aria-hidden />
-            <a href="#main" className="skip-link">
-              {tA11y('skipToContent')}
-            </a>
-            <Navbar />
+            {/* Marketing shell — absent inside /learn, which is its own product. */}
+            <SiteChrome>
+              <div className="aurora-bg" aria-hidden />
+              <div className="grid-overlay" aria-hidden />
+              <a href="#main" className="skip-link">
+                {tA11y('skipToContent')}
+              </a>
+              <Navbar />
+            </SiteChrome>
+
             <main id="main">{children}</main>
-            <Footer />
-            <FloatingWhatsApp />
-            <AgentWidget />
+
+            <SiteChrome>
+              <Footer />
+              <FloatingWhatsApp />
+              <AgentWidget />
+            </SiteChrome>
           </Providers>
         </NextIntlClientProvider>
         <OrganizationSchema locale={locale} />

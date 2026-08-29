@@ -24,19 +24,17 @@ export function HeroAgentCard() {
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: 0.35, duration: 0.5 }}
       aria-label={t('heroCta')}
-      className="group flex w-full items-center gap-4 rounded-glass border border-white/50 bg-white/70 p-4 text-start shadow-glass backdrop-blur-glass transition hover:shadow-glass-lg"
+      className="group flex w-full flex-col items-center gap-3 rounded-glass border border-white/50 bg-white/70 px-6 pb-6 pt-5 text-center shadow-glass backdrop-blur-glass transition hover:shadow-glass-lg"
     >
-      <AgentAvatar size={72} ring={false} className="shrink-0" />
+      <AgentAvatar size={168} className="-mb-2" />
 
-      <span className="min-w-0 flex-1">
-        <span className="block text-sm font-semibold text-ink">{t('heroTitle')}</span>
-        <span className="mt-0.5 block text-xs leading-relaxed text-navy-medium">
-          {t('heroSubtitle')}
-        </span>
+      <span className="block text-base font-semibold text-ink">{t('heroTitle')}</span>
+      <span className="block max-w-[26ch] text-sm leading-relaxed text-navy-medium">
+        {t('heroSubtitle')}
       </span>
 
-      <span className="inline-flex shrink-0 items-center gap-1.5 rounded-pill bg-navy px-3 py-2 text-xs font-semibold text-white transition group-hover:bg-navy-medium">
-        <Mic size={14} aria-hidden />
+      <span className="mt-1 inline-flex items-center gap-2 rounded-pill bg-navy px-5 py-2.5 text-sm font-semibold text-white transition group-hover:bg-navy-medium">
+        <Mic size={16} aria-hidden />
         {t('heroCta')}
       </span>
     </motion.button>

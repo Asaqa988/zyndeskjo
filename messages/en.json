@@ -1131,8 +1131,8 @@
     "label": "Ask Zyn",
     "open": "Open the assistant",
     "title": "Zyn — AI assistant",
-    "subtitle": "Ask about Abdulraheem or our services",
-    "greeting": "Hi! Ask me about Abdulraheem's experience or what Zyndesk does. You can type, or start a voice call.",
+    "subtitle": "How can I help you?",
+    "greeting": "Welcome! How can I help you? Ask me about Abdulraheem’s experience or what Zyndesk does.",
     "placeholder": "Type your question…",
     "send": "Send",
     "startCall": "Voice",
@@ -1144,6 +1144,189 @@
     "error": "Something went wrong. Please try again, or use the contact page.",
     "heroTitle": "Talk to Zyn",
     "heroSubtitle": "Ask about Abdulraheem's experience or what Zyndesk does — by voice or text.",
-    "heroCta": "Talk"
+    "heroCta": "Talk",
+    "stageTitle": "Welcome!",
+    "stageSubtitle": "I’m Zyn, Abdulraheem Alsaqqa’s assistant. How about we start a voice call so I can help you faster and more clearly? Your browser will just ask for microphone permission so I can hear you.",
+    "stageVoice": "Start a voice call",
+    "stageChat": "Type instead",
+    "stageContact": "Or go to the contact page"
+  },
+  "learn": {
+    "nav": {
+      "eyebrow": "Course",
+      "dashboard": "Dashboard",
+      "course": "Course overview",
+      "path": "Learning path",
+      "modules": "Modules",
+      "labs": "Labs",
+      "playground": "AI Playground",
+      "projects": "Projects",
+      "progress": "Progress",
+      "certificate": "Certificate",
+      "courseProgress": "Course progress"
+    },
+    "dashboard": {
+      "eyebrow": "Your workspace",
+      "greeting": "Welcome back",
+      "continueLabel": "Continue where you left off",
+      "moduleN": "Module {n}",
+      "resume": "Resume lesson",
+      "minutes": "{n} min",
+      "upNext": "Up next",
+      "allModules": "All modules",
+      "stats": {
+        "lessons": "Lessons completed",
+        "time": "Time invested",
+        "complete": "Course complete"
+      }
+    },
+    "status": {
+      "completed": "Completed",
+      "inProgress": "In progress",
+      "available": "Available",
+      "locked": "Locked"
+    },
+    "course": {
+      "eyebrow": "Course overview",
+      "yourProgress": "Your progress",
+      "syllabus": "Syllabus",
+      "moduleN": "Module {n}",
+      "lessonsDone": "{done} of {total} lessons complete",
+      "lessonsCount": "{done}/{total} lessons",
+      "facts": {
+        "modules": "Modules",
+        "hours": "Content",
+        "labs": "Hands-on labs",
+        "projects": "Projects"
+      }
+    },
+    "path": {
+      "eyebrow": "Learning path",
+      "title": "How the whole thing fits together",
+      "lead": "Every stage builds on the one before it. This is the shape of what you will have built by the end.",
+      "flowLead": "From a problem someone solves by hand, to an automation running in production without you."
+    },
+    "modules": {
+      "eyebrow": "Curriculum",
+      "title": "Modules",
+      "lead": "Eight modules, in the order they depend on each other.",
+      "moduleN": "Module {n}",
+      "lessonsCount": "{done}/{total} lessons"
+    },
+    "lessons": {
+      "title": "Lessons",
+      "backToModules": "All modules",
+      "moduleN": "Module {n}",
+      "moduleProgress": "Module progress",
+      "kind": {
+        "video": "Video",
+        "reading": "Reading",
+        "lab": "Lab",
+        "quiz": "Quiz",
+        "project": "Project"
+      }
+    },
+    "labs": {
+      "eyebrow": "Practice",
+      "title": "Hands-on labs",
+      "lead": "Each lab is a piece of real work — something you could put in front of a client the same week.",
+      "difficulty": {
+        "starter": "Starter",
+        "core": "Core",
+        "advanced": "Advanced"
+      }
+    },
+    "playground": {
+      "eyebrow": "AI Playground",
+      "title": "Watch AI test a login flow",
+      "lead": "The same pipeline you will build in Module 5, run step by step.",
+      "demoTitle": "Login test — end to end",
+      "demoLead": "Requirement in, working test and report out.",
+      "run": "Run the workflow",
+      "running": "Running",
+      "reset": "Reset",
+      "mockNote": "This is a scripted demonstration. In the full course you run this against your own application.",
+      "steps": {
+        "requirement": {
+          "label": "Requirement",
+          "detail": "A user signs in with email and password."
+        },
+        "analyse": {
+          "label": "AI analyses the requirement",
+          "detail": "Identifies the happy path and what can go wrong."
+        },
+        "cases": {
+          "label": "Generate test cases",
+          "detail": "Valid login, wrong password, locked account, slow network."
+        },
+        "generate": {
+          "label": "Generate Playwright test",
+          "detail": "Real selectors, real assertions, no placeholders."
+        },
+        "execute": {
+          "label": "Execute the test",
+          "detail": "Runs headless against the application."
+        },
+        "fail": {
+          "label": "Test fails",
+          "detail": "The locked-account case times out waiting for an error message."
+        },
+        "diagnose": {
+          "label": "AI analyses the failure",
+          "detail": "The message renders after an animation the test does not wait for."
+        },
+        "fix": {
+          "label": "Fix",
+          "detail": "Waits for the element to be visible instead of a fixed delay."
+        },
+        "pass": {
+          "label": "Test passes",
+          "detail": "All four cases green."
+        },
+        "report": {
+          "label": "Generate report",
+          "detail": "Results, timings and a trace for anything that failed."
+        }
+      }
+    },
+    "projects": {
+      "eyebrow": "Projects",
+      "title": "What you will have built",
+      "lead": "Two guided projects and one capstone that is entirely yours.",
+      "capstoneLabel": "Capstone project"
+    },
+    "progress": {
+      "eyebrow": "Progress",
+      "title": "Where you stand",
+      "lead": "Everything you have completed so far, module by module.",
+      "overall": "Course complete",
+      "lessons": "Lessons",
+      "labs": "Labs",
+      "time": "Time invested",
+      "byModule": "By module",
+      "lessonsCount": "{done} of {total} lessons"
+    },
+    "certificate": {
+      "eyebrow": "Certificate",
+      "title": "Your certificate",
+      "lead": "Issued when every module and the capstone are complete.",
+      "awardedFor": "Awarded for completing",
+      "instructor": "Instructor",
+      "complete": "Course complete",
+      "toUnlock": "Progress to unlock",
+      "earnedNote": "Your certificate is ready. Download it, or share it straight to LinkedIn.",
+      "lockedNote": "Finish the remaining modules and the capstone project to unlock your certificate."
+    }
+  },
+  "tutorial": {
+    "stepOf": "Step {n} of {total}",
+    "skip": "Skip",
+    "next": "Next",
+    "previous": "Previous",
+    "pause": "Pause",
+    "resume": "Resume",
+    "exit": "Exit tour",
+    "replay": "Replay",
+    "replayTour": "Replay the tour"
   }
 }

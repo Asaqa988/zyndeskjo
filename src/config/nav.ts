@@ -1,45 +1,28 @@
-/** Primary navigation. `label` is an i18n key under nav.<label>. */
+/**
+ * Primary navigation. `label` is an i18n key under nav.<label>.
+ *
+ * The site is currently stripped back to the assistant: only Home (the avatar)
+ * and Contact are surfaced. The other routes still exist and still render if
+ * visited directly — they are simply not linked. To bring the full site back,
+ * restore the entries below and the sections in src/app/[locale]/page.tsx.
+ */
 export const navLinks = [
   { href: '/', label: 'home' },
-  { href: '/services', label: 'services' },
-  { href: '/training', label: 'training' },
-  { href: '/ai-solutions', label: 'aiSolutions' },
-  { href: '/projects', label: 'projects' },
-  { href: '/about', label: 'about' },
   { href: '/contact', label: 'contact' },
+  // Unlinked for now:
+  // { href: '/services', label: 'services' },
+  // { href: '/training', label: 'training' },
+  // { href: '/ai-solutions', label: 'aiSolutions' },
+  // { href: '/projects', label: 'projects' },
+  // { href: '/about', label: 'about' },
 ] as const;
 
 /** Footer link columns. Each `label`/`href` under footer.links.* */
 export const footerColumns = [
   {
-    title: 'services',
-    links: [
-      { href: '/ai-solutions', label: 'ai' },
-      { href: '/development', label: 'development' },
-      { href: '/qa-testing', label: 'qa' },
-      { href: '/marketing', label: 'marketing' },
-    ],
-  },
-  {
-    title: 'training',
-    links: [
-      { href: '/training', label: 'allPrograms' },
-      { href: '/training', label: 'corporate' },
-      { href: '/corporate-training', label: 'requestTraining' },
-    ],
-  },
-  {
     title: 'company',
     links: [
-      { href: '/about', label: 'about' },
-      { href: '/projects', label: 'projects' },
       { href: '/contact', label: 'contact' },
-      { href: '/consultation', label: 'consultation' },
-    ],
-  },
-  {
-    title: 'legal',
-    links: [
       { href: '/privacy', label: 'privacy' },
       { href: '/terms', label: 'terms' },
     ],

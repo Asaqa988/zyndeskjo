@@ -196,7 +196,7 @@ export function AgentWidget() {
             <div ref={scrollRef} className="flex-1 space-y-3 overflow-y-auto px-4 py-3">
               {inCall && (
                 <div className="flex justify-center pb-1">
-                  <AgentAvatar stream={voice.remoteStream} size={96} />
+                  <AgentAvatar stream={voice.remoteStream} size={132} />
                 </div>
               )}
 

@@ -4,6 +4,12 @@ import { REALTIME_MODEL, openAiKey } from '@/lib/agent';
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
 
+/**
+ * Female voice, to match the avatar (the same character and voice the
+ * JoAcademy assistant uses). Override with OPENAI_REALTIME_VOICE.
+ * Realtime-optimised options: marin (f), cedar (m); classic: coral, sage,
+ * shimmer (f) / ash, ballad, verse, echo (m).
+ */
 const REALTIME_VOICE = process.env.OPENAI_REALTIME_VOICE ?? 'marin';
 
 /**

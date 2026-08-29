@@ -18,6 +18,13 @@ import { Bot } from 'lucide-react';
  * the site never renders a broken image.
  */
 
+/**
+ * Portrait frames, mouth increasingly open. ONE frame is valid — the avatar
+ * then stays still and the glow/ring carry the "speaking" feel.
+ *
+ * List only files that actually exist in /public/avatar: the component probes
+ * them from the browser, so naming a missing file costs a real 404.
+ */
 const FRAMES = ['/avatar/zyn-0.png', '/avatar/zyn-1.png', '/avatar/zyn-2.png'];
 
 interface Props {
@@ -34,16 +41,60 @@ export function AgentAvatar({ stream, size = 160, ring = true, className }: Prop
   const wrapRef = useRef<HTMLDivElement | null>(null);
   const imgRefs = useRef<(HTMLImageElement | null)[]>([]);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
+  const portraitRef = useRef<HTMLDivElement | null>(null);
   const rafRef = useRef<number | null>(null);
   const ctxRef = useRef<AudioContext | null>(null);
 
-  const [loaded, setLoaded] = useState<boolean[]>([false, false, false]);
-  const anyLoaded = loaded.some(Boolean);
+  /**
+   * Which frames actually exist. Probed once with Image() rather than rendered
+   * optimistically, so a single-portrait setup does not fire 404s for the
+   * mouth frames it does not have.
+   */
+  const [available, setAvailable] = useState<string[]>([]);
+  const anyLoaded = available.length > 0;
 
-  /** Cross-fade the stack. 0 = mouth closed, 1 = fully open. */
+  useEffect(() => {
+    let cancelled = false;
+    Promise.all(
+      FRAMES.map(
+        (src) =>
+          new Promise<string | null>((resolve) => {
+            const im = new Image();
+            im.onload = () => resolve(src);
+            im.onerror = () => resolve(null);
+            im.src = src;
+          })
+      )
+    ).then((found) => {
+      if (!cancelled) setAvailable(found.filter(Boolean) as string[]);
+    });
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  /** Live amplitude 0..1, mirrored into a ref so the RAF loop can read it. */
+  const levelRef = useRef(0);
+
+  /**
+   * Cross-fade the stack. 0 = mouth closed, 1 = fully open.
+   * Only frames that actually decoded take part, so supplying a single still
+   * portrait is valid — it simply stays put and the glow does the work.
+   */
   const applyMouth = (open: number) => {
-    const frames = imgRefs.current.filter(Boolean) as HTMLImageElement[];
-    if (frames.length === 0) return;
+    levelRef.current = open;
+    const frames = (imgRefs.current.filter(Boolean) as HTMLImageElement[]).filter(
+      (im) => im.naturalWidth > 0
+    );
+    const portrait = portraitRef.current;
+    if (portrait) {
+      // Subtle breathing + glow so even a single still reads as "speaking".
+      portrait.style.transform = `scale(${(1 + open * 0.035).toFixed(3)})`;
+      portrait.style.boxShadow = open > 0.06
+        ? `0 0 0 ${(open * 10).toFixed(1)}px rgba(56, 209, 224, ${(open * 0.28).toFixed(2)})`
+        : "";
+    }
+    if (frames.length < 2) return;
     const p = Math.max(0, Math.min(1, open)) * (frames.length - 1);
     const lo = Math.floor(p);
     const frac = p - lo;
@@ -60,6 +111,8 @@ export function AgentAvatar({ stream, size = 160, ring = true, className }: Prop
 
     let cancelled = false;
     let audioCtx: AudioContext | null = null;
+    // Held for cleanup: canvasRef.current may point elsewhere by teardown.
+    let wiredCanvas: HTMLCanvasElement | null = null;
 
     try {
       const Ctor =
@@ -78,6 +131,7 @@ export function AgentAvatar({ stream, size = 160, ring = true, className }: Prop
       const freq = new Uint8Array(analyser.frequencyBinCount);
       const canvas = canvasRef.current;
       const c2d = canvas?.getContext('2d') ?? null;
+      wiredCanvas = canvas;
 
       const loop = () => {
         if (cancelled) return;
@@ -88,8 +142,13 @@ export function AgentAvatar({ stream, size = 160, ring = true, className }: Prop
           const d = (time[i] - 128) / 128;
           sum += d * d;
         }
-        // RMS, scaled so ordinary speech reaches the fully-open frame.
-        applyMouth(Math.min(1, Math.sqrt(sum / time.length) * 4.2));
+        // RMS with a noise gate, then an eased curve so ordinary speech swings
+        // the mouth across the whole range instead of hovering near closed.
+        // The supplied frames differ only subtly, so a conservative mapping
+        // reads as "not moving at all" — hence the aggressive gain.
+        const rms = Math.sqrt(sum / time.length);
+        const gated = rms < 0.012 ? 0 : rms;
+        applyMouth(Math.min(1, Math.pow(gated * 9, 0.75)));
 
         if (c2d && canvas) {
           analyser.getByteFrequencyData(freq);
@@ -137,8 +196,9 @@ export function AgentAvatar({ stream, size = 160, ring = true, className }: Prop
       }
       ctxRef.current = null;
       applyMouth(0);
-      const canvas = canvasRef.current;
-      canvas?.getContext('2d')?.clearRect(0, 0, canvas.width, canvas.height);
+      if (wiredCanvas) {
+        wiredCanvas.getContext('2d')?.clearRect(0, 0, wiredCanvas.width, wiredCanvas.height);
+      }
     };
   }, [stream]);
 
@@ -161,10 +221,11 @@ export function AgentAvatar({ stream, size = 160, ring = true, className }: Prop
       )}
 
       <div
+        ref={portraitRef}
         className="relative overflow-hidden rounded-full bg-navy-ice shadow-glass"
-        style={{ width: size, height: size }}
+        style={{ width: size, height: size, transition: "transform 70ms linear, box-shadow 70ms linear" }}
       >
-        {FRAMES.map((src, i) => (
+        {available.map((src, i) => (
           // eslint-disable-next-line @next/next/no-img-element -- stacked frames, sized by style
           <img
             key={src}
@@ -175,7 +236,6 @@ export function AgentAvatar({ stream, size = 160, ring = true, className }: Prop
             alt=""
             aria-hidden
             draggable={false}
-            onLoad={() => setLoaded((l) => l.map((v, j) => (j === i ? true : v)))}
             className="absolute inset-0 h-full w-full select-none object-cover"
             style={{ opacity: i === 0 ? 1 : 0, transition: 'opacity 60ms linear' }}
           />
