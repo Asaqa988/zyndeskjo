@@ -9,6 +9,7 @@ import { Providers } from '@/components/Providers';
 import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
 import { FloatingWhatsApp } from '@/components/layout/FloatingWhatsApp';
+import { AgentWidget } from '@/components/agent/AgentWidget';
 import { OrganizationSchema } from '@/components/seo/JsonLd';
 import { MetaPixel } from '@/components/analytics/MetaPixel';
 import { GoogleAnalytics } from '@/components/analytics/GoogleAnalytics';
@@ -109,6 +110,7 @@ export default async function LocaleLayout({
             <main id="main">{children}</main>
             <Footer />
             <FloatingWhatsApp />
+            <AgentWidget />
           </Providers>
         </NextIntlClientProvider>
         <OrganizationSchema locale={locale} />

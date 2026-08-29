@@ -104,14 +104,38 @@
     "ctaTertiary": "Request Corporate Training",
     "ecosystemLabel": "An AI-powered business ecosystem",
     "nodes": {
-      "ai": { "label": "AI", "tip": "Custom AI systems that turn your data and processes into action." },
-      "automation": { "label": "Automation", "tip": "Workflow and CRM automation that removes repetitive manual work." },
-      "qa": { "label": "QA Testing", "tip": "Quality engineering built into every release, not bolted on at the end." },
-      "web": { "label": "Web Dev", "tip": "Fast, secure web platforms and dashboards built to scale." },
-      "mobile": { "label": "Mobile Apps", "tip": "Native-quality iOS & Android apps with Flutter." },
-      "chatbots": { "label": "Chatbots", "tip": "Website & WhatsApp assistants that answer, qualify, and route." },
-      "marketing": { "label": "Marketing", "tip": "Creative, content, and campaigns that generate qualified leads." },
-      "training": { "label": "Training", "tip": "Hands-on upskilling for individuals and corporate teams." }
+      "ai": {
+        "label": "AI",
+        "tip": "Custom AI systems that turn your data and processes into action."
+      },
+      "automation": {
+        "label": "Automation",
+        "tip": "Workflow and CRM automation that removes repetitive manual work."
+      },
+      "qa": {
+        "label": "QA Testing",
+        "tip": "Quality engineering built into every release, not bolted on at the end."
+      },
+      "web": {
+        "label": "Web Dev",
+        "tip": "Fast, secure web platforms and dashboards built to scale."
+      },
+      "mobile": {
+        "label": "Mobile Apps",
+        "tip": "Native-quality iOS & Android apps with Flutter."
+      },
+      "chatbots": {
+        "label": "Chatbots",
+        "tip": "Website & WhatsApp assistants that answer, qualify, and route."
+      },
+      "marketing": {
+        "label": "Marketing",
+        "tip": "Creative, content, and campaigns that generate qualified leads."
+      },
+      "training": {
+        "label": "Training",
+        "tip": "Hands-on upskilling for individuals and corporate teams."
+      }
     },
     "demo": {
       "title": "Zyndesk AI System",
@@ -218,49 +242,97 @@
       "automate": {
         "label": "Automate my business",
         "solutionTitle": "Business Automation Assessment",
-        "phases": ["Process discovery", "Workflow analysis", "Automation architecture", "AI or CRM integrations", "Dashboard & monitoring", "Employee training"],
+        "phases": [
+          "Process discovery",
+          "Workflow analysis",
+          "Automation architecture",
+          "AI or CRM integrations",
+          "Dashboard & monitoring",
+          "Employee training"
+        ],
         "cta": "Request an Automation Assessment"
       },
       "buildAi": {
         "label": "Build an AI solution",
         "solutionTitle": "Custom AI Build",
-        "phases": ["Use-case scoping", "Data & knowledge readiness", "Model & agent design", "Integration & guardrails", "Evaluation & launch"],
+        "phases": [
+          "Use-case scoping",
+          "Data & knowledge readiness",
+          "Model & agent design",
+          "Integration & guardrails",
+          "Evaluation & launch"
+        ],
         "cta": "Scope My AI Solution"
       },
       "webApp": {
         "label": "Create a website or app",
         "solutionTitle": "Web & Mobile Product",
-        "phases": ["Discovery & UX", "Design system", "Build & integrate", "QA & hardening", "Launch & optimize"],
+        "phases": [
+          "Discovery & UX",
+          "Design system",
+          "Build & integrate",
+          "QA & hardening",
+          "Launch & optimize"
+        ],
         "cta": "Plan My Product"
       },
       "trainTeam": {
         "label": "Train my team",
         "solutionTitle": "Corporate Training Program",
-        "phases": ["Skills assessment", "Curriculum design", "Hands-on workshops", "Applied projects", "Certification & follow-up"],
+        "phases": [
+          "Skills assessment",
+          "Curriculum design",
+          "Hands-on workshops",
+          "Applied projects",
+          "Certification & follow-up"
+        ],
         "cta": "Design My Training"
       },
       "quality": {
         "label": "Improve software quality",
         "solutionTitle": "Quality Engineering Engagement",
-        "phases": ["Test strategy", "Automation framework", "CI integration", "Coverage & reporting", "Release readiness"],
+        "phases": [
+          "Test strategy",
+          "Automation framework",
+          "CI integration",
+          "Coverage & reporting",
+          "Release readiness"
+        ],
         "cta": "Improve My Quality"
       },
       "grow": {
         "label": "Grow my brand online",
         "solutionTitle": "Digital Growth Engine",
-        "phases": ["Brand & positioning", "Content & creative", "Campaigns & SEO", "Marketing automation", "Analytics & optimization"],
+        "phases": [
+          "Brand & positioning",
+          "Content & creative",
+          "Campaigns & SEO",
+          "Marketing automation",
+          "Analytics & optimization"
+        ],
         "cta": "Grow My Brand"
       },
       "chatbot": {
         "label": "Build a chatbot",
         "solutionTitle": "AI Chatbot",
-        "phases": ["Intents & knowledge base", "Conversation & channels", "Integrations & handoff", "Testing & go-live"],
+        "phases": [
+          "Intents & knowledge base",
+          "Conversation & channels",
+          "Integrations & handoff",
+          "Testing & go-live"
+        ],
         "cta": "Build My Chatbot"
       },
       "launch": {
         "label": "Launch a digital product",
         "solutionTitle": "Product Launch Sprint",
-        "phases": ["Concept & scope", "MVP design", "Build & test", "Go-to-market", "Iterate & scale"],
+        "phases": [
+          "Concept & scope",
+          "MVP design",
+          "Build & test",
+          "Go-to-market",
+          "Iterate & scale"
+        ],
         "cta": "Launch My Product"
       }
     }
@@ -337,7 +409,11 @@
       "aiPrompt": {
         "title": "AI & Prompt Engineering",
         "audience": "Professionals, marketers, and analysts who want to work faster with AI.",
-        "learn": ["Prompt patterns & context design", "Building reliable AI workflows", "Evaluating and improving outputs"],
+        "learn": [
+          "Prompt patterns & context design",
+          "Building reliable AI workflows",
+          "Evaluating and improving outputs"
+        ],
         "projects": "Build a role-specific AI assistant and a prompt library for your team.",
         "format": "2 days · hands-on · public or private",
         "outcome": "Confidently apply AI to daily work with repeatable, quality results."
@@ -345,7 +421,11 @@
       "aiAutomation": {
         "title": "AI Automation",
         "audience": "Operations, ops-savvy teams, and founders automating manual work.",
-        "learn": ["Mapping automatable processes", "n8n / Make / Zapier flows", "Connecting AI to your tools"],
+        "learn": [
+          "Mapping automatable processes",
+          "n8n / Make / Zapier flows",
+          "Connecting AI to your tools"
+        ],
         "projects": "Ship an end-to-end automation: intake → AI → CRM → report.",
         "format": "2–3 days · workshop · corporate",
         "outcome": "A working automation and the skills to build more."
@@ -353,7 +433,11 @@
       "qaTesting": {
         "title": "QA & Software Testing",
         "audience": "Aspiring and junior QA engineers entering the field.",
-        "learn": ["Test design & documentation", "Bug reporting & test cases", "API testing with Postman"],
+        "learn": [
+          "Test design & documentation",
+          "Bug reporting & test cases",
+          "API testing with Postman"
+        ],
         "projects": "Test a real app end-to-end and produce a professional test report.",
         "format": "4 weeks · part-time · online or in-person",
         "outcome": "Job-ready manual QA foundations and a portfolio project."
@@ -361,7 +445,11 @@
       "automationTesting": {
         "title": "Automation Testing",
         "audience": "QA engineers moving into test automation.",
-        "learn": ["Selenium & Playwright", "Mobile testing with Appium", "CI integration basics"],
+        "learn": [
+          "Selenium & Playwright",
+          "Mobile testing with Appium",
+          "CI integration basics"
+        ],
         "projects": "Build an automation framework and run it in CI.",
         "format": "5 weeks · part-time · project-based",
         "outcome": "Write and maintain automated suites across web and mobile."
@@ -369,7 +457,11 @@
       "vibeCoding": {
         "title": "Vibe Coding",
         "audience": "Founders, designers, and non-developers who want to build with AI.",
-        "learn": ["Building with AI coding tools", "Prompt-to-product workflows", "Shipping and iterating fast"],
+        "learn": [
+          "Building with AI coding tools",
+          "Prompt-to-product workflows",
+          "Shipping and iterating fast"
+        ],
         "projects": "Build and deploy a working web app using AI-assisted development.",
         "format": "2 days · intensive · public",
         "outcome": "Go from idea to a live product without a traditional dev background."
@@ -377,7 +469,11 @@
       "corporate": {
         "title": "Corporate Technology Training",
         "audience": "Organizations upskilling teams in AI, automation, and quality.",
-        "learn": ["Tailored to your stack & goals", "Applied to your real workflows", "Change-management support"],
+        "learn": [
+          "Tailored to your stack & goals",
+          "Applied to your real workflows",
+          "Change-management support"
+        ],
         "projects": "A custom curriculum mapped to your team's tools and objectives.",
         "format": "Custom · on-site or online · Jordan & region",
         "outcome": "A measurable capability uplift across your team."
@@ -390,14 +486,38 @@
     "subtitle": "QA and testing run through the whole lifecycle — not just at the end.",
     "qaNote": "Quality engineering is integrated at every step.",
     "steps": {
-      "discover": { "title": "Discover", "desc": "Understand goals, users, constraints, and success metrics." },
-      "analyze": { "title": "Analyze", "desc": "Map processes, data, risks, and the right technical approach." },
-      "design": { "title": "Design", "desc": "UX, architecture, and a design system that scales." },
-      "prototype": { "title": "Prototype", "desc": "Validate the riskiest assumptions with a working prototype." },
-      "build": { "title": "Build", "desc": "Ship in iterations with clean, maintainable code." },
-      "test": { "title": "Test", "desc": "Manual, automated, API, and performance testing throughout." },
-      "launch": { "title": "Launch", "desc": "Deploy with monitoring, docs, and a smooth handover." },
-      "optimize": { "title": "Optimize", "desc": "Measure, learn, and improve after go-live." }
+      "discover": {
+        "title": "Discover",
+        "desc": "Understand goals, users, constraints, and success metrics."
+      },
+      "analyze": {
+        "title": "Analyze",
+        "desc": "Map processes, data, risks, and the right technical approach."
+      },
+      "design": {
+        "title": "Design",
+        "desc": "UX, architecture, and a design system that scales."
+      },
+      "prototype": {
+        "title": "Prototype",
+        "desc": "Validate the riskiest assumptions with a working prototype."
+      },
+      "build": {
+        "title": "Build",
+        "desc": "Ship in iterations with clean, maintainable code."
+      },
+      "test": {
+        "title": "Test",
+        "desc": "Manual, automated, API, and performance testing throughout."
+      },
+      "launch": {
+        "title": "Launch",
+        "desc": "Deploy with monitoring, docs, and a smooth handover."
+      },
+      "optimize": {
+        "title": "Optimize",
+        "desc": "Measure, learn, and improve after go-live."
+      }
     }
   },
   "qa": {
@@ -533,15 +653,42 @@
     "title": "A technology partner, not a vendor",
     "subtitle": "Strategy, build, and enablement in one team — with quality and long-term support baked in.",
     "items": {
-      "aiFirst": { "title": "AI-first approach", "desc": "We design with AI at the core, not as an afterthought." },
-      "business": { "title": "Business-focused", "desc": "Every solution ties back to outcomes you can measure." },
-      "practical": { "title": "Practical experience", "desc": "Real products shipped across web, mobile, and automation." },
-      "quality": { "title": "Quality built in", "desc": "Testing runs through the whole lifecycle." },
-      "oneTeam": { "title": "Training + build", "desc": "We implement and enable your team under one roof." },
-      "custom": { "title": "Customized solutions", "desc": "No templates — solutions shaped to your context." },
-      "bilingual": { "title": "Arabic & English", "desc": "Full support in both languages, RTL and LTR." },
-      "local": { "title": "Local + global", "desc": "Local understanding with international standards." },
-      "support": { "title": "Long-term support", "desc": "Optimization and support well beyond launch." }
+      "aiFirst": {
+        "title": "AI-first approach",
+        "desc": "We design with AI at the core, not as an afterthought."
+      },
+      "business": {
+        "title": "Business-focused",
+        "desc": "Every solution ties back to outcomes you can measure."
+      },
+      "practical": {
+        "title": "Practical experience",
+        "desc": "Real products shipped across web, mobile, and automation."
+      },
+      "quality": {
+        "title": "Quality built in",
+        "desc": "Testing runs through the whole lifecycle."
+      },
+      "oneTeam": {
+        "title": "Training + build",
+        "desc": "We implement and enable your team under one roof."
+      },
+      "custom": {
+        "title": "Customized solutions",
+        "desc": "No templates — solutions shaped to your context."
+      },
+      "bilingual": {
+        "title": "Arabic & English",
+        "desc": "Full support in both languages, RTL and LTR."
+      },
+      "local": {
+        "title": "Local + global",
+        "desc": "Local understanding with international standards."
+      },
+      "support": {
+        "title": "Long-term support",
+        "desc": "Optimization and support well beyond launch."
+      }
     }
   },
   "metrics": {
@@ -626,7 +773,12 @@
     }
   },
   "form": {
-    "steps": { "need": "Need", "goal": "Goal", "details": "Details", "contact": "Contact" },
+    "steps": {
+      "need": "Need",
+      "goal": "Goal",
+      "details": "Details",
+      "contact": "Contact"
+    },
     "stepOf": "Step {current} of {total}",
     "next": "Next",
     "back": "Back",
@@ -662,13 +814,34 @@
       "whatsapp": "WhatsApp",
       "country": "Country"
     },
-    "timelines": { "asap": "As soon as possible", "1-3": "1–3 months", "3-6": "3–6 months", "flexible": "Flexible" },
-    "budgets": { "under5": "Under 5,000 JOD", "5-15": "5,000–15,000 JOD", "15-40": "15,000–40,000 JOD", "over40": "40,000+ JOD", "unsure": "Not sure yet" },
-    "methods": { "email": "Email", "phone": "Phone", "whatsapp": "WhatsApp" },
+    "timelines": {
+      "asap": "As soon as possible",
+      "1-3": "1–3 months",
+      "3-6": "3–6 months",
+      "flexible": "Flexible"
+    },
+    "budgets": {
+      "under5": "Under 5,000 JOD",
+      "5-15": "5,000–15,000 JOD",
+      "15-40": "15,000–40,000 JOD",
+      "over40": "40,000+ JOD",
+      "unsure": "Not sure yet"
+    },
+    "methods": {
+      "email": "Email",
+      "phone": "Phone",
+      "whatsapp": "WhatsApp"
+    },
     "consent": "I agree to the Privacy Policy and consent to being contacted about my inquiry.",
     "spam": "Spam protection is enabled on this form.",
-    "success": { "title": "Thank you — we've got it!", "body": "Our team will review your inquiry and get back to you shortly. For anything urgent, message us on WhatsApp." },
-    "error": { "title": "Something went wrong", "body": "Your inquiry couldn't be sent. Please try again, or reach us directly by email or WhatsApp." },
+    "success": {
+      "title": "Thank you — we've got it!",
+      "body": "Our team will review your inquiry and get back to you shortly. For anything urgent, message us on WhatsApp."
+    },
+    "error": {
+      "title": "Something went wrong",
+      "body": "Your inquiry couldn't be sent. Please try again, or reach us directly by email or WhatsApp."
+    },
     "validation": {
       "required": "This field is required",
       "email": "Enter a valid email",
@@ -698,16 +871,37 @@
       "capabilitiesTitle": "What we build",
       "useCasesTitle": "Where it delivers value",
       "useCases": {
-        "support": { "title": "Customer support", "desc": "Deflect repetitive tickets and answer 24/7 with human handoff." },
-        "internal": { "title": "Internal assistant", "desc": "A RAG assistant grounded in your policies and docs." },
-        "ops": { "title": "Operations", "desc": "Automate intake, approvals, and reporting end-to-end." },
-        "sales": { "title": "Sales & leads", "desc": "Qualify, route, and follow up on leads automatically." }
+        "support": {
+          "title": "Customer support",
+          "desc": "Deflect repetitive tickets and answer 24/7 with human handoff."
+        },
+        "internal": {
+          "title": "Internal assistant",
+          "desc": "A RAG assistant grounded in your policies and docs."
+        },
+        "ops": {
+          "title": "Operations",
+          "desc": "Automate intake, approvals, and reporting end-to-end."
+        },
+        "sales": {
+          "title": "Sales & leads",
+          "desc": "Qualify, route, and follow up on leads automatically."
+        }
       },
       "faqTitle": "Frequently asked",
       "faq": {
-        "q1": { "q": "Is our data safe with AI?", "a": "Yes — we design with access controls and data boundaries, and can keep sensitive data within your own infrastructure." },
-        "q2": { "q": "How long does an AI project take?", "a": "A focused chatbot or assistant can launch in a few weeks; larger systems are delivered in phases." },
-        "q3": { "q": "Which models do you use?", "a": "We choose the best model for the task — including OpenAI, Claude, and Gemini — and can switch as needs change." }
+        "q1": {
+          "q": "Is our data safe with AI?",
+          "a": "Yes — we design with access controls and data boundaries, and can keep sensitive data within your own infrastructure."
+        },
+        "q2": {
+          "q": "How long does an AI project take?",
+          "a": "A focused chatbot or assistant can launch in a few weeks; larger systems are delivered in phases."
+        },
+        "q3": {
+          "q": "Which models do you use?",
+          "a": "We choose the best model for the task — including OpenAI, Claude, and Gemini — and can switch as needs change."
+        }
       }
     },
     "development": {
@@ -736,14 +930,38 @@
       },
       "servicesTitle": "What we offer",
       "services": {
-        "branding": { "title": "Brand identity", "desc": "Logo, system, and guidelines that stand out." },
-        "uiux": { "title": "UI/UX design", "desc": "Interfaces that are beautiful and usable." },
-        "social": { "title": "Social media", "desc": "Design, management, and community growth." },
-        "content": { "title": "Content creation", "desc": "Copy, video, and motion that performs." },
-        "campaigns": { "title": "Campaigns", "desc": "Paid campaigns across the right channels." },
-        "seo": { "title": "SEO", "desc": "Technical and content SEO for durable traffic." },
-        "leadgen": { "title": "Lead generation", "desc": "Landing pages and funnels that capture demand." },
-        "automation": { "title": "Marketing automation", "desc": "Nurture and report automatically." }
+        "branding": {
+          "title": "Brand identity",
+          "desc": "Logo, system, and guidelines that stand out."
+        },
+        "uiux": {
+          "title": "UI/UX design",
+          "desc": "Interfaces that are beautiful and usable."
+        },
+        "social": {
+          "title": "Social media",
+          "desc": "Design, management, and community growth."
+        },
+        "content": {
+          "title": "Content creation",
+          "desc": "Copy, video, and motion that performs."
+        },
+        "campaigns": {
+          "title": "Campaigns",
+          "desc": "Paid campaigns across the right channels."
+        },
+        "seo": {
+          "title": "SEO",
+          "desc": "Technical and content SEO for durable traffic."
+        },
+        "leadgen": {
+          "title": "Lead generation",
+          "desc": "Landing pages and funnels that capture demand."
+        },
+        "automation": {
+          "title": "Marketing automation",
+          "desc": "Nurture and report automatically."
+        }
       }
     },
     "about": {
@@ -756,10 +974,22 @@
       "story": "Zyndesk Jo is a Jordan-based technology, AI, training, and digital solutions company. We help businesses and professionals adopt AI, automate operations, build intelligent digital products, improve software quality, and create stronger digital experiences. We combine local understanding with international standards — and we don't just deliver projects, we enable your team to keep going.",
       "valuesTitle": "How we work",
       "values": {
-        "outcomes": { "title": "Outcomes over output", "desc": "We measure success by your results, not deliverables." },
-        "quality": { "title": "Quality by default", "desc": "Testing and craft are part of every engagement." },
-        "partnership": { "title": "Real partnership", "desc": "We enable your team and support you long-term." },
-        "clarity": { "title": "Clarity & honesty", "desc": "Straight advice, realistic scopes, no hype." }
+        "outcomes": {
+          "title": "Outcomes over output",
+          "desc": "We measure success by your results, not deliverables."
+        },
+        "quality": {
+          "title": "Quality by default",
+          "desc": "Testing and craft are part of every engagement."
+        },
+        "partnership": {
+          "title": "Real partnership",
+          "desc": "We enable your team and support you long-term."
+        },
+        "clarity": {
+          "title": "Clarity & honesty",
+          "desc": "Straight advice, realistic scopes, no hype."
+        }
       },
       "locationTitle": "Where we are",
       "locationBody": "University Street, Amman, Jordan — working with clients across Jordan and the region, in Arabic and English."
@@ -786,9 +1016,18 @@
       },
       "expectTitle": "What to expect",
       "expect": {
-        "call": { "title": "A focused call", "desc": "30 minutes to understand your goal and context." },
-        "recommendation": { "title": "A clear recommendation", "desc": "The right approach, phases, and rough scope." },
-        "nextSteps": { "title": "Next steps", "desc": "A proposal only if there's a genuine fit." }
+        "call": {
+          "title": "A focused call",
+          "desc": "30 minutes to understand your goal and context."
+        },
+        "recommendation": {
+          "title": "A clear recommendation",
+          "desc": "The right approach, phases, and rough scope."
+        },
+        "nextSteps": {
+          "title": "Next steps",
+          "desc": "A proposal only if there's a genuine fit."
+        }
       }
     },
     "corporateTraining": {
@@ -799,10 +1038,22 @@
       },
       "whyTitle": "Why teams choose us",
       "why": {
-        "applied": { "title": "Applied to your workflows", "desc": "Training built around your real tools and processes." },
-        "handsOn": { "title": "Hands-on & project-based", "desc": "Teams build something real by the end." },
-        "bilingual": { "title": "Arabic & English", "desc": "Delivered in the language your team prefers." },
-        "measurable": { "title": "Measurable uplift", "desc": "Clear objectives and follow-up support." }
+        "applied": {
+          "title": "Applied to your workflows",
+          "desc": "Training built around your real tools and processes."
+        },
+        "handsOn": {
+          "title": "Hands-on & project-based",
+          "desc": "Teams build something real by the end."
+        },
+        "bilingual": {
+          "title": "Arabic & English",
+          "desc": "Delivered in the language your team prefers."
+        },
+        "measurable": {
+          "title": "Measurable uplift",
+          "desc": "Clear objectives and follow-up support."
+        }
       },
       "formTitle": "Request corporate training"
     },
@@ -813,24 +1064,60 @@
         "title": "Privacy Policy",
         "intro": "This Privacy Policy explains how Zyndesk Jo collects, uses, and protects information you provide through this website.",
         "sections": {
-          "collect": { "title": "Information we collect", "body": "We collect the details you submit through our forms — such as your name, email, phone, company, and message — plus basic analytics data about how the site is used." },
-          "use": { "title": "How we use it", "body": "We use your information to respond to inquiries, provide services and training, and improve our website. We do not sell your personal data." },
-          "share": { "title": "Sharing", "body": "We share data only with service providers who help us operate (for example, hosting or email tools), under appropriate safeguards." },
-          "security": { "title": "Security", "body": "We apply reasonable technical and organizational measures to protect your information." },
-          "rights": { "title": "Your rights", "body": "You may request access to, correction of, or deletion of your personal data by contacting us." },
-          "contact": { "title": "Contact", "body": "For any privacy request, contact us using the details on our Contact page." }
+          "collect": {
+            "title": "Information we collect",
+            "body": "We collect the details you submit through our forms — such as your name, email, phone, company, and message — plus basic analytics data about how the site is used."
+          },
+          "use": {
+            "title": "How we use it",
+            "body": "We use your information to respond to inquiries, provide services and training, and improve our website. We do not sell your personal data."
+          },
+          "share": {
+            "title": "Sharing",
+            "body": "We share data only with service providers who help us operate (for example, hosting or email tools), under appropriate safeguards."
+          },
+          "security": {
+            "title": "Security",
+            "body": "We apply reasonable technical and organizational measures to protect your information."
+          },
+          "rights": {
+            "title": "Your rights",
+            "body": "You may request access to, correction of, or deletion of your personal data by contacting us."
+          },
+          "contact": {
+            "title": "Contact",
+            "body": "For any privacy request, contact us using the details on our Contact page."
+          }
         }
       },
       "terms": {
         "title": "Terms & Conditions",
         "intro": "These Terms govern your use of the Zyndesk Jo website and services.",
         "sections": {
-          "use": { "title": "Use of the site", "body": "You agree to use this website lawfully and not to misuse or disrupt it." },
-          "ip": { "title": "Intellectual property", "body": "All content on this site is owned by Zyndesk Jo unless stated otherwise and may not be reused without permission." },
-          "services": { "title": "Services", "body": "Service scope, timelines, and fees are defined in separate written agreements for each engagement." },
-          "liability": { "title": "Liability", "body": "The website is provided 'as is'. To the extent permitted by law, we are not liable for indirect or consequential damages." },
-          "law": { "title": "Governing law", "body": "These Terms are governed by the laws of the Hashemite Kingdom of Jordan." },
-          "contact": { "title": "Contact", "body": "Questions about these Terms can be sent using the details on our Contact page." }
+          "use": {
+            "title": "Use of the site",
+            "body": "You agree to use this website lawfully and not to misuse or disrupt it."
+          },
+          "ip": {
+            "title": "Intellectual property",
+            "body": "All content on this site is owned by Zyndesk Jo unless stated otherwise and may not be reused without permission."
+          },
+          "services": {
+            "title": "Services",
+            "body": "Service scope, timelines, and fees are defined in separate written agreements for each engagement."
+          },
+          "liability": {
+            "title": "Liability",
+            "body": "The website is provided 'as is'. To the extent permitted by law, we are not liable for indirect or consequential damages."
+          },
+          "law": {
+            "title": "Governing law",
+            "body": "These Terms are governed by the laws of the Hashemite Kingdom of Jordan."
+          },
+          "contact": {
+            "title": "Contact",
+            "body": "Questions about these Terms can be sent using the details on our Contact page."
+          }
         }
       }
     }
@@ -839,5 +1126,21 @@
     "title": "Page not found",
     "subtitle": "The page you're looking for doesn't exist or has moved.",
     "cta": "Back to home"
+  },
+  "agent": {
+    "label": "Ask Zyn",
+    "open": "Open the assistant",
+    "title": "Zyn — AI assistant",
+    "subtitle": "Ask about Abdulraheem or our services",
+    "greeting": "Hi! Ask me about Abdulraheem's experience or what Zyndesk does. You can type, or start a voice call.",
+    "placeholder": "Type your question…",
+    "send": "Send",
+    "startCall": "Voice",
+    "connecting": "Connecting…",
+    "listening": "Listening… start speaking.",
+    "hangUp": "End call",
+    "micDenied": "Microphone access was blocked. Allow it in your browser settings to use voice.",
+    "callFailed": "Could not start the call. Please try again.",
+    "error": "Something went wrong. Please try again, or use the contact page."
   }
 }

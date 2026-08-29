@@ -1,0 +1,102 @@
+{
+  "name": "Zyndesk Leads",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "zyndesk-leads",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [0, 0],
+      "id": "b8f436cb-1a85-441e-86da-cfaa9a89fd21",
+      "name": "Webhook",
+      "webhookId": "9ab9ea3c-e9b6-4d66-accd-4f40f56f78f0"
+    },
+    {
+      "parameters": {
+        "mode": "raw",
+        "jsonOutput": "={{  $json.body }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.5,
+      "position": [208, 0],
+      "id": "1eafe341-fa54-40c1-973f-aa81eb293b29",
+      "name": "Edit Fields"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "16upcEDEKykr0Mb_z9Fj9BFf2ywsFhH7Gm82sutA-nk0",
+          "mode": "list",
+          "cachedResultName": "Zyndesk Leads",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/16upcEDEKykr0Mb_z9Fj9BFf2ywsFhH7Gm82sutA-nk0/edit?usp=drivesdk"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Sheet1",
+          "cachedResultUrl": "https://docs.google.com/spreadsheets/d/16upcEDEKykr0Mb_z9Fj9BFf2ywsFhH7Gm82sutA-nk0/edit#gid=0"
+        },
+        "columns": {
+          "mappingMode": "autoMapInputData",
+          "value": {},
+          "matchingColumns": [],
+          "schema": [
+            {"id":"receivedAt","displayName":"receivedAt","required":false,"defaultMatch":false,"display":true,"type":"string","canBeUsedToMatch":true},
+            {"id":"fullName","displayName":"fullName","required":false,"defaultMatch":false,"display":true,"type":"string","canBeUsedToMatch":true},
+            {"id":"email","displayName":"email","required":false,"defaultMatch":false,"display":true,"type":"string","canBeUsedToMatch":true},
+            {"id":"phone","displayName":"phone","required":false,"defaultMatch":false,"display":true,"type":"string","canBeUsedToMatch":true},
+            {"id":"whatsapp","displayName":"whatsapp","required":false,"defaultMatch":false,"display":true,"type":"string","canBeUsedToMatch":true},
+            {"id":"country","displayName":"country","required":false,"defaultMatch":false,"display":true,"type":"string","canBeUsedToMatch":true},
+            {"id":"clientType","displayName":"clientType","required":false,"defaultMatch":false,"display":true,"type":"string","canBeUsedToMatch":true},
+            {"id":"companyName","displayName":"companyName","required":false,"defaultMatch":false,"display":true,"type":"string","canBeUsedToMatch":true},
+            {"id":"needs","displayName":"needs","required":false,"defaultMatch":false,"display":true,"type":"string","canBeUsedToMatch":true},
+            {"id":"goal","displayName":"goal","required":false,"defaultMatch":false,"display":true,"type":"string","canBeUsedToMatch":true},
+            {"id":"timeline","displayName":"timeline","required":false,"defaultMatch":false,"display":true,"type":"string","canBeUsedToMatch":true},
+            {"id":"budget","displayName":"budget","required":false,"defaultMatch":false,"display":true,"type":"string","canBeUsedToMatch":true},
+            {"id":"contactMethod","displayName":"contactMethod","required":false,"defaultMatch":false,"display":true,"type":"string","canBeUsedToMatch":true},
+            {"id":"source","displayName":"source","required":false,"defaultMatch":false,"display":true,"type":"string","canBeUsedToMatch":true}
+          ],
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [416, 0],
+      "id": "0a023402-fc63-49f4-8cc6-83fc866ea52c",
+      "name": "Append row in sheet"
+    },
+    {
+      "parameters": {
+        "sendTo": "asaqa001@gmail.com, it.feda@gmail.com, asnder50@gmail.com",
+        "subject": "New Zyndesk website lead",
+        "emailType": "text",
+        "message": "={{  JSON.stringify($json, null, 2) }}",
+        "options": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [624, 0],
+      "id": "6dd6e72b-e53b-4a53-8e32-384ff59d4cf2",
+      "name": "Send a message",
+      "webhookId": "2bc03870-9c25-49b4-85d7-8d57588b266c"
+    }
+  ],
+  "connections": {
+    "Webhook": { "main": [[{ "node": "Edit Fields", "type": "main", "index": 0 }]] },
+    "Edit Fields": { "main": [[{ "node": "Append row in sheet", "type": "main", "index": 0 }]] },
+    "Append row in sheet": { "main": [[{ "node": "Send a message", "type": "main", "index": 0 }]] }
+  },
+  "pinData": {},
+  "settings": {}
+}
