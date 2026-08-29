@@ -6,6 +6,7 @@ import { motion, useReducedMotion } from 'framer-motion';
 import { Button } from '@/components/ui/Button';
 import { Icon } from '@/components/ui/Icon';
 import { EcosystemGraph } from './EcosystemGraph';
+import { HeroAgentCard } from '@/components/agent/HeroAgentCard';
 
 export function Hero() {
   const t = useTranslations('hero');
@@ -68,9 +69,12 @@ export function Hero() {
           </a>
         </div>
 
-        <div className="relative">
-          <EcosystemGraph />
-          <ChatDemo />
+        <div className="relative flex flex-col gap-5">
+          <HeroAgentCard />
+          <div className="relative">
+            <EcosystemGraph />
+            <ChatDemo />
+          </div>
         </div>
       </div>
     </section>

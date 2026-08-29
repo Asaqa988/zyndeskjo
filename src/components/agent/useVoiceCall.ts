@@ -33,6 +33,8 @@ export function useVoiceCall(locale: string) {
   const [status, setStatus] = useState<CallStatus>('idle');
   const [error, setError] = useState<string | null>(null);
   const [transcripts, setTranscripts] = useState<Transcript[]>([]);
+  /** The model's outgoing audio — the avatar analyses this to move its mouth. */
+  const [remoteStream, setRemoteStream] = useState<MediaStream | null>(null);
 
   const pcRef = useRef<RTCPeerConnection | null>(null);
   const streamRef = useRef<MediaStream | null>(null);
@@ -64,6 +66,7 @@ export function useVoiceCall(locale: string) {
 
     busyRef.current = false;
     pendingCreatesRef.current = 0;
+    setRemoteStream(null);
     setStatus('idle');
   }, []);
 
@@ -188,6 +191,7 @@ export function useVoiceCall(locale: string) {
       audioRef.current = audio;
       pc.ontrack = (e) => {
         audio.srcObject = e.streams[0];
+        setRemoteStream(e.streams[0]);
       };
 
       mic.getTracks().forEach((t) => pc.addTrack(t, mic));
@@ -251,5 +255,5 @@ export function useVoiceCall(locale: string) {
     }
   }, [locale, hangUp, onServerEvent]);
 
-  return { status, error, transcripts, call, hangUp };
+  return { status, error, transcripts, remoteStream, call, hangUp };
 }

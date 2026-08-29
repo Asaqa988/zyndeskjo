@@ -1141,6 +1141,9 @@
     "hangUp": "End call",
     "micDenied": "Microphone access was blocked. Allow it in your browser settings to use voice.",
     "callFailed": "Could not start the call. Please try again.",
-    "error": "Something went wrong. Please try again, or use the contact page."
+    "error": "Something went wrong. Please try again, or use the contact page.",
+    "heroTitle": "Talk to Zyn",
+    "heroSubtitle": "Ask about Abdulraheem's experience or what Zyndesk does — by voice or text.",
+    "heroCta": "Talk"
   }
 }

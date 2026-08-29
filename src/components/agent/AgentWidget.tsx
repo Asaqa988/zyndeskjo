@@ -5,6 +5,8 @@ import { useLocale, useTranslations } from 'next-intl';
 import { AnimatePresence, motion } from 'framer-motion';
 import { Bot, Mic, PhoneOff, Send, X } from 'lucide-react';
 import { useVoiceCall } from './useVoiceCall';
+import { AgentAvatar } from './AgentAvatar';
+import { AGENT_OPEN_EVENT, type AgentOpenMode } from './openAgent';
 
 interface Message {
   role: 'user' | 'assistant';
@@ -40,6 +42,20 @@ export function AgentWidget() {
   useEffect(() => {
     if (!open && voice.status !== 'idle') voice.hangUp();
   }, [open, voice]);
+
+  // Anything on the page can ask us to open — see openAgent.ts.
+  useEffect(() => {
+    const onOpen = (e: Event) => {
+      const wanted = (e as CustomEvent<AgentOpenMode>).detail ?? 'chat';
+      setOpen(true);
+      if (wanted === 'voice' && voice.status === 'idle') {
+        setMode('voice');
+        void voice.call();
+      }
+    };
+    window.addEventListener(AGENT_OPEN_EVENT, onOpen);
+    return () => window.removeEventListener(AGENT_OPEN_EVENT, onOpen);
+  }, [voice]);
 
   const send = useCallback(async () => {
     const text = draft.trim();
@@ -178,6 +194,12 @@ export function AgentWidget() {
 
             {/* Conversation */}
             <div ref={scrollRef} className="flex-1 space-y-3 overflow-y-auto px-4 py-3">
+              {inCall && (
+                <div className="flex justify-center pb-1">
+                  <AgentAvatar stream={voice.remoteStream} size={96} />
+                </div>
+              )}
+
               {shown.length === 0 && (
                 <p className="pt-6 text-center text-sm text-navy-medium">
                   {mode === 'voice' && inCall ? t('listening') : t('greeting')}
