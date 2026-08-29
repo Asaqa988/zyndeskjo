@@ -105,6 +105,8 @@ export function AgentWidget() {
   }, [draft, sending, messages, locale, t]);
 
   const shown: Message[] = mode === 'voice' ? voice.transcripts : messages;
+  /** "thinking" is still mid-call — the composer stays hidden and hang-up stays shown. */
+  const inCall = voice.status === 'live' || voice.status === 'thinking';
 
   return (
     <>
@@ -144,7 +146,7 @@ export function AgentWidget() {
                 <p className="truncate text-xs text-navy-ice">{t('subtitle')}</p>
               </div>
 
-              {voice.status === 'live' ? (
+              {inCall ? (
                 <button
                   type="button"
                   onClick={() => {
@@ -178,7 +180,7 @@ export function AgentWidget() {
             <div ref={scrollRef} className="flex-1 space-y-3 overflow-y-auto px-4 py-3">
               {shown.length === 0 && (
                 <p className="pt-6 text-center text-sm text-navy-medium">
-                  {mode === 'voice' && voice.status === 'live' ? t('listening') : t('greeting')}
+                  {mode === 'voice' && inCall ? t('listening') : t('greeting')}
                 </p>
               )}
 
@@ -203,7 +205,7 @@ export function AgentWidget() {
             </div>
 
             {/* Composer — hidden while on a call */}
-            {voice.status !== 'live' && (
+            {!inCall && (
               <form
                 onSubmit={(e) => {
                   e.preventDefault();

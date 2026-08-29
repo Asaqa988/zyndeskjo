@@ -5,23 +5,29 @@ import { useCallback, useRef, useState } from 'react';
 /**
  * Browser side of the voice channel.
  *
- * Flow:
- *   1. ask our server for a short-lived realtime token
- *   2. open a WebRTC peer connection straight to OpenAI with that token
- *   3. stream the microphone up, play the model's audio back
- *   4. when the model calls `answer_from_knowledge`, resolve it against
- *      /api/agent/answer and hand the result back over the data channel
+ * Design note — the realtime model is deliberately kept as EARS AND A MOUTH
+ * ONLY. It is configured with `create_response: false`, so it never answers on
+ * its own. The loop is:
  *
- * The model never answers from its own weights — step 4 is where every real
- * answer comes from, which is what keeps voice and text consistent.
+ *   mic → realtime transcribes the visitor
+ *       → we send that text to /api/agent/answer (the same core the text chat
+ *         uses, grounded in the knowledge base)
+ *       → we hand the answer back as `response.create` instructions and the
+ *         model simply speaks it
+ *
+ * That makes it impossible for the spoken answer to drift from the knowledge
+ * base, and keeps voice and text answers identical.
  */
 
-export type CallStatus = 'idle' | 'connecting' | 'live' | 'error';
+export type CallStatus = 'idle' | 'connecting' | 'live' | 'thinking' | 'error';
 
 export interface Transcript {
   role: 'user' | 'assistant';
   content: string;
 }
+
+/** Short interjections we should not treat as questions. */
+const FILLERS = ['اه', 'آه', 'ام', 'مم', 'همم', 'اها', 'ها', 'هم', 'ايه', 'أه', 'uh', 'um', 'hmm', 'ok'];
 
 export function useVoiceCall(locale: string) {
   const [status, setStatus] = useState<CallStatus>('idle');
@@ -31,11 +37,17 @@ export function useVoiceCall(locale: string) {
   const pcRef = useRef<RTCPeerConnection | null>(null);
   const streamRef = useRef<MediaStream | null>(null);
   const audioRef = useRef<HTMLAudioElement | null>(null);
-  const channelRef = useRef<RTCDataChannel | null>(null);
+  const dcRef = useRef<RTCDataChannel | null>(null);
+
+  /** True while the assistant is thinking or speaking — we ignore mic input then,
+   *  otherwise its own voice echoes back in as a new "question". */
+  const busyRef = useRef(false);
+  /** Responses WE asked for, so we can cancel any the model starts by itself. */
+  const pendingCreatesRef = useRef(0);
 
   const hangUp = useCallback(() => {
-    channelRef.current?.close();
-    channelRef.current = null;
+    dcRef.current?.close();
+    dcRef.current = null;
 
     pcRef.current?.getSenders().forEach((s) => s.track?.stop());
     pcRef.current?.close();
@@ -49,23 +61,38 @@ export function useVoiceCall(locale: string) {
       audioRef.current.remove();
       audioRef.current = null;
     }
+
+    busyRef.current = false;
+    pendingCreatesRef.current = 0;
     setStatus('idle');
   }, []);
 
-  /** Resolve the model's tool call against our own answering core. */
-  const resolveToolCall = useCallback(
-    async (channel: RTCDataChannel, callId: string, rawArgs: string) => {
-      let question = '';
-      try {
-        question = (JSON.parse(rawArgs) as { question?: string }).question ?? '';
-      } catch {
-        /* malformed args — fall through with an empty question */
-      }
+  /** Ask the model to speak a specific piece of text, verbatim. */
+  const speak = useCallback((text: string) => {
+    const dc = dcRef.current;
+    if (!dc || dc.readyState !== 'open') return;
+    pendingCreatesRef.current += 1;
+    busyRef.current = true;
+    dc.send(
+      JSON.stringify({
+        type: 'response.create',
+        response: {
+          instructions: `Say exactly this, naturally and without adding anything: ${text}`,
+        },
+      })
+    );
+  }, []);
+
+  /** Visitor asked something — resolve it against the knowledge core, then speak it. */
+  const handleQuestion = useCallback(
+    async (question: string) => {
+      setStatus('thinking');
+      setTranscripts((t) => [...t, { role: 'user', content: question }]);
 
       let answer =
         locale === 'ar'
-          ? 'ما قدرت أجيب المعلومة حالياً. جرّب تسأل مرة ثانية أو تواصل معنا من صفحة الاتصال.'
-          : "I couldn't retrieve that just now. Please try again or use the contact page.";
+          ? 'ما قدرت أجيب المعلومة حالياً. جرّب مرة ثانية.'
+          : "I couldn't retrieve that just now. Please try again.";
 
       try {
         const res = await fetch('/api/agent/answer', {
@@ -76,20 +103,62 @@ export function useVoiceCall(locale: string) {
         const data = (await res.json()) as { ok?: boolean; answer?: string };
         if (data.ok && data.answer) answer = data.answer;
       } catch {
-        /* keep the fallback answer */
+        /* keep the fallback */
       }
 
-      if (channel.readyState !== 'open') return;
-      channel.send(
-        JSON.stringify({
-          type: 'conversation.item.create',
-          item: { type: 'function_call_output', call_id: callId, output: answer },
-        })
-      );
-      // Tell the model to speak the tool result.
-      channel.send(JSON.stringify({ type: 'response.create' }));
+      setTranscripts((t) => [...t, { role: 'assistant', content: answer }]);
+      setStatus('live');
+      speak(answer);
     },
-    [locale]
+    [locale, speak]
+  );
+
+  const onServerEvent = useCallback(
+    (event: MessageEvent) => {
+      let msg: Record<string, unknown>;
+      try {
+        msg = JSON.parse(event.data as string);
+      } catch {
+        return;
+      }
+
+      switch (msg.type) {
+        case 'conversation.item.input_audio_transcription.completed': {
+          const q = String(msg.transcript ?? '').trim();
+          // Ignore anything heard while the assistant is talking — that's echo.
+          if (busyRef.current) return;
+          const letters = q.replace(/[^\p{L}\p{N}]/gu, '');
+          if (letters.length < 3 || FILLERS.includes(letters.toLowerCase())) return;
+          void handleQuestion(q);
+          break;
+        }
+
+        case 'response.created':
+          if (pendingCreatesRef.current > 0) {
+            pendingCreatesRef.current -= 1;
+          } else {
+            // The model tried to answer by itself — kill it, the knowledge core
+            // is the only allowed source.
+            dcRef.current?.send(
+              JSON.stringify({
+                type: 'response.cancel',
+                response_id: (msg.response as { id?: string } | undefined)?.id,
+              })
+            );
+          }
+          break;
+
+        case 'response.done':
+          busyRef.current = false;
+          break;
+
+        case 'error':
+          console.error('[voice] realtime error', msg);
+          busyRef.current = false;
+          break;
+      }
+    },
+    [handleQuestion]
   );
 
   const call = useCallback(async () => {
@@ -98,102 +167,89 @@ export function useVoiceCall(locale: string) {
     setStatus('connecting');
 
     try {
-      const sessionRes = await fetch('/api/agent/session', {
-        method: 'POST',
-        headers: { 'content-type': 'application/json' },
-        body: JSON.stringify({ locale }),
-      });
+      const sessionRes = await fetch('/api/agent/session', { method: 'POST' });
       const session = (await sessionRes.json()) as {
         ok?: boolean;
         token?: string;
-        model?: string;
+        voice?: string;
       };
       if (!session.ok || !session.token) throw new Error('session');
 
-      const mic = await navigator.mediaDevices.getUserMedia({ audio: true });
+      const mic = await navigator.mediaDevices.getUserMedia({
+        audio: { echoCancellation: true, noiseSuppression: true, autoGainControl: true },
+      });
       streamRef.current = mic;
 
       const pc = new RTCPeerConnection();
       pcRef.current = pc;
 
-      // Play whatever the model speaks.
       const audio = document.createElement('audio');
       audio.autoplay = true;
       audioRef.current = audio;
-      pc.ontrack = (event) => {
-        audio.srcObject = event.streams[0];
+      pc.ontrack = (e) => {
+        audio.srcObject = e.streams[0];
       };
 
-      mic.getTracks().forEach((track) => pc.addTrack(track, mic));
+      mic.getTracks().forEach((t) => pc.addTrack(t, mic));
 
-      const channel = pc.createDataChannel('oai-events');
-      channelRef.current = channel;
+      const dc = pc.createDataChannel('oai-events');
+      dcRef.current = dc;
 
-      channel.addEventListener('message', (event) => {
-        let msg: Record<string, unknown>;
-        try {
-          msg = JSON.parse(event.data as string);
-        } catch {
-          return;
-        }
-
-        switch (msg.type) {
-          case 'response.function_call_arguments.done':
-            void resolveToolCall(
-              channel,
-              String(msg.call_id ?? ''),
-              String(msg.arguments ?? '{}')
-            );
-            break;
-
-          // What the visitor said.
-          case 'conversation.item.input_audio_transcription.completed': {
-            const text = String(msg.transcript ?? '').trim();
-            if (text) setTranscripts((t) => [...t, { role: 'user', content: text }]);
-            break;
-          }
-
-          // What the assistant said.
-          case 'response.audio_transcript.done': {
-            const text = String(msg.transcript ?? '').trim();
-            if (text) setTranscripts((t) => [...t, { role: 'assistant', content: text }]);
-            break;
-          }
-
-          case 'error':
-            console.error('[voice] realtime error', msg);
-            break;
-        }
-      });
+      dc.onopen = () => {
+        dc.send(
+          JSON.stringify({
+            type: 'session.update',
+            session: {
+              type: 'realtime',
+              instructions:
+                'You are a voice interface only. Never answer from your own knowledge. ' +
+                'Only speak text you are explicitly given in response instructions.',
+              audio: {
+                output: { voice: session.voice ?? 'marin' },
+                input: {
+                  transcription: {
+                    model: 'gpt-transcribe',
+                    language: locale === 'ar' ? 'ar' : 'en',
+                  },
+                  turn_detection: {
+                    type: 'server_vad',
+                    threshold: 0.8,
+                    prefix_padding_ms: 300,
+                    silence_duration_ms: 900,
+                    create_response: false,
+                    interrupt_response: false,
+                  },
+                },
+              },
+            },
+          })
+        );
+      };
+      dc.onmessage = onServerEvent;
 
       const offer = await pc.createOffer();
       await pc.setLocalDescription(offer);
 
-      const model = session.model ?? 'gpt-realtime-2.1';
-      const sdpRes = await fetch(
-        `https://api.openai.com/v1/realtime?model=${encodeURIComponent(model)}`,
-        {
-          method: 'POST',
-          body: offer.sdp,
-          headers: {
-            authorization: `Bearer ${session.token}`,
-            'content-type': 'application/sdp',
-          },
-        }
-      );
-      if (!sdpRes.ok) throw new Error('sdp');
+      const callRes = await fetch('https://api.openai.com/v1/realtime/calls', {
+        method: 'POST',
+        headers: {
+          authorization: `Bearer ${session.token}`,
+          'content-type': 'application/sdp',
+        },
+        body: offer.sdp,
+      });
+      if (!callRes.ok) throw new Error(`calls ${callRes.status}`);
 
-      await pc.setRemoteDescription({ type: 'answer', sdp: await sdpRes.text() });
+      await pc.setRemoteDescription({ type: 'answer', sdp: await callRes.text() });
       setStatus('live');
     } catch (err) {
       console.error('[voice] could not start call:', err);
       const denied = err instanceof DOMException && err.name === 'NotAllowedError';
+      hangUp();
       setError(denied ? 'mic_denied' : 'connect_failed');
       setStatus('error');
-      hangUp();
-      setStatus('error');
     }
-  }, [locale, hangUp, resolveToolCall]);
+  }, [locale, hangUp, onServerEvent]);
 
   return { status, error, transcripts, call, hangUp };
 }
