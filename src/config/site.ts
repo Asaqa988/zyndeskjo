@@ -19,7 +19,7 @@ export const siteConfig = {
     // WhatsApp — replace if different from the main phone number.
     whatsappDisplay: '+962 7 9770 0235',
     whatsappHref: '962797700235',
-    email: '[hello@zyndeskjo.com]', // PLACEHOLDER — confirm the real inbox (hello@ / info@ / contact@)
+    email: 'asaqa001@gmail.com',
     addressLine: 'University Street, Amman, Jordan',
     addressAr: 'شارع الجامعة، عمّان، الأردن',
     city: 'Amman',
@@ -29,10 +29,11 @@ export const siteConfig = {
   },
 
   social: {
-    linkedin: 'https://www.linkedin.com/company/careerak1/',
-    // PLACEHOLDERS — replace with real profiles or remove.
-    instagram: '[https://instagram.com/zyndesk]',
-    facebook: '[https://facebook.com/zyndesk]',
+    linkedin: 'https://www.linkedin.com/in/abedalraheem-alsaqqa/',
+    instagram: 'https://www.instagram.com/abedalraheem_alsaqqa/',
+    facebook: 'https://www.facebook.com/aboud.80',
+    // Still placeholders — the footer hides these until they are real.
+    // Bracketed values render as dead links, so isLive() below filters them.
     x: '[https://x.com/zyndesk]',
     youtube: '[https://youtube.com/@zyndesk]',
   },
@@ -42,3 +43,15 @@ export const siteConfig = {
 } as const;
 
 export type SiteConfig = typeof siteConfig;
+
+/**
+ * Whether a configured value is real or still a [BRACKETED] placeholder.
+ *
+ * A placeholder that reaches the page becomes a dead link or a mailto to a
+ * nonexistent inbox — worse than showing nothing, because a visitor clicks it
+ * and concludes the business does not answer. Anything rendering a value from
+ * this file should gate on it.
+ */
+export function isLive(value: string): boolean {
+  return !value.startsWith('[');
+}

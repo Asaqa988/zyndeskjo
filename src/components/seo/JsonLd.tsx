@@ -1,4 +1,4 @@
-import { siteConfig } from '@/config/site';
+import { siteConfig, isLive } from '@/config/site';
 
 function JsonLd({ data }: { data: Record<string, unknown> }) {
   return (
@@ -30,7 +30,14 @@ export function OrganizationSchema({ locale }: { locale: string }) {
           addressLocality: siteConfig.contact.city,
           addressCountry: siteConfig.contact.countryCode,
         },
-        sameAs: [siteConfig.social.linkedin],
+        // sameAs is how a search engine ties these profiles to the business,
+        // so only real ones belong here.
+        sameAs: [
+          siteConfig.social.linkedin,
+          siteConfig.social.instagram,
+          siteConfig.social.facebook,
+          siteConfig.social.youtube,
+        ].filter(isLive),
         knowsAbout: [
           'Artificial Intelligence',
           'Business Automation',

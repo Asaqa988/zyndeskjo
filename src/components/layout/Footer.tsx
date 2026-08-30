@@ -1,6 +1,6 @@
 import { useTranslations } from 'next-intl';
 import { Link } from '@/i18n/navigation';
-import { siteConfig } from '@/config/site';
+import { siteConfig, isLive } from '@/config/site';
 import { footerColumns } from '@/config/nav';
 import { Logo } from './Logo';
 import { Icon } from '@/components/ui/Icon';
@@ -10,12 +10,14 @@ import { LanguageSwitcher } from './LanguageSwitcher';
 export function Footer() {
   const t = useTranslations();
   const year = new Date().getFullYear();
+  // A profile we do not have yet is left out entirely — a dead icon costs
+  // more trust than a missing one.
   const socials = [
     { name: 'Linkedin', href: siteConfig.social.linkedin },
     { name: 'Instagram', href: siteConfig.social.instagram },
     { name: 'Facebook', href: siteConfig.social.facebook },
     { name: 'Youtube', href: siteConfig.social.youtube },
-  ];
+  ].filter((s) => isLive(s.href));
 
   return (
     <footer className="relative mt-20">
