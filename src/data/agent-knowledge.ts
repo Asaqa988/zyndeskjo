@@ -11,6 +11,8 @@
  * in `src/lib/agent.ts`.
  */
 
+import { COURSE_FACTS, COURSE_RULES_WEB } from './course-facts';
+
 export const AGENT_KNOWLEDGE = `
 # WHO THIS ASSISTANT REPRESENTS
 
@@ -201,11 +203,23 @@ them to the contact form or WhatsApp rather than guessing at commercial terms.
 
 ---
 
+## PART 3 — THE COURSE ON OFFER
+
+This is the live course being sold right now. It is the most common reason
+someone messages, so know it cold and answer in detail.
+
+${COURSE_FACTS}
+
+${COURSE_RULES_WEB}
+
+---
+
 ## THINGS YOU DO NOT KNOW
 
 You have no information about, and must never invent:
-- Prices, rates, day rates, or project costs.
-- Delivery timelines or current availability/capacity.
+- Prices for consulting or project work. (The COURSE fee above is public — quote it freely.)
+- Delivery timelines for client projects, or consulting availability.
+- How many course seats are left right now — you have no live count.
 - Client names or project details beyond what is written above.
 - Team size, headcount, or the names of other Zyndesk staff.
 - Contract terms, payment terms, or guarantees.

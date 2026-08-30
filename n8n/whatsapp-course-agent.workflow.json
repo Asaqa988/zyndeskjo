@@ -1,0 +1,438 @@
+{
+  "name": "WhatsApp — AI in Software Testing",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "course-whatsapp",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "wh-inbound",
+      "name": "Inbound message",
+      "webhookId": "course-agent-inbound"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Normalise whatever the transport sends into one shape.\n// Cloud API, Twilio and an unofficial bridge all post different bodies; every\n// node downstream depends only on the three fields below, so swapping the\n// transport means editing this node and nothing else.\nconst b = $json.body ?? $json;\n\n// WhatsApp Cloud API\nconst cloud = b?.entry?.[0]?.changes?.[0]?.value?.messages?.[0];\nconst cloudFrom = cloud?.from;\nconst cloudText = cloud?.text?.body;\nconst cloudName = b?.entry?.[0]?.changes?.[0]?.value?.contacts?.[0]?.profile?.name;\n\n// Twilio\nconst twilioFrom = b?.From && String(b.From).replace('whatsapp:', '');\nconst twilioText = b?.Body;\nconst twilioName = b?.ProfileName;\n\n// Plain JSON (an unofficial bridge, or curl while testing)\nconst plainFrom = b?.from ?? b?.phone;\nconst plainText = b?.text ?? b?.message;\nconst plainName = b?.name;\n\nconst from = cloudFrom ?? twilioFrom ?? plainFrom ?? '';\nconst text = (cloudText ?? twilioText ?? plainText ?? '').trim();\nconst name = cloudName ?? twilioName ?? plainName ?? '';\n\nif (!from || !text) {\n  // Delivery receipts and status callbacks land here too — ignore them quietly.\n  return [];\n}\n\nreturn [{ json: { from, text, name, receivedAt: new Date().toISOString() } }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        220,
+        0
+      ],
+      "id": "normalise",
+      "name": "Normalise payload"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "REPLACE_WITH_REGISTRATIONS_SHEET_ID",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "id"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        440,
+        0
+      ],
+      "id": "read-registrations",
+      "name": "Read registrations",
+      "onError": "continueRegularOutput",
+      "alwaysOutputData": true
+    },
+    {
+      "parameters": {
+        "jsCode": "// Seats, and the prompt that goes with them.\n//\n// A seat is taken by anyone CONFIRMED, and also by anyone still PENDING inside\n// the hold window: a pending registration is a seat someone is on their way to\n// paying for. Counting only confirmed rows would let the agent promise seats\n// that are already spoken for, and the course would oversell.\n//\n// A pending row older than the window releases its seat on its own — no cleanup\n// job needed, because the count is derived rather than stored.\nconst HOLD_HOURS = 48;\nconst TOTAL_SEATS = 30;\n\nconst inbound = $('Normalise payload').first().json;\nconst rows = $input.all().map((i) => i.json).filter((r) => r && (r.status || r.phone));\n\n// The sheet read is allowed to fail (onError: continue). If it did, we must not\n// invent a number — `seats` stays null and the agent is told to omit it.\nconst sheetOk = rows.length > 0 || $input.all().length > 0;\n\nlet seats = null;\nif (sheetOk) {\n  const now = Date.now();\n  const taken = rows.filter((r) => {\n    const status = String(r.status ?? '').toLowerCase();\n    if (status === 'confirmed') return true;\n    if (status !== 'pending') return false;\n    const created = Date.parse(r.createdAt ?? '');\n    if (Number.isNaN(created)) return true; // undated pending: treat as held\n    return now - created < HOLD_HOURS * 3600 * 1000;\n  }).length;\n  seats = Math.max(0, TOTAL_SEATS - taken);\n}\n\nconst seatLine =\n  seats === null\n    ? 'SEATS: unavailable — do NOT mention seats at all in your reply.'\n    : `SEATS: ${seats} of ${TOTAL_SEATS} still available.`;\n\nreturn [{ json: { ...inbound, seats, totalSeats: TOTAL_SEATS, seatLine } }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        660,
+        0
+      ],
+      "id": "seats",
+      "name": "Compute seats"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.openai.com/v1/chat/completions",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({\n  model: 'gpt-5.4-mini',\n  response_format: { type: 'json_object' },\n  messages: [\n    { role: 'system', content: $('Build prompt').first().json.system },\n    { role: 'user', content: $json.text }\n  ]\n}) }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1100,
+        0
+      ],
+      "id": "ask-model",
+      "name": "Ask the model"
+    },
+    {
+      "parameters": {
+        "jsCode": "// The whole prompt in one place.\n//\n// Paste the contents of course-agent-knowledge.md into KNOWLEDGE below. It is\n// inlined rather than fetched so the agent cannot answer from a stale or\n// half-loaded copy — the knowledge either ships with the workflow or it does\n// not run.\nconst KNOWLEDGE = `PASTE course-agent-knowledge.md HERE`;\n\nconst d = $json;\n\nconst system = `أنت مساعد تسجيل لكورس «AI in Software Testing» من Zyndesk، تردّ على واتساب.\n\n${d.seatLine}\n\nأجب حصراً من قاعدة المعرفة التالية. أي شيء غير موجود فيها، قل إنك ستتحقق وحوّل\nللتواصل المباشر على 0797700235. لا تخترع شيئاً أبداً.\n\nأعِد JSON فقط بهذا الشكل، بلا أي نص خارجه:\n{\n  \"reply\": \"ردّك للطالب\",\n  \"intent\": \"info\" | \"register\" | \"payment\" | \"other\",\n  \"lead\": { \"name\": \"\", \"phone\": \"\", \"email\": \"\" } أو null\n}\n\nقواعد النية:\n- intent = \"register\" فقط عندما يطلب الطالب التسجيل صراحةً.\n- عند طلب التسجيل، لا تُعِد شرح الكورس. اطلب مباشرةً: الاسم الكامل، رقم الهاتف،\n  الإيميل.\n- املأ \"lead\" فقط عندما تكون الحقول الثلاثة قد وصلتك فعلاً. إن نقص أيها،\n  اجعل lead = null واطلب الناقص فقط.\n- لا تطلب أبداً بيانات بطاقة أو حساب بنكي.\n\nقاعدة المعرفة:\n${KNOWLEDGE}`;\n\nreturn [{ json: { ...d, system } }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        880,
+        0
+      ],
+      "id": "build-prompt",
+      "name": "Build prompt"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Parse the model's JSON, and never let a bad parse become a silent failure.\nconst raw = $json.choices?.[0]?.message?.content ?? '';\nconst inbound = $('Compute seats').first().json;\n\nlet parsed;\ntry {\n  parsed = JSON.parse(raw);\n} catch {\n  parsed = {\n    reply: 'عذراً، صار خلل بسيط. تواصل معنا مباشرة على 0797700235 وبنساعدك فوراً.',\n    intent: 'other',\n    lead: null,\n  };\n}\n\nconst lead = parsed.lead;\nconst complete = Boolean(lead?.name && lead?.phone && lead?.email);\n\nreturn [{\n  json: {\n    ...inbound,\n    reply: parsed.reply ?? '',\n    intent: parsed.intent ?? 'other',\n    lead: complete ? lead : null,\n    hasLead: complete,\n  },\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1320,
+        0
+      ],
+      "id": "parse",
+      "name": "Parse reply"
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "version": 2
+          },
+          "conditions": [
+            {
+              "leftValue": "={{ $json.hasLead }}",
+              "rightValue": true,
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.2,
+      "position": [
+        1540,
+        0
+      ],
+      "id": "has-lead",
+      "name": "Registration details complete?"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "REPLACE_WITH_REGISTRATIONS_SHEET_ID",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "id"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "createdAt": "={{ $json.receivedAt }}",
+            "name": "={{ $json.lead.name }}",
+            "phone": "={{ $json.lead.phone }}",
+            "email": "={{ $json.lead.email }}",
+            "whatsapp": "={{ $json.from }}",
+            "status": "pending",
+            "course": "AI in Software Testing",
+            "source": "whatsapp-agent"
+          }
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        1760,
+        -100
+      ],
+      "id": "save-lead",
+      "name": "Save registration (pending)"
+    },
+    {
+      "parameters": {
+        "sendTo": "asaqa001@gmail.com",
+        "subject": "=تسجيل جديد — {{ $json.lead.name }}",
+        "emailType": "text",
+        "message": "=اسم: {{ $json.lead.name }}\nهاتف: {{ $json.lead.phone }}\nإيميل: {{ $json.lead.email }}\nواتساب: {{ $json.from }}\n\nالحالة: بانتظار الدفع (المقعد محجوز ٤٨ ساعة)\nالمقاعد قبل هذا التسجيل: {{ $json.seats }} من {{ $json.totalSeats }}",
+        "options": {
+          "appendAttribution": false
+        }
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        1980,
+        -100
+      ],
+      "id": "notify-admin",
+      "name": "Notify admin"
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "=https://graph.facebook.com/v21.0/{{ $env.WHATSAPP_PHONE_NUMBER_ID }}/messages",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ messaging_product: 'whatsapp', recipient_type: 'individual', to: $json.from, type: 'text', text: { preview_url: false, body: $json.reply } }) }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1980,
+        100
+      ],
+      "id": "send",
+      "name": "Send WhatsApp reply"
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        2200,
+        100
+      ],
+      "id": "respond",
+      "name": "Acknowledge webhook"
+    },
+    {
+      "parameters": {
+        "httpMethod": "GET",
+        "path": "course-whatsapp",
+        "responseMode": "responseNode",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        0,
+        320
+      ],
+      "id": "wh-verify",
+      "name": "Meta verification (GET)",
+      "webhookId": "course-agent-verify"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Meta verifies a webhook before it will ever deliver to it: it sends a GET\n// with hub.mode, hub.verify_token and hub.challenge, and expects the challenge\n// echoed back as plain text.\n//\n// The token check matters. Without it, anyone who guessed this URL could point\n// their own WhatsApp app at your workflow.\nconst q = $json.query ?? {};\nconst expected = $env.WHATSAPP_VERIFY_TOKEN;\n\nif (!expected) {\n  throw new Error(\"WHATSAPP_VERIFY_TOKEN is not set on the n8n server\");\n}\nif (q[\"hub.mode\"] !== \"subscribe\" || q[\"hub.verify_token\"] !== expected) {\n  throw new Error(\"verify token mismatch\");\n}\n\nreturn [{ json: { challenge: q[\"hub.challenge\"] } }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        220,
+        320
+      ],
+      "id": "verify-check",
+      "name": "Check verify token"
+    },
+    {
+      "parameters": {
+        "respondWith": "text",
+        "responseBody": "={{ $json.challenge }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        440,
+        320
+      ],
+      "id": "verify-respond",
+      "name": "Echo challenge"
+    }
+  ],
+  "connections": {
+    "Inbound message": {
+      "main": [
+        [
+          {
+            "node": "Normalise payload",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Normalise payload": {
+      "main": [
+        [
+          {
+            "node": "Read registrations",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Read registrations": {
+      "main": [
+        [
+          {
+            "node": "Compute seats",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Compute seats": {
+      "main": [
+        [
+          {
+            "node": "Build prompt",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Build prompt": {
+      "main": [
+        [
+          {
+            "node": "Ask the model",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Ask the model": {
+      "main": [
+        [
+          {
+            "node": "Parse reply",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Parse reply": {
+      "main": [
+        [
+          {
+            "node": "Registration details complete?",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Registration details complete?": {
+      "main": [
+        [
+          {
+            "node": "Save registration (pending)",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Send WhatsApp reply",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Save registration (pending)": {
+      "main": [
+        [
+          {
+            "node": "Notify admin",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Notify admin": {
+      "main": [
+        [
+          {
+            "node": "Send WhatsApp reply",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Send WhatsApp reply": {
+      "main": [
+        [
+          {
+            "node": "Acknowledge webhook",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Meta verification (GET)": {
+      "main": [
+        [
+          {
+            "node": "Check verify token",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Check verify token": {
+      "main": [
+        [
+          {
+            "node": "Echo challenge",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "pinData": {},
+  "settings": {}
+}
