@@ -34,7 +34,7 @@ export interface Transcript {
  */
 const GREETING: Record<string, string> = {
   ar: 'أهلا وسهلا فيك! أنا ليلى، مساعدة عبدالرحيم السقا. تفضّل، كيف بقدر أساعدك؟',
-  en: "Welcome! I'm Zyn, Abdulraheem Alsaqqa's assistant. How can I help you?",
+  en: "Welcome! I'm Zyn, Abdulraheem Alsaka's assistant. How can I help you?",
 };
 
 /** Short interjections we should not treat as questions. */

@@ -26,7 +26,7 @@ const GREETINGS = {
   },
   en: {
     text:
-      "Welcome! I'm Zyn, Abdulraheem Alsaqqa's assistant. How about we start a voice call so I can help you faster and more clearly? Your browser will just ask for microphone permission so I can hear you.",
+      "Welcome! I'm Zyn, Abdulraheem Alsaka's assistant. How about we start a voice call so I can help you faster and more clearly? Your browser will just ask for microphone permission so I can hear you.",
     instructions: 'Speak warmly and welcoming, friendly and unhurried.',
   },
 };

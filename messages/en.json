@@ -22,6 +22,7 @@
   },
   "nav": {
     "home": "Home",
+    "trainer": "Your trainer",
     "learn": "Course & platform",
     "whyAiAutomation": "Why this field?",
     "afterTheCourse": "After the course",
@@ -107,6 +108,10 @@
     "afterTheCourse": {
       "title": "After the course",
       "description": "What you can do once you know n8n and AI, which career paths exist, and how to turn the skill into a service you sell."
+    },
+    "trainer": {
+      "title": "Know your trainer",
+      "description": "Abdulraheem Alsaka — 12+ years in quality engineering and AI automation, and an instructor at four Jordanian universities and institutes."
     }
   },
   "hero": {
@@ -1158,6 +1163,15 @@
         "title": "After the course",
         "subtitle": "From an idea to a working system, and from a skill to a service you offer a client."
       }
+    },
+    "trainer": {
+      "hero": {
+        "badge": "The trainer",
+        "title": "Know your trainer",
+        "subtitle": "Who will be teaching you, and what he has actually built before coming to teach you to build it."
+      },
+      "cv": "Download the CV (PDF)",
+      "certifications": "Certifications"
     }
   },
   "notFound": {
@@ -1184,7 +1198,7 @@
     "heroSubtitle": "Ask about Abdulraheem's experience or what Zyndesk does — by voice or text.",
     "heroCta": "Talk",
     "stageTitle": "Welcome!",
-    "stageSubtitle": "I’m Zyn, Abdulraheem Alsaqqa’s assistant. How about we start a voice call so I can help you faster and more clearly? Your browser will just ask for microphone permission so I can hear you.",
+    "stageSubtitle": "I’m Zyn, Abdulraheem Alsaka’s assistant. How about we start a voice call so I can help you faster and more clearly? Your browser will just ask for microphone permission so I can hear you.",
     "stageVoice": "Start a voice call",
     "stageChat": "Type instead",
     "stageLearn": "See the course and platform",

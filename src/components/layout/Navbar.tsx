@@ -54,7 +54,10 @@ export function Navbar() {
             <Logo />
           </Link>
 
-          <ul className="hidden lg:flex items-center gap-1">
+          {/* xl, not lg: seven Arabic labels wrap onto two lines in the
+              1024–1279 range, which reads as a broken bar. Below that width
+              the menu button takes over. */}
+          <ul className="hidden xl:flex items-center gap-1">
             {navLinks.map((l) => {
               const active = pathname === l.href;
               return (
@@ -63,7 +66,7 @@ export function Navbar() {
                     href={l.href}
                     aria-current={active ? 'page' : undefined}
                     className={clsx(
-                      'px-3.5 py-2 rounded-pill text-sm font-medium transition-colors relative',
+                      'px-3.5 py-2 rounded-pill text-sm font-medium transition-colors relative whitespace-nowrap',
                       active ? 'text-navy' : 'text-[var(--text-dim)] hover:text-navy'
                     )}
                   >
@@ -88,7 +91,7 @@ export function Navbar() {
             <button
               type="button"
               onClick={() => setOpen(true)}
-              className="lg:hidden chip !p-2.5"
+              className="xl:hidden chip !p-2.5"
               aria-label={t('openMenu')}
               aria-expanded={open}
             >

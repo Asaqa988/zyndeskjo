@@ -8,6 +8,7 @@
  */
 export const navLinks = [
   { href: '/', label: 'home' },
+  { href: '/trainer', label: 'trainer' },
   // Ordered the way someone decides: why the field, then what it looks like,
   // then what they build, then what comes after, then how to reach you.
   { href: '/why-ai-automation', label: 'whyAiAutomation' },

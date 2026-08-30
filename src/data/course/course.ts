@@ -300,7 +300,7 @@ export const course: Course = {
     en: 'Build real AI automations for businesses — WhatsApp, Messenger, Instagram, stores and databases — and turn them into a service you sell.',
     ar: 'ابنِ أتمتة ذكاء اصطناعي حقيقية للشركات — واتساب وماسنجر وإنستجرام ومتاجر وقواعد بيانات — وحوّلها لخدمة بتبيعها.',
   },
-  instructor: { en: 'Abdulraheem Alsaqqa', ar: 'عبدالرحيم السقا' },
+  instructor: { en: 'Abdulraheem Alsaka', ar: 'عبدالرحيم السقا' },
   level: { en: 'Beginner to professional', ar: 'من الصفر إلى الاحتراف' },
   totalMinutes: modules.reduce((sum, m) => sum + m.lessons.reduce((s, l) => s + l.minutes, 0), 0),
   modules,
