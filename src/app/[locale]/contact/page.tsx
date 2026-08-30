@@ -21,7 +21,7 @@ export default async function ContactPage({ params: { locale } }: { params: { lo
 
   const rows = [
     { icon: 'Phone', label: t('phone'), value: c.phoneDisplay, href: `tel:${c.phoneHref}`, tel: true },
-    { icon: 'MessageSquare', label: t('whatsapp'), value: c.whatsappDisplay, href: `https://wa.me/${c.whatsappHref}`, tel: true },
+    { icon: 'MessageSquare', label: t('whatsapp'), value: c.whatsappDisplay, href: c.whatsappUrl, tel: true },
     { icon: 'Mail', label: t('email'), value: c.email, href: `mailto:${c.email}` },
     { icon: 'MapPin', label: t('address'), value: c.addressLine, href: `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(c.mapQuery)}` },
   ];

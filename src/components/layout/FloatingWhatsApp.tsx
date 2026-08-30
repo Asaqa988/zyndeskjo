@@ -4,12 +4,16 @@ import { useTranslations } from 'next-intl';
 import { motion } from 'framer-motion';
 import { siteConfig } from '@/config/site';
 
-/** Floating WhatsApp CTA. Number is a placeholder in siteConfig.contact. */
+/**
+ * Floating WhatsApp CTA.
+ *
+ * The link comes from siteConfig as-is. It used to append ?text= with a
+ * prefilled greeting, which a wa.link short link does not forward — the
+ * preset message lives inside the link itself now.
+ */
 export function FloatingWhatsApp() {
   const t = useTranslations('common');
-  const href = `https://wa.me/${siteConfig.contact.whatsappHref}?text=${encodeURIComponent(
-    t('whatsappPrefill')
-  )}`;
+  const href = siteConfig.contact.whatsappUrl;
 
   return (
     <motion.a

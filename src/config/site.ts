@@ -16,9 +16,14 @@ export const siteConfig = {
   contact: {
     phoneDisplay: '+962 7 9770 0235',
     phoneHref: '+962797700235',
-    // WhatsApp — replace if different from the main phone number.
     whatsappDisplay: '+962 7 9770 0235',
-    whatsappHref: '962797700235',
+    /**
+     * A wa.link short link rather than wa.me/<number>.
+     *
+     * It carries its own preset message, set where the link was created — so
+     * nothing here should append ?text=, which wa.link does not forward.
+     */
+    whatsappUrl: 'https://wa.link/4x7mx5',
     email: 'asaqa001@gmail.com',
     addressLine: 'University Street, Amman, Jordan',
     addressAr: 'شارع الجامعة، عمّان، الأردن',
