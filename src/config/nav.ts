@@ -1,13 +1,14 @@
 /**
  * Primary navigation. `label` is an i18n key under nav.<label>.
  *
- * The site is currently stripped back to the assistant: only Home (the avatar)
- * and Contact are surfaced. The other routes still exist and still render if
- * visited directly — they are simply not linked. To bring the full site back,
- * restore the entries below and the sections in src/app/[locale]/page.tsx.
+ * The site is currently stripped back to the assistant: Home (the avatar), the
+ * course platform, and Contact. The other routes still exist and still render
+ * if visited directly — they are simply not linked. To bring the full site
+ * back, restore the entries below and the sections in src/app/[locale]/page.tsx.
  */
 export const navLinks = [
   { href: '/', label: 'home' },
+  { href: '/learn', label: 'learn' },
   { href: '/contact', label: 'contact' },
   // Unlinked for now:
   // { href: '/services', label: 'services' },
