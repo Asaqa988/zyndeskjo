@@ -36,7 +36,9 @@ export const siteConfig = {
   social: {
     linkedin: 'https://www.linkedin.com/in/abedalraheem-alsaqqa/',
     instagram: 'https://www.instagram.com/abedalraheem_alsaqqa/',
-    facebook: 'https://www.facebook.com/aboud.80',
+    // The ZynDesk Jo page, not a personal profile — a profile cannot run ads,
+    // and the footer should point at the business either way.
+    facebook: 'https://www.facebook.com/profile.php?id=61592692739315',
     // Still placeholders — the footer hides these until they are real.
     // Bracketed values render as dead links, so isLive() below filters them.
     x: '[https://x.com/zyndesk]',
