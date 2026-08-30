@@ -15,13 +15,16 @@ export const onboardingTutorial: Tutorial = {
   id: 'onboarding',
   version: 1,
 
+  // Phrased as a question because it is now asked in a dialog the visitor has
+  // to answer. The spoken line in narration-lines.ts is unchanged and still
+  // matches: she says the same thing while this is on screen.
   intro: {
-    title: { en: "Welcome — I'm your AI tutor", ar: 'أهلاً — أنا مساعدتك الذكية' },
+    title: { en: 'Shall I show you around?', ar: 'أشرحلك عن المنصة؟' },
     message: {
-      en: "Before you start, let me show you how this course works. It takes about a minute.",
-      ar: 'قبل ما تبدأ، خليني أوريك كيف بيشتغل هذا الكورس. بياخد دقيقة تقريباً.',
+      en: "I'm your AI tutor. Let me show you how this course works — it takes about a minute.",
+      ar: 'أنا مساعدتك الذكية. خلّيني أفرجيك كيف بشتغل هالكورس — بياخد دقيقة تقريباً.',
     },
-    cta: { en: 'Start tour', ar: 'ابدأ الجولة' },
+    cta: { en: 'OK, start', ar: 'أوكي، ابدأ' },
   },
 
   outro: {

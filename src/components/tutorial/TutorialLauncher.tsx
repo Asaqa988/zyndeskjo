@@ -1,30 +1,18 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
 import { useTranslations } from 'next-intl';
 import { Sparkles } from 'lucide-react';
 import { useTutorial } from './TutorialProvider';
 
 /**
- * Starts the tour for a first-time student, and gives everyone else a way back
- * to it.
+ * A way back to the tour once it has been taken or dismissed.
  *
- * The auto-start fires once per mount and only when storage says this student
- * has not finished or dismissed this version — so returning students are not
- * ambushed by a tour they already sat through.
+ * The first-visit offer is not here: this button lives in the sidebar, which
+ * a phone never renders, so the provider owns that instead.
  */
 export function TutorialLauncher() {
-  const { state, send, seen } = useTutorial();
+  const { state, send } = useTutorial();
   const t = useTranslations('tutorial');
-  const autoStarted = useRef(false);
-
-  useEffect(() => {
-    if (seen || autoStarted.current || state.status !== 'idle') return;
-    autoStarted.current = true;
-    // A beat after paint, so the platform is visibly there before she speaks.
-    const id = window.setTimeout(() => send({ type: 'START' }), 900);
-    return () => window.clearTimeout(id);
-  }, [seen, state.status, send]);
 
   // While the tour is on screen the overlay owns the controls.
   if (state.status !== 'idle' && state.status !== 'exited') return null;

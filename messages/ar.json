@@ -1325,7 +1325,7 @@
   },
   "tutorial": {
     "stepOf": "خطوة {n} من {total}",
-    "skip": "تخطّي",
+    "skip": "مش هلأ",
     "next": "التالي",
     "previous": "السابق",
     "pause": "إيقاف مؤقت",

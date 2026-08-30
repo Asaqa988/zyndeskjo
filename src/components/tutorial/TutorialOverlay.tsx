@@ -112,14 +112,24 @@ export function TutorialOverlay() {
           animate={{ opacity: 1, y: 0 }}
           exit={{ opacity: 0, y: 24 }}
           transition={{ type: 'spring', stiffness: 300, damping: 28 }}
-          // Anchored to the trailing edge so it clears the sidebar rail, which is
-          // itself a tour target and must stay visible.
-          className="pointer-events-auto fixed bottom-5 end-5 z-10 w-[min(24rem,calc(100vw-2.5rem))]"
+          // The opening question is centred: it is a decision, and nothing is
+          // being pointed at yet, so there is nothing for it to obscure. Once
+          // the tour is running it moves to the trailing edge, clearing the
+          // sidebar rail — which is itself a tour target and must stay visible.
+          className={
+            showIntro
+              ? 'pointer-events-auto fixed inset-0 z-10 flex items-center justify-center p-5'
+              : 'pointer-events-auto fixed bottom-5 end-5 z-10 w-[min(24rem,calc(100vw-2.5rem))]'
+          }
         >
-          <div className="glass glass-strong overflow-hidden rounded-glass shadow-glass-lg">
-            <div className="flex gap-3.5 p-4">
+          <div
+            className={`glass glass-strong overflow-hidden rounded-glass shadow-glass-lg ${
+              showIntro ? 'w-[min(30rem,100%)]' : ''
+            }`}
+          >
+            <div className={showIntro ? 'flex gap-4 p-6' : 'flex gap-3.5 p-4'}>
               <AgentAvatar
-                size={64}
+                size={showIntro ? 88 : 64}
                 ring={false}
                 stream={narrationStream}
                 className="shrink-0 self-start"
@@ -128,8 +138,8 @@ export function TutorialOverlay() {
               <div className="min-w-0 flex-1">
                 {showIntro && (
                   <>
-                    <p className="text-sm font-semibold text-ink">{pick(tutorial.intro.title)}</p>
-                    <p className="mt-1 text-xs leading-relaxed text-navy-medium">
+                    <p className="text-base font-semibold text-ink">{pick(tutorial.intro.title)}</p>
+                    <p className="mt-1.5 text-sm leading-relaxed text-navy-medium">
                       {pick(tutorial.intro.message)}
                     </p>
                   </>
@@ -170,22 +180,27 @@ export function TutorialOverlay() {
               </div>
             )}
 
-            <div className="flex items-center justify-between gap-2 border-t border-white/50 bg-white/40 px-3 py-2.5">
+            <div
+              className={`flex items-center justify-between gap-2 border-t border-white/50 bg-white/40 ${
+                showIntro ? 'px-5 py-3.5' : 'px-3 py-2.5'
+              }`}
+            >
               {showIntro && (
                 <>
                   <button
                     type="button"
                     onClick={() => send({ type: 'SKIP' })}
-                    className="rounded-pill px-3 py-1.5 text-xs font-medium text-navy-medium transition hover:text-navy"
+                    className="rounded-pill px-3 py-2 text-sm font-medium text-navy-medium transition hover:text-navy"
                   >
                     {t('skip')}
                   </button>
                   <button
                     type="button"
+                    autoFocus
                     onClick={() => send({ type: 'BEGIN' })}
-                    className="inline-flex items-center gap-1.5 rounded-pill bg-navy px-4 py-2 text-xs font-semibold text-white transition hover:bg-navy-medium"
+                    className="inline-flex items-center gap-1.5 rounded-pill bg-navy px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-navy-medium"
                   >
-                    <Sparkles size={13} aria-hidden />
+                    <Sparkles size={15} aria-hidden />
                     {pick(tutorial.intro.cta)}
                   </button>
                 </>

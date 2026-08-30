@@ -1325,7 +1325,7 @@
   },
   "tutorial": {
     "stepOf": "Step {n} of {total}",
-    "skip": "Skip",
+    "skip": "Not now",
     "next": "Next",
     "previous": "Previous",
     "pause": "Pause",

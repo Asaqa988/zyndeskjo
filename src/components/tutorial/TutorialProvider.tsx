@@ -124,6 +124,28 @@ export function TutorialProvider({
     }
   }, [state.status, state.index, tutorial.id, tutorial.version]);
 
+  /* ── first visit ──────────────────────────────────────────────────────── */
+
+  /**
+   * Offer the tour on arrival.
+   *
+   * This lives here rather than in TutorialLauncher because the launcher sits
+   * inside the sidebar, and the sidebar only renders from `lg` up — so on a
+   * phone the offer never appeared at all. The provider mounts at every size.
+   *
+   * `seen` starts as null while storage is read; waiting for a real boolean
+   * keeps a returning student from being ambushed for a frame.
+   */
+  const offered = useRef(false);
+
+  useEffect(() => {
+    if (seen !== false || offered.current || state.status !== 'idle') return;
+    offered.current = true;
+    // A beat after paint, so the platform is visibly there before she asks.
+    const id = window.setTimeout(() => send({ type: 'START' }), 900);
+    return () => window.clearTimeout(id);
+  }, [seen, state.status, send]);
+
   /* ── dev-only: catch steps pointing at nothing ────────────────────────── */
 
   useEffect(() => {
