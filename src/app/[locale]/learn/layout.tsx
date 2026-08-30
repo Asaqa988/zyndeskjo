@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react';
 import { setRequestLocale } from 'next-intl/server';
 import { Sidebar } from '@/components/learn/Sidebar';
+import { DemoBanner } from '@/components/learn/DemoBanner';
 import { TutorialProvider } from '@/components/tutorial/TutorialProvider';
 import { TutorialOverlay } from '@/components/tutorial/TutorialOverlay';
 import { onboardingTutorial } from '@/data/tutorials/onboarding';
@@ -33,7 +34,10 @@ export default function LearnLayout({
           <Sidebar />
         </div>
 
-        <main className="min-w-0 flex-1 px-5 py-8 sm:px-7 lg:px-8">{children}</main>
+        <main className="min-w-0 flex-1 px-5 py-8 sm:px-7 lg:px-8">
+          <DemoBanner />
+          {children}
+        </main>
       </div>
 
       <TutorialOverlay />

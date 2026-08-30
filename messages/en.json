@@ -1317,6 +1317,10 @@
       "toUnlock": "Progress to unlock",
       "earnedNote": "Your certificate is ready. Download it, or share it straight to LinkedIn.",
       "lockedNote": "Finish the remaining modules and the capstone project to unlock your certificate."
+    },
+    "banner": {
+      "home": "Back to home",
+      "notice": "This is a platform preview — the progress shown is an example."
     }
   },
   "tutorial": {
