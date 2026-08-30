@@ -56,12 +56,20 @@ export function AgentStage() {
           </button>
         </div>
 
-        <Link
-          href="/contact"
-          className="text-sm font-medium text-navy-medium underline-offset-4 hover:text-navy hover:underline"
-        >
-          {t('stageContact')}
-        </Link>
+        <div className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-sm font-medium">
+          <Link
+            href="/learn"
+            className="text-navy-medium underline-offset-4 hover:text-navy hover:underline"
+          >
+            {t('stageLearn')}
+          </Link>
+          <Link
+            href="/contact"
+            className="text-navy-medium underline-offset-4 hover:text-navy hover:underline"
+          >
+            {t('stageContact')}
+          </Link>
+        </div>
       </motion.div>
     </section>
   );
