@@ -16,6 +16,7 @@ const STEP_KEYS = ['need', 'goal', 'details', 'contact'] as const;
 
 export function MultiStepForm({ defaultNeed }: { defaultNeed?: string }) {
   const t = useTranslations('form');
+  const tRoot = useTranslations();
   const [step, setStep] = useState(0);
   const [status, setStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
 
@@ -72,7 +73,10 @@ export function MultiStepForm({ defaultNeed }: { defaultNeed?: string }) {
 
   const err = (name: keyof LeadForm) => {
     const e = errors[name];
-    return e?.message ? t(e.message as string) : null;
+    // The schema stores absolute keys ("form.validation.email"), so these are
+    // looked up from the root. Using the `form`-scoped `t` here asked for
+    // form.form.validation.* and every message rendered as its own raw key.
+    return e?.message ? tRoot(e.message as string) : null;
   };
 
   if (status === 'success') {

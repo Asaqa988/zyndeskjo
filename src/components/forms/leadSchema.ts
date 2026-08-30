@@ -3,7 +3,10 @@ import { z } from 'zod';
 /** Zod schema for the multi-step lead form. Messages are i18n keys. */
 export const leadSchema = z.object({
   needs: z.array(z.string()).min(1, 'form.validation.selectNeed'),
-  goal: z.string().min(10, 'form.validation.goal'),
+  // Any answer the person wants to give. The old ten-character floor
+  // rejected "أتوميشن" — one word that says exactly what they came for, and
+  // shorter in Arabic than the same answer in English would have been.
+  goal: z.string().trim().min(1, 'form.validation.goal'),
   clientType: z.enum(['individual', 'company']),
   companyName: z.string().optional(),
   timeline: z.string().min(1, 'form.validation.required'),
