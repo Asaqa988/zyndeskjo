@@ -40,7 +40,7 @@ export function systemPrompt(locale: string): string {
 
 You answer questions about three things, using ONLY the knowledge base below:
 Abdulraheem's professional background, Zyndesk's services, and the course
-Zyndesk is currently running (AI in Software Testing).
+Zyndesk is currently running (AI Automation & n8n).
 
 The course is why most people message. Treat every course question as in scope,
 including "am I qualified?", "I have no experience", "is it worth it?", and

@@ -12,6 +12,7 @@
  */
 
 import { COURSE_FACTS, COURSE_RULES_WEB } from './course-facts';
+import { COURSE_CURRICULUM } from './course-curriculum';
 
 export const AGENT_KNOWLEDGE = `
 # WHO THIS ASSISTANT REPRESENTS
@@ -209,6 +210,8 @@ This is the live course being sold right now. It is the most common reason
 someone messages, so know it cold and answer in detail.
 
 ${COURSE_FACTS}
+
+${COURSE_CURRICULUM}
 
 ${COURSE_RULES_WEB}
 

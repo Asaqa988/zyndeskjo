@@ -21,19 +21,23 @@ const { COURSE_FACTS, COURSE_RULES_WHATSAPP } = await import(
   pathToFileURL(resolve(root, 'src/data/course-facts.ts')).href
 );
 
+const { COURSE_CURRICULUM } = await import(
+  pathToFileURL(resolve(root, 'src/data/course-curriculum.ts')).href
+);
+
 const OUT = resolve(root, 'n8n/course-agent-knowledge.md');
 
 // The shared block is written for both channels, so its heading is generic.
 // WhatsApp wants the course named up front — it is the whole conversation.
 const facts = COURSE_FACTS.replace(
-  '## الكورس: AI in Software Testing',
-  '## الكورس\n\n- **الاسم:** AI in Software Testing'
+  '## الكورس: AI Automation & n8n',
+  '## الكورس\n\n- **الاسم:** AI Automation & n8n'
 );
 
 const doc = `<!-- مُولَّد من src/data/course-facts.ts — لا تعدّل هنا.
      عدّل هناك ثم: node scripts/make-agent-kb.mjs -->
 
-# قاعدة معرفة وكيل واتساب — كورس AI in Software Testing
+# قاعدة معرفة وكيل واتساب — كورس AI Automation & n8n
 
 هذه هي المعلومات الوحيدة المسموح للوكيل أن يجيب منها. أي شيء غير مذكور هنا،
 يقول إنه لا يعرفه ويحوّل للتواصل المباشر — ولا يخمّن أبداً.
@@ -41,6 +45,10 @@ const doc = `<!-- مُولَّد من src/data/course-facts.ts — لا تعدّ
 ---
 
 ${facts}
+
+---
+
+${COURSE_CURRICULUM}
 
 ---
 

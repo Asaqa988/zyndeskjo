@@ -1,5 +1,5 @@
 {
-  "name": "WhatsApp — AI in Software Testing",
+  "name": "WhatsApp — AI Automation & n8n",
   "nodes": [
     {
       "parameters": {
@@ -91,7 +91,7 @@
     },
     {
       "parameters": {
-        "jsCode": "// The whole prompt in one place.\n//\n// Paste the contents of course-agent-knowledge.md into KNOWLEDGE below. It is\n// inlined rather than fetched so the agent cannot answer from a stale or\n// half-loaded copy — the knowledge either ships with the workflow or it does\n// not run.\nconst KNOWLEDGE = `PASTE course-agent-knowledge.md HERE`;\n\nconst d = $json;\n\nconst system = `أنت مساعد تسجيل لكورس «AI in Software Testing» من Zyndesk، تردّ على واتساب.\n\n${d.seatLine}\n\nأجب حصراً من قاعدة المعرفة التالية. أي شيء غير موجود فيها، قل إنك ستتحقق وحوّل\nللتواصل المباشر على 0797700235. لا تخترع شيئاً أبداً.\n\nأعِد JSON فقط بهذا الشكل، بلا أي نص خارجه:\n{\n  \"reply\": \"ردّك للطالب\",\n  \"intent\": \"info\" | \"register\" | \"payment\" | \"other\",\n  \"lead\": { \"name\": \"\", \"phone\": \"\", \"email\": \"\" } أو null\n}\n\nقواعد النية:\n- intent = \"register\" فقط عندما يطلب الطالب التسجيل صراحةً.\n- عند طلب التسجيل، لا تُعِد شرح الكورس. اطلب مباشرةً: الاسم الكامل، رقم الهاتف،\n  الإيميل.\n- املأ \"lead\" فقط عندما تكون الحقول الثلاثة قد وصلتك فعلاً. إن نقص أيها،\n  اجعل lead = null واطلب الناقص فقط.\n- لا تطلب أبداً بيانات بطاقة أو حساب بنكي.\n\nقاعدة المعرفة:\n${KNOWLEDGE}`;\n\nreturn [{ json: { ...d, system } }];"
+        "jsCode": "// The whole prompt in one place.\n//\n// Paste the contents of course-agent-knowledge.md into KNOWLEDGE below. It is\n// inlined rather than fetched so the agent cannot answer from a stale or\n// half-loaded copy — the knowledge either ships with the workflow or it does\n// not run.\nconst KNOWLEDGE = `PASTE course-agent-knowledge.md HERE`;\n\nconst d = $json;\n\nconst system = `أنت مساعد تسجيل لكورس «AI Automation & n8n» من Zyndesk، تردّ على واتساب.\n\n${d.seatLine}\n\nأجب حصراً من قاعدة المعرفة التالية. أي شيء غير موجود فيها، قل إنك ستتحقق وحوّل\nللتواصل المباشر على 0797700235. لا تخترع شيئاً أبداً.\n\nأعِد JSON فقط بهذا الشكل، بلا أي نص خارجه:\n{\n  \"reply\": \"ردّك للطالب\",\n  \"intent\": \"info\" | \"register\" | \"payment\" | \"other\",\n  \"lead\": { \"name\": \"\", \"phone\": \"\", \"email\": \"\" } أو null\n}\n\nقواعد النية:\n- intent = \"register\" فقط عندما يطلب الطالب التسجيل صراحةً.\n- عند طلب التسجيل، لا تُعِد شرح الكورس. اطلب مباشرةً: الاسم الكامل، رقم الهاتف،\n  الإيميل.\n- املأ \"lead\" فقط عندما تكون الحقول الثلاثة قد وصلتك فعلاً. إن نقص أيها،\n  اجعل lead = null واطلب الناقص فقط.\n- لا تطلب أبداً بيانات بطاقة أو حساب بنكي.\n\nقاعدة المعرفة:\n${KNOWLEDGE}`;\n\nreturn [{ json: { ...d, system } }];"
       },
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
@@ -168,7 +168,7 @@
             "email": "={{ $json.lead.email }}",
             "whatsapp": "={{ $json.from }}",
             "status": "pending",
-            "course": "AI in Software Testing",
+            "course": "AI Automation & n8n",
             "source": "whatsapp-agent"
           }
         },
