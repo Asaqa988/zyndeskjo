@@ -1,4 +1,5 @@
 import type { Tutorial } from '@/components/tutorial/types';
+import { TARGET_ROUTES } from './targets';
 
 /**
  * The first-run tour.
@@ -96,7 +97,7 @@ export const onboardingTutorial: Tutorial = {
     {
       id: 'lessons',
       target: 'lesson-list',
-      route: '/learn/modules/apis-and-webhooks',
+      route: TARGET_ROUTES['lesson-list'],
       duration: 7000,
       title: { en: 'Inside a module', ar: 'جوّا الوحدة' },
       message: {

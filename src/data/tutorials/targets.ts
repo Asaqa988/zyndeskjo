@@ -11,6 +11,18 @@
  * after the component that happens to render it.
  */
 
+import { currentModule } from '@/data/course/course';
+
+/**
+ * The module the tour opens to show a lesson list.
+ *
+ * Derived rather than written down: a hand-typed slug survives happily in this
+ * file after the module it names has been renamed or removed, and the only
+ * symptom is a 404 in the middle of the tour — which is where a first-time
+ * visitor meets it. Following the course data means the two cannot disagree.
+ */
+const LESSON_LIST_ROUTE = `/learn/modules/${currentModule.slug}`;
+
 export const TUTORIAL_TARGETS = [
   // Dashboard
   'student-dashboard',
@@ -58,7 +70,7 @@ export const TARGET_ROUTES: Partial<Record<TutorialTargetId, string>> = {
   'course-overview': '/learn/course',
   'learning-path': '/learn/path',
   'modules-grid': '/learn/modules',
-  'lesson-list': '/learn/modules/apis-and-webhooks',
+  'lesson-list': LESSON_LIST_ROUTE,
 
   labs: '/learn/labs',
   'ai-playground': '/learn/playground',
