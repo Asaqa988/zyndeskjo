@@ -23,6 +23,8 @@
   "nav": {
     "home": "Home",
     "learn": "Course & platform",
+    "whyAiAutomation": "Why this field?",
+    "afterTheCourse": "After the course",
     "whatYouBuild": "What you'll build",
     "services": "Services",
     "training": "Training",
@@ -97,6 +99,14 @@
     "whatYouBuild": {
       "title": "What you'll build in the course",
       "description": "Real systems you build yourself during the AI Automation & n8n course — from product image processing to CV analysis and lead qualification."
+    },
+    "whyAiAutomation": {
+      "title": "Why learn AI Automation?",
+      "description": "Why this field is worth your time in 2026, who it is for, and the difference between using AI and building a system that acts for you."
+    },
+    "afterTheCourse": {
+      "title": "After the course",
+      "description": "What you can do once you know n8n and AI, which career paths exist, and how to turn the skill into a service you sell."
     }
   },
   "hero": {
@@ -1134,6 +1144,20 @@
         "subtitle": "Not theory — complete systems that come out of your own hands, to use yourself or sell as a service."
       },
       "enlarge": "Click to enlarge"
+    },
+    "whyAiAutomation": {
+      "hero": {
+        "badge": "Before you decide",
+        "title": "Why AI Automation?",
+        "subtitle": "The difference between asking AI a question and building a system that does the work — and who this field is actually for."
+      }
+    },
+    "afterTheCourse": {
+      "hero": {
+        "badge": "What then?",
+        "title": "After the course",
+        "subtitle": "From an idea to a working system, and from a skill to a service you offer a client."
+      }
     }
   },
   "notFound": {

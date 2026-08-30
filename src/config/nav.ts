@@ -8,8 +8,12 @@
  */
 export const navLinks = [
   { href: '/', label: 'home' },
+  // Ordered the way someone decides: why the field, then what it looks like,
+  // then what they build, then what comes after, then how to reach you.
+  { href: '/why-ai-automation', label: 'whyAiAutomation' },
   { href: '/learn', label: 'learn' },
   { href: '/what-you-build', label: 'whatYouBuild' },
+  { href: '/after-the-course', label: 'afterTheCourse' },
   { href: '/contact', label: 'contact' },
   // Unlinked for now:
   // { href: '/services', label: 'services' },
