@@ -9,6 +9,7 @@
 export const navLinks = [
   { href: '/', label: 'home' },
   { href: '/learn', label: 'learn' },
+  { href: '/what-you-build', label: 'whatYouBuild' },
   { href: '/contact', label: 'contact' },
   // Unlinked for now:
   // { href: '/services', label: 'services' },

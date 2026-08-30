@@ -23,6 +23,7 @@
   "nav": {
     "home": "Home",
     "learn": "Course & platform",
+    "whatYouBuild": "What you'll build",
     "services": "Services",
     "training": "Training",
     "aiSolutions": "AI Solutions",
@@ -92,6 +93,10 @@
     "terms": {
       "title": "Terms & Conditions",
       "description": "The terms that govern the use of the Zyndesk Jo website and services."
+    },
+    "whatYouBuild": {
+      "title": "What you'll build in the course",
+      "description": "Real systems you build yourself during the AI Automation & n8n course — from product image processing to CV analysis and lead qualification."
     }
   },
   "hero": {
@@ -1121,6 +1126,14 @@
           }
         }
       }
+    },
+    "whatYouBuild": {
+      "hero": {
+        "badge": "The course",
+        "title": "What you'll build in the course",
+        "subtitle": "Not theory — complete systems that come out of your own hands, to use yourself or sell as a service."
+      },
+      "enlarge": "Click to enlarge"
     }
   },
   "notFound": {
