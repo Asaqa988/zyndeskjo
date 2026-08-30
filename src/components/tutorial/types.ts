@@ -102,9 +102,3 @@ export type TutorialEvent =
   | { type: 'REPLAY' }
   | { type: 'COMPLETE' };
 
-/** What we keep between visits. */
-export interface PersistedTutorial {
-  status: 'completed' | 'exited';
-  version: number;
-  lastStep: number;
-}

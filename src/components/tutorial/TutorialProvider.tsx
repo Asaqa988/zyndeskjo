@@ -16,11 +16,11 @@ import { useLocale } from 'next-intl';
 import { TUTORIAL_TARGETS, type TutorialTargetId } from '@/data/tutorials/targets';
 import { initialState, isLive, reduce } from './machine';
 import { useNarration } from './useNarration';
-import type { PersistedTutorial, Tutorial, TutorialEvent, TutorialState, TutorialStep } from './types';
+import type { Tutorial, TutorialEvent, TutorialState, TutorialStep } from './types';
 
 /**
  * Hosts the tour: owns the machine, resolves targets, drives navigation and
- * step timing, and persists whether the student has seen it.
+ * step timing, and offers the tour on arrival.
  *
  * The engine deliberately does the *least* it can: it resolves an id to an
  * element and reports the rect. Painting is the overlay's job, and what the
@@ -42,8 +42,6 @@ interface TutorialContextValue {
   rect: TargetRect | null;
   total: number;
   send: (event: TutorialEvent) => void;
-  /** True once the student has finished or dismissed this version. */
-  seen: boolean;
   /** The tutor's voice, for the avatar to lip-sync against. */
   narrationStream: MediaStream | null;
 }
@@ -54,10 +52,6 @@ export function useTutorial(): TutorialContextValue {
   const ctx = useContext(TutorialContext);
   if (!ctx) throw new Error('useTutorial must be used inside <TutorialProvider>');
   return ctx;
-}
-
-function storageKey(id: string) {
-  return `zyn.tutorial.${id}`;
 }
 
 export function TutorialProvider({
@@ -79,7 +73,6 @@ export function TutorialProvider({
 
   const narration = useNarration(locale);
   const [rect, setRect] = useState<TargetRect | null>(null);
-  const [seen, setSeen] = useState(true); // assume seen until storage says otherwise
   const advanceTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   const step = isLive(state) ? tutorial.steps[state.index] ?? null : null;
@@ -92,59 +85,34 @@ export function TutorialProvider({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [state.status]);
 
-  /* ── persistence ──────────────────────────────────────────────────────── */
-
-  useEffect(() => {
-    try {
-      const raw = window.localStorage.getItem(storageKey(tutorial.id));
-      if (!raw) {
-        setSeen(false);
-        return;
-      }
-      const saved = JSON.parse(raw) as PersistedTutorial;
-      // A newer version of the tour is worth showing again.
-      setSeen(saved.version >= tutorial.version);
-    } catch {
-      setSeen(false);
-    }
-  }, [tutorial.id, tutorial.version]);
-
-  useEffect(() => {
-    if (state.status !== 'completed' && state.status !== 'exited') return;
-    try {
-      const payload: PersistedTutorial = {
-        status: state.status,
-        version: tutorial.version,
-        lastStep: state.index,
-      };
-      window.localStorage.setItem(storageKey(tutorial.id), JSON.stringify(payload));
-      setSeen(true);
-    } catch {
-      /* private mode — the tour simply offers itself again next visit */
-    }
-  }, [state.status, state.index, tutorial.id, tutorial.version]);
-
-  /* ── first visit ──────────────────────────────────────────────────────── */
+  /* ── the offer ────────────────────────────────────────────────────────── */
 
   /**
-   * Offer the tour on arrival.
+   * Offer the tour whenever someone arrives.
    *
-   * This lives here rather than in TutorialLauncher because the launcher sits
+   * Every arrival, not only the first: the platform is a preview of a course
+   * being sold, so most people reaching it are seeing it for the first time
+   * even if this browser has been here before, and the walkthrough is the
+   * point of the page rather than an onboarding chore to get past.
+   *
+   * "Every arrival" means every fresh load of the platform. Moving between
+   * its screens does not re-ask, because this provider lives in the /learn
+   * layout and stays mounted across those navigations — including the ones
+   * the tour itself performs.
+   *
+   * It lives here rather than in TutorialLauncher because the launcher sits
    * inside the sidebar, and the sidebar only renders from `lg` up — so on a
-   * phone the offer never appeared at all. The provider mounts at every size.
-   *
-   * `seen` starts as null while storage is read; waiting for a real boolean
-   * keeps a returning student from being ambushed for a frame.
+   * phone the offer never appeared at all.
    */
   const offered = useRef(false);
 
   useEffect(() => {
-    if (seen !== false || offered.current || state.status !== 'idle') return;
+    if (offered.current || state.status !== 'idle') return;
     offered.current = true;
     // A beat after paint, so the platform is visibly there before she asks.
     const id = window.setTimeout(() => send({ type: 'START' }), 900);
     return () => window.clearTimeout(id);
-  }, [seen, state.status, send]);
+  }, [state.status, send]);
 
   /* ── dev-only: catch steps pointing at nothing ────────────────────────── */
 
@@ -285,8 +253,8 @@ export function TutorialProvider({
   }, [state, send, locale]);
 
   const value = useMemo(
-    () => ({ tutorial, state, step, rect, total, send, seen, narrationStream: narration.stream }),
-    [tutorial, state, step, rect, total, send, seen, narration.stream]
+    () => ({ tutorial, state, step, rect, total, send, narrationStream: narration.stream }),
+    [tutorial, state, step, rect, total, send, narration.stream]
   );
 
   return <TutorialContext.Provider value={value}>{children}</TutorialContext.Provider>;
