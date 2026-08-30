@@ -1,6 +1,7 @@
 'use client';
 
 import { useCallback, useRef, useState } from 'react';
+import { spellNumbersForSpeech } from './speech';
 
 /**
  * Browser side of the voice channel.
@@ -81,20 +82,27 @@ export function useVoiceCall(locale: string) {
   }, []);
 
   /** Ask the model to speak a specific piece of text, verbatim. */
-  const speak = useCallback((text: string) => {
-    const dc = dcRef.current;
-    if (!dc || dc.readyState !== 'open') return;
-    pendingCreatesRef.current += 1;
-    busyRef.current = true;
-    dc.send(
-      JSON.stringify({
-        type: 'response.create',
-        response: {
-          instructions: `Say exactly this, naturally and without adding anything: ${text}`,
-        },
-      })
-    );
-  }, []);
+  const speak = useCallback(
+    (text: string) => {
+      const dc = dcRef.current;
+      if (!dc || dc.readyState !== 'open') return;
+
+      // Digits read right on screen and wrong in the ear — see speech.ts.
+      const spoken = spellNumbersForSpeech(text, locale);
+
+      pendingCreatesRef.current += 1;
+      busyRef.current = true;
+      dc.send(
+        JSON.stringify({
+          type: 'response.create',
+          response: {
+            instructions: `Say exactly this, naturally and without adding anything: ${spoken}`,
+          },
+        })
+      );
+    },
+    [locale]
+  );
 
   /** Visitor asked something — resolve it against the knowledge core, then speak it. */
   const handleQuestion = useCallback(
