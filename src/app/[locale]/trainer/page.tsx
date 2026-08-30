@@ -158,36 +158,39 @@ export default async function TrainerPage({
           <section className="flex flex-col gap-6">
             <h2 className="text-2xl font-bold text-ink">{pick(trainer.experience.title, locale)}</h2>
 
-            <ol className="relative flex flex-col gap-7 ps-7">
+            {/* The spine sits outside the list: <ol> may only contain <li>. */}
+            <div className="relative">
               <span
                 aria-hidden
                 className="absolute bottom-2 start-[5px] top-2 w-px bg-gradient-to-b from-navy/35 to-cyan/35"
               />
-              {trainer.experience.items.map((job) => (
-                <li key={`${job.org.en}-${job.period.en}`} className="relative">
-                  <span
-                    aria-hidden
-                    className="absolute -start-7 top-1.5 h-[11px] w-[11px] rounded-full bg-navy ring-4 ring-white/70"
-                  />
-                  <p className="text-base font-bold text-ink">{pick(job.role, locale)}</p>
-                  <p className="text-sm text-navy-medium">{pick(job.org, locale)}</p>
-                  <p className="mt-0.5 text-xs tabular-nums text-navy-soft">
-                    {pick(job.period, locale)}
-                  </p>
-                  <ul className="mt-2.5 flex flex-col gap-1.5">
-                    {job.points.map((point, i) => (
-                      <li
-                        key={i}
-                        className="flex items-start gap-2 text-[14px] leading-relaxed text-navy-medium"
-                      >
-                        <Icon name="Check" size={15} className="mt-0.5 shrink-0 text-cyan" />
-                        <span>{pick(point, locale)}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </li>
-              ))}
-            </ol>
+              <ol className="flex flex-col gap-7 ps-7">
+                {trainer.experience.items.map((job) => (
+                  <li key={`${job.org.en}-${job.period.en}`} className="relative">
+                    <span
+                      aria-hidden
+                      className="absolute -start-7 top-1.5 h-[11px] w-[11px] rounded-full bg-navy ring-4 ring-white/70"
+                    />
+                    <p className="text-base font-bold text-ink">{pick(job.role, locale)}</p>
+                    <p className="text-sm text-navy-medium">{pick(job.org, locale)}</p>
+                    <p className="mt-0.5 text-xs tabular-nums text-navy-soft">
+                      {pick(job.period, locale)}
+                    </p>
+                    <ul className="mt-2.5 flex flex-col gap-1.5">
+                      {job.points.map((point, i) => (
+                        <li
+                          key={i}
+                          className="flex items-start gap-2 text-[14px] leading-relaxed text-navy-medium"
+                        >
+                          <Icon name="Check" size={15} className="mt-0.5 shrink-0 text-cyan" />
+                          <span>{pick(point, locale)}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </li>
+                ))}
+              </ol>
+            </div>
           </section>
 
           <section className="flex flex-col gap-4">

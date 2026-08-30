@@ -141,22 +141,27 @@ function Block({ block, locale }: { block: PitchBlock; locale: string }) {
 
   // A sequence — numbered, because the order is the whole point.
   return (
-    <ol className="relative flex max-w-[46ch] flex-col gap-3 ps-8">
+    // The spine sits outside the list: <ol> may only contain <li>, and a
+    // stranded <span> is both invalid and something a screen reader has to
+    // reconcile mid-list.
+    <div className="relative max-w-[46ch]">
       <span
         aria-hidden
         className="absolute bottom-3 start-[13px] top-3 w-px bg-gradient-to-b from-navy/40 to-cyan/40"
       />
-      {block.steps.map((step, i) => (
-        <li key={i} className="relative text-[15px] font-medium leading-relaxed text-ink">
-          <span
-            aria-hidden
-            className="absolute -start-8 top-0.5 inline-flex h-[27px] w-[27px] items-center justify-center rounded-full bg-navy text-[11px] font-bold tabular-nums text-white"
-          >
-            {i + 1}
-          </span>
-          {pick(step, locale)}
-        </li>
-      ))}
-    </ol>
+      <ol className="flex flex-col gap-3 ps-8">
+        {block.steps.map((step, i) => (
+          <li key={i} className="relative text-[15px] font-medium leading-relaxed text-ink">
+            <span
+              aria-hidden
+              className="absolute -start-8 top-0.5 inline-flex h-[27px] w-[27px] items-center justify-center rounded-full bg-navy text-[11px] font-bold tabular-nums text-white"
+            >
+              {i + 1}
+            </span>
+            {pick(step, locale)}
+          </li>
+        ))}
+      </ol>
+    </div>
   );
 }
