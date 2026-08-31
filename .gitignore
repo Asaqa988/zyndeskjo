@@ -13,3 +13,8 @@ next-env.d.ts
 
 # Raw headshot used to derive public/avatar frames — not served, not shipped.
 avatar-source.jpg
+
+# Original un-cropped testimonial screenshots — names and photos visible.
+# Never publish these; public/testimonials holds the cropped set.
+.private/
+.sheets/

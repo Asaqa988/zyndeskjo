@@ -112,6 +112,10 @@
     "trainer": {
       "title": "Know your trainer",
       "description": "Abdulraheem Alsaka — 12+ years in quality engineering and AI automation, and an instructor at four Jordanian universities and institutes."
+    },
+    "feedback": {
+      "title": "Student feedback",
+      "description": "Messages from former students after they were hired — from QA and software testing courses taught by Abdulraheem Alsaka."
     }
   },
   "hero": {
@@ -1171,7 +1175,22 @@
         "subtitle": "Who will be teaching you, and what he has actually built before coming to teach you to build it."
       },
       "cv": "Download the CV (PDF)",
-      "certifications": "Certifications"
+      "certifications": "Certifications",
+      "feedback": {
+        "title": "What his students say",
+        "lead": "Not written testimonials — screenshots of messages he received, most of them after the student signed a job offer.",
+        "seeAll": "See all feedback ({count})",
+        "imageAlt": "Message from a former student"
+      }
+    },
+    "feedback": {
+      "hero": {
+        "badge": "Proof",
+        "title": "Student feedback",
+        "subtitle": "{count} messages from former students, most of them after signing a job contract."
+      },
+      "note": "These are messages sent to him by students of earlier courses. Names and photos are cropped out — several asked for exactly that. Click any image to see it full size.",
+      "imageAlt": "Message from a former student"
     }
   },
   "notFound": {

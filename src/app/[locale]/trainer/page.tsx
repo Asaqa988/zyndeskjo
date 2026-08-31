@@ -4,10 +4,13 @@ import type { Metadata } from 'next';
 import Image from 'next/image';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { pageMetadata } from '@/lib/seo';
+import { Link } from '@/i18n/navigation';
 import { PageHero } from '@/components/layout/PageHero';
 import { BreadcrumbSchema } from '@/components/seo/JsonLd';
 import { Icon } from '@/components/ui/Icon';
+import { TestimonialGrid } from '@/components/testimonials/TestimonialGrid';
 import { trainer } from '@/data/trainer';
+import { testimonials } from '@/data/testimonials';
 import { pick } from '@/data/course/types';
 
 export async function generateMetadata({
@@ -191,6 +194,25 @@ export default async function TrainerPage({
                 ))}
               </ol>
             </div>
+          </section>
+
+          {/* What his students said afterwards — the strongest thing on the page,
+              so it sits above the credentials rather than below them. */}
+          <section className="flex flex-col gap-5">
+            <h2 className="text-2xl font-bold text-ink">{t('feedback.title')}</h2>
+            <p className="max-w-[68ch] text-[15px] leading-relaxed text-navy-medium">
+              {t('feedback.lead')}
+            </p>
+
+            <TestimonialGrid limit={8} label={t('feedback.imageAlt')} />
+
+            <Link
+              href="/trainer/feedback"
+              className="inline-flex w-fit items-center gap-2 rounded-pill bg-navy px-5 py-2.5 text-sm font-semibold text-white transition hover:bg-navy-medium"
+            >
+              {t('feedback.seeAll', { count: testimonials.length })}
+              <Icon name={locale === 'ar' ? 'ArrowLeft' : 'ArrowRight'} size={16} />
+            </Link>
           </section>
 
           <section className="flex flex-col gap-4">
