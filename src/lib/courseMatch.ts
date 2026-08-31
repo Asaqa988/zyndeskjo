@@ -5,14 +5,16 @@ import type { CvAnalysis } from '@/lib/cvAnalysis';
 /**
  * Whether the course actually covers what a CV was found to be missing.
  *
- * The point of this file is to be able to say no.
+ * This decides which pitch the visitor gets, never whether they get one.
+ * Everybody is invited — the course has no prerequisites. What has to be
+ * earned is the specific claim.
  *
  * Most people who use the CV checker are applying for jobs the course has
  * nothing to do with — a React role, a DevOps role — and their gaps will be
  * Kubernetes and AWS. Telling that person "our course fills your gaps" is a
  * lie they can disprove by clicking through to the syllabus, and it costs more
- * than the sale is worth. So the match has to be real before anything is
- * offered, and a weak overlap is treated as no overlap.
+ * than the sale is worth. So a weak overlap is treated as no overlap, and the
+ * offer falls back to what the course is on its own terms.
  *
  * Matching is deliberately narrow: a term counts only if it appears in a
  * module's own stack or lesson titles. No synonyms, no "automation-adjacent"
@@ -54,10 +56,10 @@ export interface CourseMatch {
   /** The modules that cover them, in course order. */
   modules: Module[];
   /**
-   * True when the overlap is substantial enough to mention the course at all.
-   * Below this we say nothing rather than stretch.
+   * True when the overlap is substantial enough to claim the course fills
+   * their gaps. Below this the offer is made without the claim.
    */
-  worthOffering: boolean;
+  coversTheirGaps: boolean;
 }
 
 export function matchAgainstCourse(analysis: CvAnalysis): CourseMatch {
@@ -85,12 +87,12 @@ export function matchAgainstCourse(analysis: CvAnalysis): CourseMatch {
      * what was missing.
      *
      * Counting modules instead was wrong: "n8n" appears in six of them, so a
-     * DevOps candidate whose gaps were Kubernetes, AWS and n8n was shown the
-     * course on the strength of one term out of three. The share matters, not
-     * the reach — one gap out of three is not a course that fits, while a
-     * single gap that is the only gap is.
+     * DevOps candidate whose gaps were Kubernetes, AWS and n8n was told the
+     * course filled them on the strength of one term out of three. The share
+     * matters, not the reach — one gap out of three is not a course that fits,
+     * while a single gap that is the only gap is.
      */
-    worthOffering:
+    coversTheirGaps:
       covered.length >= 2 || (wanted.length > 0 && covered.length / wanted.length >= 0.5),
   };
 }

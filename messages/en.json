@@ -1246,7 +1246,9 @@
         "emailSubmit": "Send me the details",
         "emailNote": "One message from Abdulraheem with the dates, the fee and the syllabus. No mailing list.",
         "sent": "Done — it should arrive within a few minutes.",
-        "emailError": "We could not send that. Please try again shortly."
+        "emailError": "We could not send that. Please try again shortly.",
+        "generalTitle": "The first automation you build can be the first thing you sell",
+        "generalLead": "AI Automation & n8n teaches you to build real automation systems for businesses and sell them as a service. From zero, no coding background, 66 hours live online. Here are the first four modules:"
       }
     },
     "courseInfo": {

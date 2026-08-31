@@ -5,29 +5,32 @@ import { useLocale, useTranslations } from 'next-intl';
 import { Link } from '@/i18n/navigation';
 import { Icon } from '@/components/ui/Icon';
 import { matchAgainstCourse } from '@/lib/courseMatch';
+import { course } from '@/data/course/course';
 import { pick } from '@/data/course/types';
 import type { CvAnalysis } from '@/lib/cvAnalysis';
 
 type SendState = 'idle' | 'sending' | 'sent' | 'error';
 
 /**
- * What to say after the report, if there is anything honest to say.
+ * The invitation that follows the report.
  *
- * Shown only when the syllabus genuinely covers what the CV was missing — see
- * courseMatch.ts. For the many visitors applying to roles the course has
- * nothing to do with, this renders nothing at all, which is the correct
- * outcome: the tool is useful on its own, and a pitch that does not fit costs
- * more than it earns.
+ * Everyone gets one — the course has no prerequisites, so there is no visitor
+ * it genuinely excludes, and staying silent just loses the ones whose CV did
+ * not happen to use our vocabulary.
+ *
+ * What changes is the claim. When the syllabus really covers what the CV was
+ * missing (see courseMatch.ts) it says so and names the gaps; when it does
+ * not, it pitches the course on its own merits and claims nothing about their
+ * gaps. What it never does is tell someone the course is not for them.
  */
 export function CourseBridge({ analysis }: { analysis: CvAnalysis }) {
   const t = useTranslations('pages.cvCheck.bridge');
   const locale = useLocale();
   const match = matchAgainstCourse(analysis);
+  const fits = match.coversTheirGaps;
 
   const [email, setEmail] = useState('');
   const [state, setState] = useState<SendState>('idle');
-
-  if (!match.worthOffering) return null;
 
   async function send(e: React.FormEvent) {
     e.preventDefault();
@@ -50,13 +53,15 @@ export function CourseBridge({ analysis }: { analysis: CvAnalysis }) {
     <div className="glass glass-strong flex flex-col gap-5 rounded-glass border-s-4 border-s-cyan p-6 sm:p-8">
       <div className="flex flex-col gap-2">
         <h3 className="text-lg font-bold text-ink">
-          {t('title', { count: match.covered.length })}
+          {fits ? t('title', { count: match.covered.length }) : t('generalTitle')}
         </h3>
-        <p className="max-w-[68ch] text-[15px] leading-relaxed text-navy-medium">{t('lead')}</p>
+        <p className="max-w-[68ch] text-[15px] leading-relaxed text-navy-medium">
+          {fits ? t('lead') : t('generalLead')}
+        </p>
       </div>
 
       <ul className="flex flex-wrap gap-2">
-        {match.modules.slice(0, 4).map((m) => (
+        {(fits ? match.modules : course.modules).slice(0, 4).map((m) => (
           <li
             key={m.id}
             className="rounded-pill border border-navy-ice bg-white/60 px-3.5 py-1.5 text-[13px] font-medium text-navy"
