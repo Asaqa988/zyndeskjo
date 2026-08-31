@@ -5,13 +5,17 @@
       "parameters": {
         "httpMethod": "POST",
         "path": "course-info",
-        "options": {}
+        "options": {},
+        "responseMode": "responseNode"
       },
       "id": "webhook-course-info",
       "name": "Request from the site",
       "type": "n8n-nodes-base.webhook",
       "typeVersion": 2,
-      "position": [-260, 0],
+      "position": [
+        -260,
+        0
+      ],
       "webhookId": "course-info"
     },
     {
@@ -23,7 +27,10 @@
       "name": "Prepare",
       "type": "n8n-nodes-base.code",
       "typeVersion": 2,
-      "position": [-40, 0]
+      "position": [
+        -40,
+        0
+      ]
     },
     {
       "parameters": {
@@ -39,10 +46,13 @@
       "name": "Email the visitor",
       "type": "n8n-nodes-base.gmail",
       "typeVersion": 2.1,
-      "position": [200, -100],
+      "position": [
+        200,
+        -100
+      ],
       "credentials": {
         "gmailOAuth2": {
-          "id": "REPLACE_WITH_YOUR_GMAIL_CREDENTIAL_ID",
+          "id": "",
           "name": "Gmail account"
         }
       }
@@ -61,10 +71,13 @@
       "name": "Notify Abdulraheem",
       "type": "n8n-nodes-base.gmail",
       "typeVersion": 2.1,
-      "position": [200, 100],
+      "position": [
+        200,
+        100
+      ],
       "credentials": {
         "gmailOAuth2": {
-          "id": "REPLACE_WITH_YOUR_GMAIL_CREDENTIAL_ID",
+          "id": "",
           "name": "Gmail account"
         }
       }
@@ -79,25 +92,54 @@
       "name": "Acknowledge",
       "type": "n8n-nodes-base.respondToWebhook",
       "typeVersion": 1,
-      "position": [440, 0]
+      "position": [
+        440,
+        0
+      ]
     }
   ],
   "connections": {
     "Request from the site": {
-      "main": [[{ "node": "Prepare", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "Prepare",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     },
     "Prepare": {
       "main": [
         [
-          { "node": "Email the visitor", "type": "main", "index": 0 },
-          { "node": "Notify Abdulraheem", "type": "main", "index": 0 }
+          {
+            "node": "Email the visitor",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Notify Abdulraheem",
+            "type": "main",
+            "index": 0
+          }
         ]
       ]
     },
     "Email the visitor": {
-      "main": [[{ "node": "Acknowledge", "type": "main", "index": 0 }]]
+      "main": [
+        [
+          {
+            "node": "Acknowledge",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
     }
   },
-  "settings": { "executionOrder": "v1" },
+  "settings": {
+    "executionOrder": "v1"
+  },
   "pinData": {}
 }
