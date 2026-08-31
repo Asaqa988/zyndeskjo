@@ -61,7 +61,10 @@ export async function POST(request: Request) {
       jobDescription = String(body.jobDescription ?? '');
       locale = body.locale === 'en' ? 'en' : 'ar';
     }
-  } catch {
+  } catch (err) {
+    // Log it: this branch covers form parsing and PDF extraction both, and a
+    // silent 400 here is indistinguishable from a malformed request.
+    console.error('[cv] could not read the submission:', err);
     return NextResponse.json({ ok: false, error: 'unreadable_input' }, { status: 400 });
   }
 
