@@ -20,7 +20,7 @@ export const COURSE_FACTS = `
 - **الأيام:** الأحد، الاثنين، الثلاثاء، الأربعاء
 - **الوقت:** ٨:٠٠ – ١٠:٠٠ مساءً بتوقيت الأردن
 - **الطريقة:** أونلاين مباشر عبر Zoom
-- **المدة الإجمالية:** ٦٠ – ٨٠ ساعة
+- **المدة الإجمالية:** ٦٦ ساعة
 - **الرسوم:** ١٣٠ ديناراً أردنياً
 - **المقاعد:** ٣٠ مقعداً لكل دورة
 
@@ -159,8 +159,8 @@ export const COURSE = {
   startsAt: '2026-09-07T20:00:00+03:00',
   feeJod: 130,
   seats: 30,
-  hoursLow: 60,
-  hoursHigh: 80,
+  /** Computed from the syllabus (3955 minutes); keep the two in step. */
+  hours: 66,
   days: { ar: 'الأحد – الأربعاء', en: 'Sunday – Wednesday' },
   time: { ar: '٨:٠٠ – ١٠:٠٠ مساءً', en: '8:00 – 10:00 pm' },
 } as const;
