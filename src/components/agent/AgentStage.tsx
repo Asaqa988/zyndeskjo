@@ -58,6 +58,12 @@ export function AgentStage() {
 
         <div className="flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-sm font-medium">
           <Link
+            href="/course-info"
+            className="font-semibold text-navy underline-offset-4 hover:underline"
+          >
+            {t('stageCourseInfo')}
+          </Link>
+          <Link
             href="/learn"
             className="text-navy-medium underline-offset-4 hover:text-navy hover:underline"
           >

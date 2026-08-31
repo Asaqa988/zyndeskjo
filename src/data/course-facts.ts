@@ -147,3 +147,20 @@ export const COURSE_RULES_WHATSAPP = `
 - لا مبالغات ولا وعود. المعلومات وحدها تكفي.
 - إذا كتب الطالب بالإنجليزية، أجبه بالإنجليزية.
 `.trim();
+
+/**
+ * The same facts the prose above states, in a form code can use.
+ *
+ * The narrative blocks are what the assistants read; a countdown cannot parse
+ * "٧ سبتمبر ٢٠٢٦". Keep the two in step — if the date moves, it moves in both.
+ */
+export const COURSE = {
+  /** First session, Amman time. */
+  startsAt: '2026-09-07T20:00:00+03:00',
+  feeJod: 130,
+  seats: 30,
+  hoursLow: 60,
+  hoursHigh: 80,
+  days: { ar: 'الأحد – الأربعاء', en: 'Sunday – Wednesday' },
+  time: { ar: '٨:٠٠ – ١٠:٠٠ مساءً', en: '8:00 – 10:00 pm' },
+} as const;

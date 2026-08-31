@@ -120,6 +120,10 @@
     "cvCheck": {
       "title": "Check your CV against any job — free",
       "description": "Upload your CV and a job description and see, in seconds, how well you match, what is missing, and exactly what to change. Free, no signup."
+    },
+    "courseInfo": {
+      "title": "Course details — AI Automation & n8n",
+      "description": "AI Automation & n8n starts 7 September 2026. 66 hours, 10 modules, 93 lessons, 130 JOD. Leave your email and the full details arrive."
     }
   },
   "hero": {
@@ -793,7 +797,8 @@
       "consultation": "Consultation",
       "privacy": "Privacy Policy",
       "terms": "Terms & Conditions",
-      "cvCheck": "Check your CV"
+      "cvCheck": "Check your CV",
+      "courseInfo": "Course details"
     },
     "newsletter": {
       "title": "Get occasional insights on AI & automation",
@@ -1243,6 +1248,48 @@
         "sent": "Done — it should arrive within a few minutes.",
         "emailError": "We could not send that. Please try again shortly."
       }
+    },
+    "courseInfo": {
+      "startsIn": "Starts in {days} days",
+      "hero": {
+        "title": "The full course details, by email",
+        "subtitle": "Leave your email and one message arrives with everything: dates, hours, the full syllabus, the fee, and how to enrol."
+      },
+      "facts": {
+        "start": "Start date",
+        "startValue": "7 Sept",
+        "hours": "hours of training",
+        "modules": "modules",
+        "labs": "hands-on labs",
+        "seats": "seats only",
+        "fee": "JOD"
+      },
+      "form": {
+        "label": "Where should the details go?",
+        "placeholder": "name@example.com",
+        "submit": "Send me the details",
+        "note": "One message from Abdulraheem Alsaka. No mailing list, no follow-up spam.",
+        "sentTitle": "Sent.",
+        "sentBody": "The details will reach {email} within a few minutes. If you cannot find it, check your spam folder.",
+        "error": "We could not send that right now. Try again shortly, or reach us on WhatsApp."
+      },
+      "learn": {
+        "title": "What you will learn",
+        "lead": "{lessons} lessons across ten modules, in the order you actually build: from the first time you open n8n to shipping a complete system and selling it as a service."
+      },
+      "included": {
+        "title": "What's included",
+        "live": "Live online sessions over Zoom",
+        "labs": "Hands-on labs you build yourself",
+        "projects": "Two final projects",
+        "recordings": "Recordings that stay yours afterwards",
+        "support": "Support throughout the course",
+        "certificate": "A certificate signed and stamped by Zyndesk"
+      },
+      "closing": {
+        "title": "No prerequisites",
+        "body": "The course is open to everyone — no prior experience, no programming background. If your field is outside IT, you start from the basics and build up."
+      }
     }
   },
   "notFound": {
@@ -1274,7 +1321,8 @@
     "stageChat": "Type instead",
     "stageLearn": "See the course and platform",
     "stageContact": "Or go to the contact page",
-    "stageCv": "Or check your CV, free"
+    "stageCv": "Or check your CV, free",
+    "stageCourseInfo": "Course details"
   },
   "learn": {
     "nav": {
