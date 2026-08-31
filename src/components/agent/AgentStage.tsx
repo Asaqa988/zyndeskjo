@@ -64,6 +64,12 @@ export function AgentStage() {
             {t('stageLearn')}
           </Link>
           <Link
+            href="/cv-check"
+            className="text-navy-medium underline-offset-4 hover:text-navy hover:underline"
+          >
+            {t('stageCv')}
+          </Link>
+          <Link
             href="/contact"
             className="text-navy-medium underline-offset-4 hover:text-navy hover:underline"
           >

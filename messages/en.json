@@ -116,6 +116,10 @@
     "feedback": {
       "title": "Student feedback",
       "description": "Messages from former students after they were hired — from QA and software testing courses taught by Abdulraheem Alsaka."
+    },
+    "cvCheck": {
+      "title": "Check your CV against any job — free",
+      "description": "Upload your CV and a job description and see, in seconds, how well you match, what is missing, and exactly what to change. Free, no signup."
     }
   },
   "hero": {
@@ -788,7 +792,8 @@
       "contact": "Contact",
       "consultation": "Consultation",
       "privacy": "Privacy Policy",
-      "terms": "Terms & Conditions"
+      "terms": "Terms & Conditions",
+      "cvCheck": "Check your CV"
     },
     "newsletter": {
       "title": "Get occasional insights on AI & automation",
@@ -1191,6 +1196,42 @@
       },
       "note": "These are messages sent to him by students of earlier courses. Names and photos are cropped out — several asked for exactly that. Click any image to see it full size.",
       "imageAlt": "Message from a former student"
+    },
+    "cvCheck": {
+      "hero": {
+        "badge": "Free tool",
+        "title": "Check your CV against any job",
+        "subtitle": "Upload your CV and the job description, and see in seconds how well you match, what is missing, and exactly what to change."
+      },
+      "cvLabel": "Your CV",
+      "choosePdf": "Upload a PDF",
+      "removeFile": "Remove file",
+      "cvPlaceholder": "Or paste your CV text here…",
+      "jdLabel": "Job description",
+      "jdPlaceholder": "Paste the job posting you want to apply for…",
+      "submit": "Check the match",
+      "working": "Analysing…",
+      "privacy": "We do not store your CV or the job description. Both are gone the moment the check finishes.",
+      "match": "Match",
+      "breakdown": {
+        "skills": "Skills",
+        "experience": "Experience",
+        "education": "Education",
+        "keywords": "Keywords"
+      },
+      "strengths": "Your strengths",
+      "gaps": "Gaps",
+      "missingKeywords": "Keywords missing from your CV",
+      "recommendations": "What to change",
+      "errors": {
+        "rate_limited": "You have reached today’s limit. Try again tomorrow, or get in touch if you need more.",
+        "cv_too_short": "We could not read your CV. If the file is a scan, paste the text instead.",
+        "jd_too_short": "The job description is too short — paste the whole posting for an accurate check.",
+        "file_too_large": "That file is larger than 5 MB.",
+        "unreadable_input": "We could not read what you sent. Please try again.",
+        "analysis_failed": "Something went wrong during the analysis. Please try again shortly.",
+        "network": "We could not reach the server. Check your connection and try again."
+      }
     }
   },
   "notFound": {
@@ -1221,7 +1262,8 @@
     "stageVoice": "Start a voice call",
     "stageChat": "Type instead",
     "stageLearn": "See the course and platform",
-    "stageContact": "Or go to the contact page"
+    "stageContact": "Or go to the contact page",
+    "stageCv": "Or check your CV, free"
   },
   "learn": {
     "nav": {

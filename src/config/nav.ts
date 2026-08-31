@@ -29,6 +29,7 @@ export const footerColumns = [
   {
     title: 'company',
     links: [
+      { href: '/cv-check', label: 'cvCheck' },
       { href: '/contact', label: 'contact' },
       { href: '/privacy', label: 'privacy' },
       { href: '/terms', label: 'terms' },
