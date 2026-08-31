@@ -76,7 +76,10 @@ export async function POST(request: Request) {
   if (cv.length < 200) {
     return NextResponse.json({ ok: false, error: 'cv_too_short' }, { status: 422 });
   }
-  if (jobDescription.length < 60) {
+  // 60 was far too low. A one-line posting has no requirements in it, so the
+  // model infers what the role probably wants and reports on its own guess —
+  // and the reader cannot tell that is what happened.
+  if (jobDescription.length < 180) {
     return NextResponse.json({ ok: false, error: 'jd_too_short' }, { status: 422 });
   }
 

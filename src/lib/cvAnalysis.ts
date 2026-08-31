@@ -72,8 +72,11 @@ export function normalise(raw: unknown): CvAnalysis {
 function systemPrompt(locale: string): string {
   const language =
     locale === 'ar'
-      ? 'Write every piece of text in Arabic — clear Modern Standard Arabic, addressed to the candidate as "أنت".'
-      : 'Write every piece of text in English, addressed to the candidate as "you".';
+      ? `Write every piece of text in Arabic, in clear Modern Standard Arabic.
+Address the candidate directly. Statements use أنت ("أنت لا تذكر خبرة في…").
+Recommendations are plain imperatives — "أضف قسماً", "أبرِز خبرتك" — never "أنت أضف",
+which is not how the language works.`
+      : 'Write every piece of text in English, addressed to the candidate as "you". Recommendations are plain imperatives: "Add a section", not "You add a section".';
 
   return `You compare a CV against a job description and report how well they match.
 

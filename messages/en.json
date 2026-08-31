@@ -1208,7 +1208,7 @@
       "removeFile": "Remove file",
       "cvPlaceholder": "Or paste your CV text here…",
       "jdLabel": "Job description",
-      "jdPlaceholder": "Paste the job posting you want to apply for…",
+      "jdPlaceholder": "Paste the whole job posting — responsibilities, requirements and skills…",
       "submit": "Check the match",
       "working": "Analysing…",
       "privacy": "We do not store your CV or the job description. Both are gone the moment the check finishes.",
@@ -1226,7 +1226,7 @@
       "errors": {
         "rate_limited": "You have reached today’s limit. Try again tomorrow, or get in touch if you need more.",
         "cv_too_short": "We could not read your CV. If the file is a scan, paste the text instead.",
-        "jd_too_short": "The job description is too short — paste the whole posting for an accurate check.",
+        "jd_too_short": "That job description is too short. Paste the whole posting, requirements and all, so the check is based on the advert rather than a guess.",
         "file_too_large": "That file is larger than 5 MB.",
         "unreadable_input": "We could not read what you sent. Please try again.",
         "analysis_failed": "Something went wrong during the analysis. Please try again shortly.",

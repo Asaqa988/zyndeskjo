@@ -31,7 +31,9 @@ export function CvChecker() {
   const resultRef = useRef<HTMLDivElement>(null);
 
   const file = fileRef.current?.files?.[0];
-  const ready = (fileName || cvText.trim().length > 200) && jd.trim().length > 60;
+  // Mirrors the thresholds in /api/cv. If these drift apart the button enables
+  // on input the server then rejects, which reads as a broken tool.
+  const ready = (fileName || cvText.trim().length >= 200) && jd.trim().length >= 180;
 
   async function submit(e: React.FormEvent) {
     e.preventDefault();
