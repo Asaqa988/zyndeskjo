@@ -1231,6 +1231,17 @@
         "unreadable_input": "We could not read what you sent. Please try again.",
         "analysis_failed": "Something went wrong during the analysis. Please try again shortly.",
         "network": "We could not reach the server. Check your connection and try again."
+      },
+      "bridge": {
+        "title": "The course covers {count} of the gaps that came up",
+        "lead": "AI Automation & n8n covers these specifically — not all of your gaps, but these ones:",
+        "seeCourse": "See what you would build",
+        "emailLabel": "Want the course details by email?",
+        "emailPlaceholder": "Your email",
+        "emailSubmit": "Send me the details",
+        "emailNote": "One message from Abdulraheem with the dates, the fee and the syllabus. No mailing list.",
+        "sent": "Done — it should arrive within a few minutes.",
+        "emailError": "We could not send that. Please try again shortly."
       }
     }
   },

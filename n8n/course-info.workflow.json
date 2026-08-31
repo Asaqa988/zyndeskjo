@@ -1,0 +1,103 @@
+{
+  "name": "Course info — CV check",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "course-info",
+        "options": {}
+      },
+      "id": "webhook-course-info",
+      "name": "Request from the site",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [-260, 0],
+      "webhookId": "course-info"
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForEachItem",
+        "jsCode": "// Everything the two branches below need, in one place.\nconst b = $json.body ?? $json;\n\nconst covered = Array.isArray(b.covered) ? b.covered : [];\n\n// What the CV was missing that the course actually covers. Used to open the\n// email with their situation instead of a form letter.\nconst gapLine = covered.length\n  ? `لاحظنا إنك بتدوّر على: ${covered.join('، ')} — وهدول من صميم الكورس.`\n  : '';\n\nreturn {\n  json: {\n    email: String(b.email || '').trim(),\n    locale: b.locale === 'en' ? 'en' : 'ar',\n    covered,\n    gapLine,\n    receivedAt: b.receivedAt || new Date().toISOString(),\n    source: b.source || 'cv-check',\n  },\n};"
+      },
+      "id": "prepare",
+      "name": "Prepare",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [-40, 0]
+    },
+    {
+      "parameters": {
+        "sendTo": "={{ $json.email }}",
+        "subject": "تفاصيل كورس AI Automation و n8n",
+        "emailType": "text",
+        "message": "={{ 'مرحباً،\\n\\nطلبت تفاصيل الكورس من أداة فحص السيرة الذاتية على zyndeskjo.com — وهي كل التفاصيل:\\n\\n' + ($json.gapLine ? $json.gapLine + '\\n\\n' : '') + 'كورس AI Automation و n8n\\nالمدرّب: المهندس عبدالرحيم السقا\\n\\nالبداية: ٧ سبتمبر ٢٠٢٦\\nالأيام: الأحد، الاثنين، الثلاثاء، الأربعاء\\nالوقت: ٨:٠٠ – ١٠:٠٠ مساءً بتوقيت الأردن\\nالطريقة: أونلاين مباشر عبر Zoom\\nالمدة: ٦٠ – ٨٠ ساعة\\nالرسوم: ١٣٠ ديناراً أردنياً\\nالمقاعد: ٣٠ لكل دورة\\n\\nشو بيتضمّن:\\n· محاضرات مباشرة أونلاين\\n· ٤ مختبرات عملية ومشروعان نهائيان\\n· واجبات وتطبيقات ودعم للطلاب\\n· تسجيلات لكل المحاضرات تبقى متاحة بعد انتهاء الكورس\\n· شهادة موقّعة ومختومة من Zyndesk\\n\\nما في متطلبات ولا خبرة سابقة — الكورس مفتوح للجميع.\\n\\nالمنهاج كامل: https://www.zyndeskjo.com/ar/learn\\nشو رح تبني فعلياً: https://www.zyndeskjo.com/ar/what-you-build\\n\\nللتسجيل أو أي سؤال، ردّ على هالرسالة أو راسلني على واتساب: https://wa.link/4x7mx5\\n\\nعبدالرحيم السقا\\nZyndesk' }}",
+        "options": {
+          "appendAttribution": false
+        }
+      },
+      "id": "email-visitor",
+      "name": "Email the visitor",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [200, -100],
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "REPLACE_WITH_YOUR_GMAIL_CREDENTIAL_ID",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sendTo": "asaqa001@gmail.com",
+        "subject": "=طلب تفاصيل الكورس — {{ $json.email }}",
+        "emailType": "text",
+        "message": "={{ 'حدا طلب تفاصيل الكورس من أداة فحص السيرة الذاتية.\\n\\nالإيميل: ' + $json.email + '\\nالفجوات اللي بيغطيها الكورس: ' + ($json.covered.join('، ') || '—') + '\\nالوقت: ' + $json.receivedAt }}",
+        "options": {
+          "appendAttribution": false
+        }
+      },
+      "id": "notify-owner",
+      "name": "Notify Abdulraheem",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [200, 100],
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "REPLACE_WITH_YOUR_GMAIL_CREDENTIAL_ID",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ JSON.stringify({ ok: true }) }}",
+        "options": {}
+      },
+      "id": "respond",
+      "name": "Acknowledge",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1,
+      "position": [440, 0]
+    }
+  ],
+  "connections": {
+    "Request from the site": {
+      "main": [[{ "node": "Prepare", "type": "main", "index": 0 }]]
+    },
+    "Prepare": {
+      "main": [
+        [
+          { "node": "Email the visitor", "type": "main", "index": 0 },
+          { "node": "Notify Abdulraheem", "type": "main", "index": 0 }
+        ]
+      ]
+    },
+    "Email the visitor": {
+      "main": [[{ "node": "Acknowledge", "type": "main", "index": 0 }]]
+    }
+  },
+  "settings": { "executionOrder": "v1" },
+  "pinData": {}
+}

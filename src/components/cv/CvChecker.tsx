@@ -4,6 +4,7 @@ import { useState, useRef } from 'react';
 import { useLocale, useTranslations } from 'next-intl';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Icon } from '@/components/ui/Icon';
+import { CourseBridge } from './CourseBridge';
 import type { CvAnalysis } from '@/lib/cvAnalysis';
 
 type Status = 'idle' | 'working' | 'done' | 'error';
@@ -174,6 +175,7 @@ export function CvChecker() {
             className="flex flex-col gap-6"
           >
             <Report analysis={analysis} t={t} />
+            <CourseBridge analysis={analysis} />
           </motion.div>
         )}
       </AnimatePresence>
