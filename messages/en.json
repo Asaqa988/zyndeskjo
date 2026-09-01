@@ -138,6 +138,10 @@
     "examplesClinic": {
       "title": "A dental clinic booking assistant — demo",
       "description": "An AI assistant that read a real clinic’s website, answers patient questions, books an appointment and sends a designed email."
+    },
+    "examplesLive": {
+      "title": "What would you automate? — live screen",
+      "description": "A Telegram bot that designs an automation for your job, and a screen that updates live with every message."
     }
   },
   "hero": {
@@ -1355,6 +1359,11 @@
           "title": "Appointment assistant for a dental clinic",
           "body": "The automation read the clinic’s own website, answers patient questions from it, and offers an appointment — and when you accept, a designed email arrives with the details.",
           "tag": "Site read + assistant + email"
+        },
+        "botCard": {
+          "title": "A Telegram bot that designs an automation for your job",
+          "body": "Tell it what you do and it returns a specific automation you could build — the steps and the tools. Every message appears live on the screen.",
+          "tag": "Telegram + AI + live screen"
         }
       },
       "clinic": {
@@ -1407,6 +1416,14 @@
           "body": "The clinic and the doctor are real, and everything here came from the clinic’s site with {doctor}’s permission. But the person receiving the email agreed to nothing — and a message saying \"your appointment is confirmed\" could send someone to a real clinic for an appointment that does not exist. So the email shows exactly what a patient would get, and says what it is. That is also what makes it safe to show any clinic."
         },
         "source": "Information read from {website} on {date}."
+      },
+      "live": {
+        "title": "What would you automate?",
+        "lead": "Open the bot on Telegram and tell it what you do. It sends back an automation built for your work — and this screen updates live with every message.",
+        "counter": "people have tried the bot",
+        "waiting": "Waiting for the first message…",
+        "reconnecting": "Reconnecting",
+        "openBot": "Open the bot on Telegram"
       }
     }
   },

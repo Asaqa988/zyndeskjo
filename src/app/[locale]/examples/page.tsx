@@ -34,6 +34,7 @@ export default async function ExamplesPage({
   const t = await getTranslations('pages.examples.index');
 
   const examples = [
+    { href: '/examples/live', key: 'botCard', icon: 'Send' },
     { href: '/examples/clinic-booking', key: 'clinicCard', icon: 'CalendarDays' },
   ] as const;
 
