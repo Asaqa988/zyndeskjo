@@ -37,12 +37,24 @@ const startsOn = (() => {
   return `${Number(d)}-${Number(m)}-${y}`;
 })();
 
-/** What the bot sends back, ready for Telegram's Markdown. */
-function render(idea: Idea): string {
-  const steps = idea.steps.map((s, i) => `${i + 1}. ${s}`).join('\n');
-  const tools = idea.tools.join(' · ');
+/**
+ * Telegram entities, not Markdown.
+ *
+ * Markdown was the wrong choice for text a model wrote: one stray asterisk or
+ * underscore anywhere in the reply and Telegram rejects the whole message —
+ * "can't find end of the entity" — and the person gets nothing at all. HTML
+ * has three characters to escape, none of which a model writing Arabic
+ * produces by accident, and the tags are ours rather than the model's.
+ */
+const esc = (s: string) =>
+  s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 
-  return `*${idea.title}*
+/** What the bot sends back, as Telegram HTML. */
+function render(idea: Idea): string {
+  const steps = idea.steps.map((s, i) => `${i + 1}. ${esc(s)}`).join('\n');
+  const tools = esc(idea.tools.join(' · '));
+
+  return `<b>${esc(idea.title)}</b>
 
 ${steps}
 
