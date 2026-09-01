@@ -5,8 +5,15 @@ import { takeToken, clientKey } from '@/lib/rateLimit';
 
 export const runtime = 'nodejs';
 
-/** Low on purpose: this endpoint sends mail to whatever address it is given. */
-const DAILY_LIMIT = Number(process.env.CLINIC_BOOK_DAILY_LIMIT ?? 5);
+/**
+ * Bounded on purpose: this endpoint sends mail to whatever address it is
+ * given, and the mail carries a real doctor's name.
+ *
+ * Per visitor, not in total — a room full of people trying the demo are on
+ * their own connections and each get the full allowance. 5 was too tight for
+ * the person doing the demonstrating, who burns through it rehearsing.
+ */
+const DAILY_LIMIT = Number(process.env.CLINIC_BOOK_DAILY_LIMIT ?? 20);
 const EMAIL = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
 const SERVICES: readonly string[] = CLINIC_SERVICES.map((s) => s.name);
 
