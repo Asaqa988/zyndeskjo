@@ -1,5 +1,6 @@
 import { NextResponse } from 'next/server';
 import { takeToken, clientKey } from '@/lib/rateLimit';
+import { countRegistration } from '@/lib/seats';
 
 export const runtime = 'nodejs';
 
@@ -87,5 +88,7 @@ export async function POST(request: Request) {
     return NextResponse.json({ ok: false, error: 'delivery_failed' }, { status: 502 });
   }
 
+  // Only once it is delivered: a seat nobody heard about is not taken.
+  countRegistration();
   return NextResponse.json({ ok: true });
 }

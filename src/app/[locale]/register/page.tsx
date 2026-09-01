@@ -6,6 +6,8 @@ import { Icon } from '@/components/ui/Icon';
 import { RegisterForm } from '@/components/course/RegisterForm';
 import { Countdown } from '@/components/course/CourseInfoForm';
 import { LectureBanner } from '@/components/course/LectureBanner';
+import { SeatCount } from '@/components/course/SeatCount';
+import { TestimonialGrid } from '@/components/testimonials/TestimonialGrid';
 import { course } from '@/data/course/course';
 import { COURSE } from '@/data/course-facts';
 
@@ -60,7 +62,10 @@ export default async function RegisterPage({
         <LectureBanner />
 
         <div className="flex flex-col items-start gap-5">
-          <Countdown />
+          <div className="flex flex-wrap items-center gap-2.5">
+            <Countdown />
+            <SeatCount />
+          </div>
 
           <h1 className="text-4xl font-bold leading-[1.15] text-ink sm:text-5xl">
             {t('hero.title')}
@@ -68,6 +73,11 @@ export default async function RegisterPage({
 
           <p className="max-w-[58ch] text-lg leading-relaxed text-navy-medium">
             {t('hero.subtitle')}
+          </p>
+
+          {/* What they leave with, said once, right where they decide. */}
+          <p className="max-w-[58ch] border-s-[3px] border-s-cyan ps-4 text-[15px] font-semibold leading-relaxed text-ink">
+            {t('outcome')}
           </p>
         </div>
 
@@ -82,6 +92,11 @@ export default async function RegisterPage({
             </li>
           ))}
         </ul>
+
+        <div className="flex flex-col gap-3">
+          <p className="text-sm font-semibold text-navy-medium">{t('proof')}</p>
+          <TestimonialGrid limit={4} label={t('proof')} />
+        </div>
 
         <RegisterForm />
 

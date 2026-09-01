@@ -1348,7 +1348,13 @@
         "sentTitle": "We have your registration.",
         "sentBody": "Abdulraheem will contact you on WhatsApp within a few hours to confirm the seat and arrange payment. Your seat is held until then.",
         "sentWhatsapp": "Or message us on WhatsApp now"
-      }
+      },
+      "seats": {
+        "registered": "{count} registered today",
+        "remaining": "only {count} seats left"
+      },
+      "outcome": "You finish able to build an automation system for a business and sell it as a service — not knowing about it, able to do it.",
+      "proof": "From students of earlier cohorts"
     },
     "examples": {
       "index": {

@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import { buildIdea, fallbackIdea, type Idea } from '@/lib/examples/automationIdea';
 import { record } from '@/lib/examples/liveWall';
 import { COURSE } from '@/data/course-facts';
+import { readSeats } from '@/lib/seats';
 
 export const runtime = 'nodejs';
 export const dynamic = 'force-dynamic';
@@ -51,6 +52,14 @@ const esc = (s: string) =>
 
 /** What the bot sends back, as Telegram HTML. */
 function render(idea: Idea): string {
+  // The real count when there is one, the cap when there is not. Never a
+  // number nobody earned.
+  const seats = readSeats();
+  const seatLine =
+    seats.show === 'scarcity'
+      ? ` · بقي ${seats.remaining} مقاعد بس`
+      : ` · ${COURSE.seats} مقعد`;
+
   const steps = idea.steps.map((s, i) => `${i + 1}. ${esc(s)}`).join('\n');
   const tools = esc(idea.tools.join(' · '));
 
@@ -66,7 +75,7 @@ ${steps}
 
 هاد أتوميشن تقدر تبنيه بنفسك. بالكورس بنبني زيّه من الصفر، خطوة خطوة.
 
-📅 يبدأ ${startsOn} · ${COURSE.hours} ساعة · ${COURSE.feeJod} ديناراً · ${COURSE.seats} مقعد
+📅 يبدأ ${startsOn} · ${COURSE.hours} ساعة · ${COURSE.feeJod} ديناراً${seatLine}
 
 احجز مقعدك 👇
 https://www.zyndeskjo.com/register?utm_source=telegram&utm_medium=bot&utm_campaign=intro-lecture`;
@@ -103,7 +112,7 @@ export async function POST(request: Request) {
       ok: true,
       reply: `أهلاً فيك 👋
 
-اكتبلي *شو بتشتغل* بجملة وحدة — مثلاً "محاسب" أو "عندي محل ملابس" أو "طالب هندسة".
+اكتبلي <b>شو بتشتغل</b> بجملة وحدة — مثلاً "محاسب" أو "عندي محل ملابس" أو "طالب هندسة".
 
 وأنا بقترحلك أتوميشن تقدر تبنيه لشغلك إنت.`,
       counted: false,
