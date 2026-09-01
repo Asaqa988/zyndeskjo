@@ -14,6 +14,7 @@ export const navLinks = [
   { href: '/why-ai-automation', label: 'whyAiAutomation' },
   { href: '/learn', label: 'learn' },
   { href: '/what-you-build', label: 'whatYouBuild' },
+  { href: '/examples', label: 'examples' },
   { href: '/after-the-course', label: 'afterTheCourse' },
   { href: '/contact', label: 'contact' },
   // Unlinked for now:

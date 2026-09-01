@@ -39,7 +39,8 @@
     "cta": "Start Your Project",
     "openMenu": "Open menu",
     "closeMenu": "Close menu",
-    "register": "Reserve a seat"
+    "register": "Reserve a seat",
+    "examples": "Examples"
   },
   "meta": {
     "home": {
@@ -129,6 +130,14 @@
     "register": {
       "title": "Reserve your seat — AI Automation & n8n",
       "description": "Reserve your seat on the AI Automation & n8n course. Starts 7 September 2026, 66 hours, 130 JOD, 30 seats."
+    },
+    "examples": {
+      "title": "Working examples — automation you can try",
+      "description": "Real automation and AI examples you can try yourself, right here."
+    },
+    "examplesClinic": {
+      "title": "A dental clinic booking assistant — demo",
+      "description": "An AI assistant that read a real clinic’s website, answers patient questions, books an appointment and sends a designed email."
     }
   },
   "hero": {
@@ -1335,6 +1344,69 @@
         "sentTitle": "We have your registration.",
         "sentBody": "Abdulraheem will contact you on WhatsApp within a few hours to confirm the seat and arrange payment. Your seat is held until then.",
         "sentWhatsapp": "Or message us on WhatsApp now"
+      }
+    },
+    "examples": {
+      "index": {
+        "title": "Working examples",
+        "subtitle": "Not slides, not a video. Real automations you can try right here, built with the same tools the course teaches.",
+        "tryIt": "Try it",
+        "clinicCard": {
+          "title": "Appointment assistant for a dental clinic",
+          "body": "The automation read the clinic’s own website, answers patient questions from it, and offers an appointment — and when you accept, a designed email arrives with the details.",
+          "tag": "Site read + assistant + email"
+        }
+      },
+      "clinic": {
+        "badge": "Demonstration",
+        "title": "A booking assistant for a real dental clinic",
+        "lead": "This assistant knows nothing except what it read from {doctor}’s clinic website in Khalda. Ask about the services, the doctor or the location, then book an appointment and see what the patient receives.",
+        "subtitle": "Booking assistant — demonstration",
+        "greeting": "Hello 👋 I am the appointment assistant for {doctor}’s clinic. Ask me about the services or where the clinic is, and I can book you an appointment.",
+        "placeholder": "Ask about services, the doctor, the location…",
+        "send": "Send",
+        "chatError": "Something went wrong. Please try again shortly.",
+        "starters": {
+          "q1": "What services do you offer?",
+          "q2": "Where exactly is the clinic?",
+          "q3": "Who is Dr Khaled Al Sayed?"
+        },
+        "booking": {
+          "open": "Book an appointment and see the email",
+          "title": "Book your appointment",
+          "name": "Your name",
+          "email": "Your email",
+          "service": "Service",
+          "submit": "Confirm booking",
+          "note": "This is a demonstration — no real appointment is made and nobody will call you. The email you receive says so plainly.",
+          "error": "We could not send the email. Please try again shortly.",
+          "sentTitle": "The email is on its way.",
+          "sentBody": "Check {email} — it is exactly what a patient of the clinic would receive, marked as a demonstration."
+        },
+        "how": {
+          "title": "How it works",
+          "s1": {
+            "title": "Read the clinic site",
+            "body": "A script reads the clinic’s public pages and pulls out the text: services, doctor, address, phone, patient reviews."
+          },
+          "s2": {
+            "title": "Build the knowledge",
+            "body": "The text is curated into a knowledge file. Anything the site does not publish — prices, opening hours — is written down as unknown."
+          },
+          "s3": {
+            "title": "The assistant answers",
+            "body": "Every question goes to the model with that file and strict rules: answer only from the file, give no medical advice, never guess."
+          },
+          "s4": {
+            "title": "Booking and email",
+            "body": "When the patient accepts, the request goes to n8n, which sends back a designed email with the appointment, the clinic and a map link."
+          }
+        },
+        "honesty": {
+          "title": "Why the email says \"demonstration\"",
+          "body": "The clinic and the doctor are real, and everything here came from the clinic’s site with {doctor}’s permission. But the person receiving the email agreed to nothing — and a message saying \"your appointment is confirmed\" could send someone to a real clinic for an appointment that does not exist. So the email shows exactly what a patient would get, and says what it is. That is also what makes it safe to show any clinic."
+        },
+        "source": "Information read from {website} on {date}."
       }
     }
   },
