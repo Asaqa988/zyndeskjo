@@ -17,6 +17,7 @@ export interface WallEntry {
   job: string;
   category: Category;
   title: string;
+  payoff: string;
   tools: string[];
   at: number;
 }
@@ -41,6 +42,7 @@ export function record(idea: Idea, personKey: string): { counted: boolean } {
     job: idea.job.slice(0, 60),
     category: idea.category,
     title: idea.title,
+    payoff: idea.payoff,
     tools: idea.tools,
     at: Date.now(),
   });

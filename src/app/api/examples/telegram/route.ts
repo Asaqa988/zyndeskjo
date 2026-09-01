@@ -54,8 +54,12 @@ function render(idea: Idea): string {
   const steps = idea.steps.map((s, i) => `${i + 1}. ${esc(s)}`).join('\n');
   const tools = esc(idea.tools.join(' · '));
 
-  return `<b>${esc(idea.title)}</b>
+  // The payoff sits directly under the title: it is the line that decides
+  // whether they read the steps at all.
+  const payoff = idea.payoff ? `\n<i>${esc(idea.payoff)}</i>\n` : '';
 
+  return `<b>${esc(idea.title)}</b>
+${payoff}
 ${steps}
 
 🔧 ${tools}

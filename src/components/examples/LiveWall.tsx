@@ -8,6 +8,7 @@ interface Entry {
   job: string;
   category: string;
   title: string;
+  payoff: string;
   tools: string[];
   at: number;
 }
@@ -99,6 +100,9 @@ export function LiveWall() {
                 {e.job}
               </span>
               <span className="text-[15px] font-bold leading-snug text-ink">{e.title}</span>
+              {e.payoff && (
+                <span className="text-[13.5px] leading-relaxed text-navy-medium">{e.payoff}</span>
+              )}
               <span className="text-[13px] leading-relaxed text-navy-soft">
                 {e.tools.join(' · ')}
               </span>
