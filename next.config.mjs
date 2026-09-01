@@ -18,6 +18,20 @@ const nextConfig = {
   images: {
     formats: ['image/avif', 'image/webp'],
   },
+  /**
+   * A path short enough to say out loud.
+   *
+   * "zyndeskjo.com slash register" is what gets said in a live lecture and
+   * pasted into a WhatsApp group; nobody is going to type the locale prefix,
+   * and locale negotiation would send an Arabic-speaking room to the English
+   * page whenever their browser happens to be set to English.
+   *
+   * Temporary, not permanent: browsers cache a 308 forever, and this should
+   * stay changeable.
+   */
+  async redirects() {
+    return [{ source: '/register', destination: '/ar/register', permanent: false }];
+  },
 };
 
 export default withNextIntl(nextConfig);

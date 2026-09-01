@@ -58,7 +58,7 @@ export const goals: Goal[] = [
   { id: 'trainTeam', icon: 'Users', phaseCount: 5, ctaHref: '/training?goal=trainTeam' },
   { id: 'quality', icon: 'ShieldCheck', phaseCount: 5, ctaHref: '/qa-testing?goal=quality' },
   { id: 'grow', icon: 'TrendingUp', phaseCount: 5, ctaHref: '/marketing?goal=grow' },
-  { id: 'chatbot', icon: 'MessageSquareBot', phaseCount: 4, ctaHref: '/ai-solutions?goal=chatbot' },
+  { id: 'chatbot', icon: 'BotMessageSquare', phaseCount: 4, ctaHref: '/ai-solutions?goal=chatbot' },
   { id: 'launch', icon: 'Rocket', phaseCount: 5, ctaHref: '/consultation?goal=launch' },
 ];
 

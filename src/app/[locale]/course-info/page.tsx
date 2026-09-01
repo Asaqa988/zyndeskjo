@@ -3,6 +3,7 @@ import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { pageMetadata } from '@/lib/seo';
 import { BreadcrumbSchema } from '@/components/seo/JsonLd';
 import { Icon } from '@/components/ui/Icon';
+import { Link } from '@/i18n/navigation';
 import { CourseInfoForm, Countdown } from '@/components/course/CourseInfoForm';
 import { course } from '@/data/course/course';
 import { COURSE } from '@/data/course-facts';
@@ -94,6 +95,21 @@ export default async function CourseInfoPage({
               </li>
             ))}
           </ul>
+
+          {/* For the visitor who has already decided. Sending them through an
+              email capture first would be a step that exists for us, not them. */}
+          <div className="glass glass-strong flex flex-col gap-4 rounded-glass border-s-4 border-s-cyan p-6 sm:flex-row sm:items-center sm:justify-between sm:p-7">
+            <p className="text-[15px] font-semibold leading-relaxed text-ink">
+              {t('registerCta.title')}
+            </p>
+            <Link
+              href="/register"
+              className="inline-flex shrink-0 items-center justify-center gap-2 rounded-pill bg-navy px-6 py-3 text-sm font-bold text-white transition hover:bg-navy-medium"
+            >
+              {t('registerCta.button')}
+              <Icon name={locale === 'ar' ? 'ArrowLeft' : 'ArrowRight'} size={16} />
+            </Link>
+          </div>
 
           <CourseInfoForm id="top" />
         </div>

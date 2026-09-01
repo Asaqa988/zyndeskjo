@@ -38,7 +38,8 @@
     "contact": "Contact",
     "cta": "Start Your Project",
     "openMenu": "Open menu",
-    "closeMenu": "Close menu"
+    "closeMenu": "Close menu",
+    "register": "Reserve a seat"
   },
   "meta": {
     "home": {
@@ -124,6 +125,10 @@
     "courseInfo": {
       "title": "Course details — AI Automation & n8n",
       "description": "AI Automation & n8n starts 7 September 2026. 66 hours, 10 modules, 93 lessons, 130 JOD. Leave your email and the full details arrive."
+    },
+    "register": {
+      "title": "Reserve your seat — AI Automation & n8n",
+      "description": "Reserve your seat on the AI Automation & n8n course. Starts 7 September 2026, 66 hours, 130 JOD, 30 seats."
     }
   },
   "hero": {
@@ -1291,6 +1296,45 @@
       "closing": {
         "title": "No prerequisites",
         "body": "The course is open to everyone — no prior experience, no programming background. If your field is outside IT, you start from the basics and build up."
+      },
+      "registerCta": {
+        "title": "Already decided? No need to wait for the email.",
+        "button": "Reserve your seat"
+      }
+    },
+    "register": {
+      "hero": {
+        "title": "Reserve your seat",
+        "subtitle": "Leave your name, phone and email, and Abdulraheem will contact you personally to confirm the seat and arrange payment."
+      },
+      "facts": {
+        "start": "Start date",
+        "startValue": "7 Sept",
+        "time": "Sunday – Wednesday",
+        "timeValue": "8 – 10 pm",
+        "hours": "training hours",
+        "fee": "Jordanian dinars"
+      },
+      "included": "{hours} hours across {modules} modules and {lessons} lessons, with {labs} hands-on labs and two final projects. Live online over Zoom, and the recordings stay with you. No prerequisites — the course is open to everyone, no coding background needed.",
+      "syllabus": "See the full syllabus first",
+      "form": {
+        "nameLabel": "Your name",
+        "namePlaceholder": "First and last name",
+        "nameError": "Please enter your name.",
+        "phoneLabel": "WhatsApp number",
+        "phonePlaceholder": "07 9999 9999",
+        "phoneError": "That is not a valid Jordanian number. Example: 0799999999",
+        "emailLabel": "Email",
+        "emailPlaceholder": "you@example.com",
+        "emailError": "That email does not look right.",
+        "noteLabel": "What do you do right now? (optional)",
+        "notePlaceholder": "Student, accountant, developer, business owner…",
+        "submit": "Reserve my seat",
+        "note": "We never publish your number or email, and we do not add you to any mailing list. They are used only to confirm your seat.",
+        "error": "We could not receive your registration. Please try again, or message us on WhatsApp.",
+        "sentTitle": "We have your registration.",
+        "sentBody": "Abdulraheem will contact you on WhatsApp within a few hours to confirm the seat and arrange payment. Your seat is held until then.",
+        "sentWhatsapp": "Or message us on WhatsApp now"
       }
     }
   },
