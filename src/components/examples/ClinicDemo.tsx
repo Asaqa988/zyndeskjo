@@ -107,8 +107,8 @@ export function ClinicDemo() {
               key={i}
               className={`max-w-[85%] whitespace-pre-wrap rounded-[16px] px-4 py-3 text-[14.5px] leading-relaxed ${
                 m.role === 'user'
-                  ? 'self-start bg-navy text-white'
-                  : 'self-end border border-navy-ice bg-white/80 text-ink'
+                  ? 'self-end bg-navy text-white'
+                  : 'self-start border border-navy-ice bg-white/80 text-ink'
               }`}
             >
               {m.content}
@@ -116,12 +116,12 @@ export function ClinicDemo() {
           ))}
 
           {chat === 'thinking' && (
-            <div className="self-end rounded-[16px] border border-navy-ice bg-white/80 px-4 py-3">
+            <div className="self-start rounded-[16px] border border-navy-ice bg-white/80 px-4 py-3">
               <Icon name="LoaderCircle" size={16} className="animate-spin text-navy-medium" />
             </div>
           )}
           {chat === 'error' && (
-            <p className="self-end text-sm font-medium text-[#c0392b]">{t('chatError')}</p>
+            <p className="self-start text-sm font-medium text-[#c0392b]">{t('chatError')}</p>
           )}
           <div ref={endRef} />
         </div>
