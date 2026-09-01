@@ -14,7 +14,7 @@ export const dynamic = 'force-dynamic';
  * gets the fallback idea instead of silence. A demonstration in front of a
  * room fails badly if it fails slowly.
  */
-const MAX_INFLIGHT = Number(process.env.TELEGRAM_MAX_INFLIGHT ?? 12);
+const MAX_INFLIGHT = Number(process.env.TELEGRAM_MAX_INFLIGHT ?? 40);
 const IDEA_TIMEOUT_MS = 20_000;
 
 let inflight = 0;
@@ -31,6 +31,12 @@ async function withSlot<T>(fn: () => Promise<T>): Promise<T> {
   }
 }
 
+/** 7-9-2026, the way dates are written here — not 07-09-2026. */
+const startsOn = (() => {
+  const [y, m, d] = COURSE.startsAt.slice(0, 10).split('-');
+  return `${Number(d)}-${Number(m)}-${y}`;
+})();
+
 /** What the bot sends back, ready for Telegram's Markdown. */
 function render(idea: Idea): string {
   const steps = idea.steps.map((s, i) => `${i + 1}. ${s}`).join('\n');
@@ -44,7 +50,7 @@ ${steps}
 
 هاد أتوميشن تقدر تبنيه بنفسك. بالكورس بنبني زيّه من الصفر، خطوة خطوة.
 
-📅 يبدأ ${COURSE.startsAt.slice(8, 10)}-${COURSE.startsAt.slice(5, 7)}-${COURSE.startsAt.slice(0, 4)} · ${COURSE.hours} ساعة · ${COURSE.feeJod} ديناراً · ${COURSE.seats} مقعد
+📅 يبدأ ${startsOn} · ${COURSE.hours} ساعة · ${COURSE.feeJod} ديناراً · ${COURSE.seats} مقعد
 
 احجز مقعدك 👇
 https://www.zyndeskjo.com/register?utm_source=telegram&utm_medium=bot&utm_campaign=intro-lecture`;
