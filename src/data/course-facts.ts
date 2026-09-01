@@ -24,6 +24,14 @@ export const COURSE_FACTS = `
 - **الرسوم:** ١٣٠ ديناراً أردنياً
 - **المقاعد:** ٣٠ مقعداً لكل دورة
 
+### المحاضرة التعريفية المجانية
+
+- **الموعد:** الأربعاء ٢ سبتمبر ٢٠٢٦، الساعة ٨:٠٠ مساءً بتوقيت الأردن
+- **الرسوم:** مجانية بالكامل
+- **المحتوى:** بناء أتوميشن حقيقي من الصفر أمام الحضور، وشرح ما يمكن عمله بالأتمتة
+- **كيف يحضر:** رابط المحاضرة يُنشر على مجموعة واتساب. للانضمام: https://chat.whatsapp.com/L5Bp1LZmyCs6WSbNws3nc8
+- **ملاحظة:** المحاضرة تعريفية ومنفصلة عن الكورس؛ الكورس نفسه يبدأ ٧ سبتمبر ومدفوع
+
 ### ماذا يتضمن
 
 - محاضرات مباشرة أونلاين
@@ -163,4 +171,17 @@ export const COURSE = {
   hours: 66,
   days: { ar: 'الأحد – الأربعاء', en: 'Sunday – Wednesday' },
   time: { ar: '٨:٠٠ – ١٠:٠٠ مساءً', en: '8:00 – 10:00 pm' },
+} as const;
+
+/**
+ * The free introductory session that runs before the course.
+ *
+ * `endsAt` is what everything keys off: the banner, the mention in the
+ * registration email. Once it passes they all stop referring to it on their
+ * own, so nothing has to be remembered and taken down the morning after.
+ */
+export const LECTURE = {
+  startsAt: '2026-09-02T20:00:00+03:00',
+  endsAt: '2026-09-02T22:00:00+03:00',
+  groupUrl: 'https://chat.whatsapp.com/L5Bp1LZmyCs6WSbNws3nc8',
 } as const;

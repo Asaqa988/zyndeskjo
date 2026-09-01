@@ -5,6 +5,7 @@ import { BreadcrumbSchema } from '@/components/seo/JsonLd';
 import { Icon } from '@/components/ui/Icon';
 import { Link } from '@/i18n/navigation';
 import { CourseInfoForm, Countdown } from '@/components/course/CourseInfoForm';
+import { LectureBanner } from '@/components/course/LectureBanner';
 import { course } from '@/data/course/course';
 import { COURSE } from '@/data/course-facts';
 import { pick } from '@/data/course/types';
@@ -66,6 +67,8 @@ export default async function CourseInfoPage({
 
       <section className="pb-16 pt-28 sm:pt-32">
         <div className="container-z flex max-w-4xl flex-col gap-8">
+          <LectureBanner />
+
           <div className="flex flex-col items-start gap-5">
             <Countdown />
 

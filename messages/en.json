@@ -1551,5 +1551,10 @@
     "exit": "Exit tour",
     "replay": "Replay",
     "replayTour": "Replay the tour"
+  },
+  "lecture": {
+    "title": "Free intro session — Wednesday 2 Sept 2026, 8 pm",
+    "body": "We build a real automation from scratch in front of you, so you can see what it actually does. The link is posted in the WhatsApp group.",
+    "cta": "Join the group"
   }
 }
