@@ -4,10 +4,11 @@ import { useEffect, useRef, useState } from 'react';
 import { useTranslations } from 'next-intl';
 import { Icon } from '@/components/ui/Icon';
 import { CLINIC, CLINIC_SERVICES } from '@/data/examples/clinic';
+import { extractContact } from '@/lib/examples/extractContact';
 
 type Msg = { role: 'user' | 'assistant'; content: string };
 type Chat = 'idle' | 'thinking' | 'error';
-type Book = 'closed' | 'open' | 'sending' | 'sent' | 'error';
+type Book = 'idle' | 'sending' | 'sent' | 'error';
 
 const EMAIL = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
 
@@ -28,7 +29,7 @@ export function ClinicDemo() {
   const [draft, setDraft] = useState('');
   const [chat, setChat] = useState<Chat>('idle');
 
-  const [book, setBook] = useState<Book>('closed');
+  const [book, setBook] = useState<Book>('idle');
   const [form, setForm] = useState<{ name: string; email: string; service: string; note: string }>({
     name: '',
     email: '',
@@ -36,6 +37,33 @@ export function ClinicDemo() {
     note: '',
   });
   const [bookErr, setBookErr] = useState<'name' | 'email' | null>(null);
+
+  /**
+   * Whatever they typed in the chat belongs in the form, not typed again.
+   *
+   * Each field is filled at most once. Without the guard, clearing a field and
+   * then sending another message would put the old value straight back — the
+   * form arguing with the person filling it in.
+   */
+  const prefilled = useRef({ name: false, email: false });
+  useEffect(() => {
+    const said = messages.filter((m) => m.role === 'user').map((m) => m.content);
+    if (said.length === 0) return;
+    const found = extractContact(said);
+
+    setForm((f) => {
+      const next = { ...f };
+      if (found.name && !prefilled.current.name && !f.name) {
+        next.name = found.name;
+        prefilled.current.name = true;
+      }
+      if (found.email && !prefilled.current.email && !f.email) {
+        next.email = found.email;
+        prefilled.current.email = true;
+      }
+      return next;
+    });
+  }, [messages]);
 
   const endRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
@@ -175,15 +203,6 @@ export function ClinicDemo() {
             </p>
           </div>
         </div>
-      ) : book === 'closed' ? (
-        <button
-          type="button"
-          onClick={() => setBook('open')}
-          className="inline-flex items-center justify-center gap-2 rounded-pill bg-[#146b6b] px-6 py-3.5 text-base font-bold text-white transition hover:bg-[#0f5352]"
-        >
-          <Icon name="CalendarDays" size={18} />
-          {t('booking.open')}
-        </button>
       ) : (
         <form onSubmit={submitBooking} noValidate className="glass glass-strong flex flex-col gap-3.5 rounded-glass p-6">
           <p className="text-base font-bold text-ink">{t('booking.title')}</p>
