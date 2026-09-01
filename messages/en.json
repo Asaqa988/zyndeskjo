@@ -1350,7 +1350,7 @@
         "sentWhatsapp": "Or message us on WhatsApp now"
       },
       "seats": {
-        "registered": "{count} registered today",
+        "registered": "{count} registered so far",
         "remaining": "only {count} seats left"
       },
       "outcome": "You finish able to build an automation system for a business and sell it as a service — not knowing about it, able to do it.",
