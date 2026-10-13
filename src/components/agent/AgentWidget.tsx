@@ -135,7 +135,7 @@ export function AgentWidget() {
         initial={{ scale: 0, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         transition={{ delay: 1.2, type: 'spring', stiffness: 260, damping: 20 }}
-        className="fixed z-40 bottom-[5.5rem] inline-flex items-center gap-2 rounded-pill bg-navy px-4 py-3 text-white shadow-glass-lg hover:bg-navy-medium"
+        className="fixed z-40 bottom-[8.5rem] md:bottom-[5.5rem] inline-flex items-center gap-2 rounded-pill bg-navy px-4 py-3 text-white shadow-glass-lg hover:bg-navy-medium"
         style={{ insetInlineEnd: '1.25rem' }}
       >
         {open ? <X size={22} aria-hidden /> : <Bot size={22} aria-hidden />}
@@ -152,7 +152,7 @@ export function AgentWidget() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 24, scale: 0.96 }}
             transition={{ type: 'spring', stiffness: 300, damping: 26 }}
-            className="fixed z-40 bottom-[9.5rem] flex h-[28rem] w-[min(22rem,calc(100vw-2.5rem))] flex-col overflow-hidden rounded-glass border border-white/40 bg-white/85 shadow-glass-lg backdrop-blur-glass"
+            className="fixed z-40 bottom-[12rem] md:bottom-[9.5rem] flex h-[28rem] w-[min(22rem,calc(100vw-2.5rem))] flex-col overflow-hidden rounded-glass border border-white/40 bg-white/85 shadow-glass-lg backdrop-blur-glass"
             style={{ insetInlineEnd: '1.25rem' }}
           >
             {/* Header */}

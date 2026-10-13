@@ -57,6 +57,16 @@ export async function POST(request: Request) {
   // original AI Automation & n8n course, which is what /register has always meant.
   const course = body.course === 'qa-manual-automation' ? 'qa-manual-automation' : 'ai-automation-n8n';
 
+  // Ad attribution (utm_* / fbclid). Only known keys pass, each clamped, so a
+  // hand-made request can't smuggle arbitrary fields into the lead sheet.
+  const attribution: Record<string, string> = {};
+  if (body.attribution && typeof body.attribution === 'object') {
+    for (const k of ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term', 'fbclid']) {
+      const v = (body.attribution as Record<string, unknown>)[k];
+      if (typeof v === 'string' && v) attribution[k] = v.slice(0, 120);
+    }
+  }
+
   if (name.length < 2) return NextResponse.json({ ok: false, error: 'name' }, { status: 422 });
   if (!PHONE.test(phone)) return NextResponse.json({ ok: false, error: 'phone' }, { status: 422 });
   if (!EMAIL.test(email)) return NextResponse.json({ ok: false, error: 'email' }, { status: 422 });
@@ -78,6 +88,7 @@ export async function POST(request: Request) {
         source,
         intent: 'course-registration',
         course,
+        ...attribution,
         name,
         phone,
         email,

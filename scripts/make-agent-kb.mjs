@@ -27,17 +27,14 @@ const { COURSE_CURRICULUM } = await import(
 
 const OUT = resolve(root, 'n8n/course-agent-knowledge.md');
 
-// The shared block is written for both channels, so its heading is generic.
-// WhatsApp wants the course named up front — it is the whole conversation.
-const facts = COURSE_FACTS.replace(
-  '## الكورس: AI Automation & n8n',
-  '## الكورس\n\n- **الاسم:** AI Automation & n8n'
-);
+// The shared block already names the course in its heading, which is what the
+// WhatsApp agent needs up front — it is the whole conversation.
+const facts = COURSE_FACTS;
 
 const doc = `<!-- مُولَّد من src/data/course-facts.ts — لا تعدّل هنا.
      عدّل هناك ثم: node scripts/make-agent-kb.mjs -->
 
-# قاعدة معرفة وكيل واتساب — كورس AI Automation & n8n
+# قاعدة معرفة وكيل واتساب — كورس QA Manual & Automation
 
 هذه هي المعلومات الوحيدة المسموح للوكيل أن يجيب منها. أي شيء غير مذكور هنا،
 يقول إنه لا يعرفه ويحوّل للتواصل المباشر — ولا يخمّن أبداً.

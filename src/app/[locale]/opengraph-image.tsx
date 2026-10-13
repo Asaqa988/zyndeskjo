@@ -1,12 +1,12 @@
 import { ImageResponse } from 'next/og';
 
 export const runtime = 'edge';
-export const alt = 'Zyndesk Jo — AI, Automation, Software & Training in Jordan';
+export const alt = 'QA Manual & Automation course — live online, starts 22 October 2026 · Zyndesk Jo';
 export const size = { width: 1200, height: 630 };
 export const contentType = 'image/png';
 
 /**
- * Branded 1200×630 OG/Twitter card (real PNG), auto-wired to og:image and
+ * Branded 1200×630 OG/Twitter card for the QA course campaign (real PNG), auto-wired to og:image and
  * twitter:image for every route under [locale] by Next's file convention.
  *
  * Uses the `edge` runtime: the Node build of @vercel/og throws ERR_INVALID_URL
@@ -52,19 +52,22 @@ export default function OgImage() {
         </div>
 
         <div style={{ display: 'flex', flexDirection: 'column' }}>
-          <div style={{ fontSize: 72, fontWeight: 800, color: '#fff', lineHeight: 1.05 }}>
-            Build Smarter.
+          <div style={{ fontSize: 30, fontWeight: 700, color: '#38D1E0', letterSpacing: 2, marginBottom: 18 }}>
+            NEW COURSE · LIVE ON ZOOM
           </div>
-          <div style={{ fontSize: 72, fontWeight: 800, color: '#fff', lineHeight: 1.05 }}>
-            Automate Faster.
+          <div style={{ fontSize: 76, fontWeight: 800, color: '#fff', lineHeight: 1.05 }}>
+            QA Manual &
           </div>
-          <div style={{ fontSize: 72, fontWeight: 800, color: '#38D1E0', lineHeight: 1.05 }}>
-            Grow Without Limits.
+          <div style={{ fontSize: 76, fontWeight: 800, color: '#fff', lineHeight: 1.05 }}>
+            Automation with AI
+          </div>
+          <div style={{ fontSize: 34, color: '#DCECF7', marginTop: 22 }}>
+            Playwright · Docker · CI/CD · n8n
           </div>
         </div>
 
-        <div style={{ fontSize: 30, color: '#DCECF7' }}>
-          AI · Automation · Software · QA · Training — Amman, Jordan
+        <div style={{ fontSize: 32, color: '#fff', fontWeight: 700 }}>
+          Starts 22 Oct 2026 · 86 hours · Thu & Sat 6–9 pm · 130 JOD
         </div>
       </div>
     ),

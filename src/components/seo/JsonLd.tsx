@@ -39,12 +39,11 @@ export function OrganizationSchema({ locale }: { locale: string }) {
           siteConfig.social.youtube,
         ].filter(isLive),
         knowsAbout: [
-          'Artificial Intelligence',
-          'Business Automation',
           'Software Testing',
-          'Web Development',
-          'Digital Marketing',
-          'Corporate Training',
+          'Test Automation',
+          'Playwright',
+          'Quality Assurance',
+          'QA Training',
         ],
       }}
     />
@@ -78,15 +77,27 @@ export function ServiceSchema({
   );
 }
 
-/** Course schema for training programs. */
+/**
+ * Course schema. With a start date and price it also describes the one live
+ * cohort (CourseInstance) and the offer, which is what lets a search result
+ * show "online · 130 JOD" instead of a bare title.
+ */
 export function CourseSchema({
   name,
   description,
   locale,
+  startDate,
+  priceJod,
+  hours,
+  url,
 }: {
   name: string;
   description: string;
   locale: string;
+  startDate?: string;
+  priceJod?: number;
+  hours?: number;
+  url?: string;
 }) {
   return (
     <JsonLd
@@ -96,11 +107,33 @@ export function CourseSchema({
         name,
         description,
         inLanguage: locale,
+        ...(url ? { url } : {}),
         provider: {
           '@type': 'Organization',
           name: siteConfig.name,
           sameAs: siteConfig.domain,
         },
+        ...(priceJod !== undefined
+          ? {
+              offers: {
+                '@type': 'Offer',
+                category: 'Paid',
+                price: priceJod,
+                priceCurrency: 'JOD',
+                ...(url ? { url } : {}),
+              },
+            }
+          : {}),
+        ...(startDate
+          ? {
+              hasCourseInstance: {
+                '@type': 'CourseInstance',
+                courseMode: 'Online',
+                startDate,
+                ...(hours ? { courseWorkload: `PT${hours}H` } : {}),
+              },
+            }
+          : {}),
       }}
     />
   );

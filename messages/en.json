@@ -22,7 +22,7 @@
   },
   "nav": {
     "home": "Home",
-    "trainer": "Your trainer",
+    "trainer": "Trainer",
     "learn": "Course & platform",
     "whyAiAutomation": "Why this field?",
     "afterTheCourse": "After the course",
@@ -36,16 +36,18 @@
     "projects": "Projects",
     "about": "About",
     "contact": "Contact",
-    "cta": "Start Your Project",
+    "cta": "Reserve a seat",
     "openMenu": "Open menu",
     "closeMenu": "Close menu",
     "register": "Reserve a seat",
-    "examples": "Examples"
+    "examples": "Examples",
+    "curriculum": "Curriculum",
+    "faq": "FAQ"
   },
   "meta": {
     "home": {
-      "title": "Zyndesk Jo — AI, Automation, Software & Training in Jordan",
-      "description": "Zyndesk Jo helps businesses adopt AI, automate operations, build intelligent digital products, improve software quality, and grow — plus hands-on tech training in Amman, Jordan."
+      "title": "QA Manual & Automation Course — Playwright, Docker, n8n & AI | Zyndesk Jo",
+      "description": "Live online on Zoom from 22 October 2026: 86 hours of manual testing, Playwright, Docker, CI/CD, n8n and AI-assisted testing. Thursdays & Saturdays, 6–9 pm Jordan time. 130 JOD."
     },
     "services": {
       "title": "Services",
@@ -145,7 +147,7 @@
     },
     "qaCourse": {
       "title": "QA Manual & Automation Course — Playwright, Docker, n8n & AI",
-      "description": "Live online on Zoom from 18 October 2026: 86 hours of manual testing, Playwright, Docker, CI/CD, n8n and AI-assisted testing. Thursdays & Saturdays, 6–9 pm. 130 JOD."
+      "description": "Live online on Zoom from 22 October 2026: 86 hours of manual testing, Playwright, Docker, CI/CD, n8n and AI-assisted testing. Thursdays & Saturdays, 6–9 pm. 130 JOD."
     }
   },
   "hero": {
@@ -796,13 +798,13 @@
     "formNote": "Prefer the full form? Use the multi-step inquiry on the contact page."
   },
   "footer": {
-    "summary": "AI-first technology, training, and digital solutions — helping businesses in Jordan and beyond build smarter and grow faster.",
+    "summary": "Zyndesk Jo — live, hands-on software testing training from Amman, Jordan.",
     "address": "University Street, Amman, Jordan",
     "rights": "All rights reserved.",
     "cols": {
       "services": "Services",
       "training": "Training",
-      "company": "Company",
+      "company": "The course",
       "legal": "Legal"
     },
     "links": {
@@ -822,14 +824,16 @@
       "cvCheck": "Check your CV",
       "courseInfo": "Course details",
       "register": "Reserve a seat",
-      "qaCourse": "QA Manual & Automation course"
+      "qaCourse": "QA Manual & Automation course",
+      "curriculum": "Curriculum"
     },
     "newsletter": {
       "title": "Get occasional insights on AI & automation",
       "label": "Email address",
       "placeholder": "you@company.com",
       "success": "Thanks — you're subscribed."
-    }
+    },
+    "disclaimer": "The QA Manual & Automation course starts 22 October 2026. A seat is confirmed by a person on WhatsApp after you register; nothing is charged on this website."
   },
   "form": {
     "steps": {
@@ -1449,7 +1453,7 @@
     "open": "Open the assistant",
     "title": "Zyn — AI assistant",
     "subtitle": "How can I help you?",
-    "greeting": "Welcome! How can I help you? Ask me about the AI Automation & n8n course — dates, fees and how to register — or about Abdulraheem’s experience and what Zyndesk does.",
+    "greeting": "Welcome! Ask me anything about the QA Manual & Automation course — dates, fee, what you will learn and how to register.",
     "placeholder": "Type your question…",
     "send": "Send",
     "startCall": "Voice",
@@ -1460,10 +1464,10 @@
     "callFailed": "Could not start the call. Please try again.",
     "error": "Something went wrong. Please try again, or use the contact page.",
     "heroTitle": "Talk to Zyn",
-    "heroSubtitle": "Ask about Abdulraheem's experience or what Zyndesk does — by voice or text.",
+    "heroSubtitle": "Ask about the QA course — dates, fee, syllabus and how to register.",
     "heroCta": "Talk",
     "stageTitle": "Welcome!",
-    "stageSubtitle": "I’m Zyn, Abdulraheem Alsaka’s assistant. How about we start a voice call so I can help you faster and more clearly? Your browser will just ask for microphone permission so I can hear you.",
+    "stageSubtitle": "I’m Zyn. Ask me about the QA Manual & Automation course — by voice or by text.",
     "stageVoice": "Start a voice call",
     "stageChat": "Type instead",
     "stageLearn": "See the course and platform",

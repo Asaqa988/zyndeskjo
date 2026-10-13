@@ -15,7 +15,7 @@ type L = { en: string; ar: string };
 export const QA_COURSE = {
   id: 'qa-manual-automation',
   /** First session, Amman time. */
-  startsAt: '2026-10-18T18:00:00+03:00',
+  startsAt: '2026-10-22T18:00:00+03:00',
   feeJod: 130,
   hours: 86,
   sessions: 29,
@@ -23,7 +23,7 @@ export const QA_COURSE = {
   practiceHours: 58,
   days: { en: 'Thursday & Saturday', ar: 'الخميس والسبت' } as L,
   time: { en: '6:00 – 9:00 pm', ar: '٦:٠٠ – ٩:٠٠ مساءً' } as L,
-  startLabel: { en: '18 October 2026', ar: '١٨ تشرين الأول ٢٠٢٦' } as L,
+  startLabel: { en: '22 October 2026', ar: '٢٢ تشرين الأول ٢٠٢٦' } as L,
   syllabusUrl: '/qa-course-syllabus.docx',
 } as const;
 
@@ -35,6 +35,16 @@ export const QA_COPY = {
     ar: 'من الصفر لمهندس أتمتة اختبار جاهز لسوق العمل. اختبار يدوي، Playwright، Docker، CI/CD، n8n وذكاء اصطناعي — كله عملي، وبتطلع بمشروع حقيقي بتعرضه على أي شركة.',
   },
   ctaRegister: { en: 'Reserve my seat', ar: 'احجز مقعدي' },
+  startsIn: { en: 'Starts in', ar: 'يبدأ بعد' },
+  startsToday: { en: 'Starts today', ar: 'يبدأ اليوم' },
+  trainerTitle: { en: 'Your trainer', ar: 'مدربك' },
+  trainerSubtitle: {
+    en: 'Taught by someone who has done this job and taught it at university level.',
+    ar: 'بيدرّبك شخص اشتغل بالمجال وعلّمه على مستوى الجامعات.',
+  },
+  navCurriculum: { en: 'Curriculum', ar: 'المنهاج' },
+  navTrainer: { en: 'Trainer', ar: 'المدرب' },
+  navFaq: { en: 'FAQ', ar: 'الأسئلة' },
   ctaSyllabus: { en: 'Download the syllabus', ar: 'حمّل المنهاج' },
   facts: {
     start: { en: 'Start date', ar: 'تاريخ البداية' },
@@ -199,6 +209,32 @@ export const QA_FOR: L[] = [
   { en: 'Junior developers who want strong testing skills', ar: 'المطورين المبتدئين اللي بدهم مهارات اختبار قوية' },
 ];
 
+export const QA_TRAINER = {
+  name: { en: 'Abdulraheem Alsaka', ar: 'عبدالرحيم السقا' } as L,
+  role: {
+    en: 'Senior Quality Assurance & Automation Manager',
+    ar: 'مدير أول للجودة والأتمتة (Senior QA & Automation Manager)',
+  } as L,
+  points: [
+    {
+      en: '12+ years in quality engineering and test automation across banking, EdTech, ride-hailing, maritime and cybersecurity.',
+      ar: 'أكثر من ١٢ سنة في هندسة الجودة وأتمتة الاختبار في البنوك والتعليم الإلكتروني وتطبيقات التوصيل والملاحة البحرية والأمن السيبراني.',
+    },
+    {
+      en: 'Senior QA Instructor at Al-Hussein Technical University and Princess Sumaya University for Technology.',
+      ar: 'مدرّب أول لمادة الـ QA في جامعة الحسين التقنية وجامعة الأميرة سمية للتكنولوجيا.',
+    },
+    {
+      en: 'Built QA teams from the ground up and led engineering teams of up to 15 people.',
+      ar: 'بنى فرق QA من الصفر وقاد فرق هندسية وصل عددها لـ ١٥ شخص.',
+    },
+    {
+      en: 'ISTQB Certified Tester, ISTQB Agile Tester, PMP and Professional Scrum Master.',
+      ar: 'حاصل على ISTQB Certified Tester وISTQB Agile Tester وPMP وProfessional Scrum Master.',
+    },
+  ] as L[],
+} as const;
+
 export const QA_FAQ: { q: L; a: L }[] = [
   {
     q: { en: 'Is the course online or in person?', ar: 'الكورس أونلاين ولا حضوري؟' },
@@ -219,6 +255,13 @@ export const QA_FAQ: { q: L; a: L }[] = [
     a: {
       en: 'A laptop with at least 8 GB of RAM (16 GB recommended for Docker), a stable internet connection and Zoom. We send a setup checklist before the first session.',
       ar: 'لابتوب فيه ٨ جيجا رام على الأقل (يُفضّل ١٦ عشان Docker)، إنترنت ثابت، وZoom. بنبعتلك قائمة تجهيز قبل أول محاضرة.',
+    },
+  },
+  {
+    q: { en: 'What language is the course taught in?', ar: 'بأي لغة بيندرّس الكورس؟' },
+    a: {
+      en: 'The syllabus and learning materials are in English, which is the language of the tools themselves. Explanations during the live sessions can be adapted to the cohort.',
+      ar: 'المنهاج والمواد بالإنجليزي لأنها لغة الأدوات نفسها، وشرح المحاضرات المباشرة بيتكيّف مع المجموعة.',
     },
   },
   {

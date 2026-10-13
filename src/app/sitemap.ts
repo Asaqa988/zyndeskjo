@@ -7,14 +7,12 @@ const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL ?? 'https://www.zyndeskjo.com'
 const LOCALES = ['en', 'ar'] as const;
 
 /**
- * Only routes that are actually linked from the site. The marketing pages
- * still render if visited directly, but while the site is stripped back to the
- * assistant they are deliberately not advertised to search engines.
+ * The course page (home) and the two legal pages. `/qa-course` serves the same
+ * page as home and canonicalises to it, so it is not listed twice; every other
+ * route redirects home or is private to enrolled students.
  */
 const ROUTES = [
   '',
-  '/qa-course',
-  '/contact',
   '/privacy',
   '/terms',
 ] as const;

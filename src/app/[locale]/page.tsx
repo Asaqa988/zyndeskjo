@@ -1,27 +1,20 @@
 import { setRequestLocale } from 'next-intl/server';
-import { AgentStage } from '@/components/agent/AgentStage';
-import { LectureBanner } from '@/components/course/LectureBanner';
+import { QaLanding } from '@/components/qa/QaLanding';
 
 /**
- * Home is now the assistant and nothing else.
+ * Home is the QA Manual & Automation course and nothing else.
  *
- * The marketing sections (Hero, WhatWeDo, GoalSelector, AiShowcase,
- * TrainingTabs, ProcessTimeline, QaLab, ProjectsGrid, WhyZyndesk, Metrics,
- * Testimonials, FinalCta, TrustStrip) still exist under
- * src/components/sections — they are unlinked, not deleted, so restoring the
- * old page is a matter of importing them back here.
+ * The site is pointed at one thing while the Facebook and Instagram campaign
+ * runs: an ad click lands here and the page is the course. The earlier home
+ * (the Zyn assistant stage) and the marketing sections under
+ * src/components/sections are untouched in the repository — they are
+ * unlinked, not deleted — so putting the wider site back is a matter of
+ * restoring this file from git history.
  *
- * The banner above it is the one exception, and it removes itself once the
- * session it announces is over.
+ * Zyn is still on the page as the floating assistant, now answering about
+ * this course.
  */
 export default function HomePage({ params: { locale } }: { params: { locale: string } }) {
   setRequestLocale(locale);
-  return (
-    <>
-      <div className="container-z pt-24 sm:pt-28">
-        <LectureBanner />
-      </div>
-      <AgentStage />
-    </>
-  );
+  return <QaLanding locale={locale} />;
 }

@@ -1,3 +1,4 @@
+import type { Metadata } from 'next';
 import type { ReactNode } from 'react';
 import { setRequestLocale } from 'next-intl/server';
 import { Sidebar } from '@/components/learn/Sidebar';
@@ -5,6 +6,9 @@ import { DemoBanner } from '@/components/learn/DemoBanner';
 import { TutorialProvider } from '@/components/tutorial/TutorialProvider';
 import { TutorialOverlay } from '@/components/tutorial/TutorialOverlay';
 import { onboardingTutorial } from '@/data/tutorials/onboarding';
+
+/** The earlier cohort's platform: reachable by its students, not by search. */
+export const metadata: Metadata = { robots: { index: false, follow: false } };
 
 /**
  * Shell for the student platform.

@@ -85,7 +85,7 @@ export function Navbar() {
 
           <div className="flex items-center gap-2">
             <LanguageSwitcher className="hidden sm:inline-flex" />
-            <Button href="/contact" className="hidden md:inline-flex !py-2.5 !px-4 text-sm">
+            <Button href="/#register" className="hidden md:inline-flex !py-2.5 !px-4 text-sm">
               {t('cta')}
             </Button>
             <button
@@ -153,7 +153,7 @@ function MobileMenu({ open, onClose }: { open: boolean; onClose: () => void }) {
             </ul>
             <div className="mt-auto flex flex-col gap-3 pt-6">
               <LanguageSwitcher />
-              <Button href="/contact" className="w-full justify-center" magnetic={false}>
+              <Button href="/#register" className="w-full justify-center" magnetic={false}>
                 {t('cta')}
               </Button>
             </div>

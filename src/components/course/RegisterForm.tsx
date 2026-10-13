@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useLocale, useTranslations } from 'next-intl';
 import { Icon } from '@/components/ui/Icon';
 import { siteConfig } from '@/config/site';
@@ -12,6 +12,33 @@ type Field = 'name' | 'phone' | 'email';
 const PHONE = /^(?:\+?962|00962|0)?7[789]\d{7}$/;
 const EMAIL = /^[^@\s]+@[^@\s]+\.[^@\s]+$/;
 const clean = (raw: string) => raw.replace(/[\s()-]/g, '');
+
+/**
+ * Which ad brought them. Facebook and Instagram put utm_* and fbclid on the
+ * link, and they are gone the moment the visitor scrolls to a second page or
+ * comes back later — so they are kept for the session and sent with the
+ * registration, which is the only way to know which campaign produced a seat.
+ */
+const ATTRIBUTION_KEYS = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'utm_term', 'fbclid'];
+const ATTRIBUTION_STORE = 'zyndesk:attribution';
+
+function captureAttribution(): Record<string, string> {
+  try {
+    const stored = JSON.parse(sessionStorage.getItem(ATTRIBUTION_STORE) ?? '{}') as Record<string, string>;
+    const params = new URLSearchParams(window.location.search);
+    const fresh: Record<string, string> = {};
+    for (const k of ATTRIBUTION_KEYS) {
+      const v = params.get(k);
+      if (v) fresh[k] = v.slice(0, 120);
+    }
+    // First touch wins unless the link carries a new campaign.
+    const merged = Object.keys(fresh).length ? { ...stored, ...fresh } : stored;
+    sessionStorage.setItem(ATTRIBUTION_STORE, JSON.stringify(merged));
+    return merged;
+  } catch {
+    return {};
+  }
+}
 
 /**
  * The form that claims a seat.
@@ -35,6 +62,12 @@ export function RegisterForm({ course }: { course?: string } = {}) {
   const [errors, setErrors] = useState<Partial<Record<Field, boolean>>>({});
   const [state, setState] = useState<State>('idle');
 
+  // Read the ad's tags as soon as the page loads, not at submit: by then the
+  // visitor may have followed an in-page link and the query string is gone.
+  useEffect(() => {
+    captureAttribution();
+  }, []);
+
   const set = (field: keyof typeof values) => (e: React.ChangeEvent<HTMLInputElement>) => {
     setValues((v) => ({ ...v, [field]: e.target.value }));
     if (field !== 'note') setErrors((prev) => ({ ...prev, [field]: false }));
@@ -57,7 +90,13 @@ export function RegisterForm({ course }: { course?: string } = {}) {
       const res = await fetch('/api/register', {
         method: 'POST',
         headers: { 'content-type': 'application/json' },
-        body: JSON.stringify({ ...values, locale, source: course ?? 'register', course }),
+        body: JSON.stringify({
+          ...values,
+          locale,
+          source: course ?? 'register',
+          course,
+          attribution: captureAttribution(),
+        }),
       });
       if (res.ok) trackLead({ content_name: course ?? 'ai-automation-n8n', source: 'register-form' });
       setState(res.ok ? 'sent' : 'error');

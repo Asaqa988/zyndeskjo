@@ -4,7 +4,7 @@ export default function manifest(): MetadataRoute.Manifest {
   return {
     name: 'Zyndesk Jo',
     short_name: 'Zyndesk',
-    description: 'AI, automation, software & training in Jordan.',
+    description: 'QA Manual & Automation course — live online, from 22 October 2026.',
     start_url: '/',
     display: 'standalone',
     background_color: '#F5F9FC',

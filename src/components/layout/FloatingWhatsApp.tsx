@@ -24,7 +24,7 @@ export function FloatingWhatsApp() {
       initial={{ scale: 0, opacity: 0 }}
       animate={{ scale: 1, opacity: 1 }}
       transition={{ delay: 1, type: 'spring', stiffness: 260, damping: 20 }}
-      className="fixed z-40 bottom-5 inline-flex items-center gap-2 rounded-pill bg-[#25D366] px-4 py-3 text-white shadow-glass-lg hover:brightness-105"
+      className="fixed z-40 bottom-[5rem] md:bottom-5 inline-flex items-center gap-2 rounded-pill bg-[#25D366] px-4 py-3 text-white shadow-glass-lg hover:brightness-105"
       style={{ insetInlineEnd: '1.25rem' }}
     >
       <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor" aria-hidden>

@@ -1,28 +1,15 @@
 /**
  * Primary navigation. `label` is an i18n key under nav.<label>.
  *
- * The site is currently stripped back to the assistant: Home (the avatar), the
- * course platform, and Contact. The other routes still exist and still render
- * if visited directly — they are simply not linked. To bring the full site
- * back, restore the entries below and the sections in src/app/[locale]/page.tsx.
+ * The site is one page while the QA course campaign runs, so the navigation is
+ * the page's own sections. Every other route either redirects here (see
+ * `redirects()` in next.config.mjs) or is kept for students already enrolled
+ * in the earlier cohort and is deliberately not linked.
  */
 export const navLinks = [
-  { href: '/', label: 'home' },
-  { href: '/trainer', label: 'trainer' },
-  // Ordered the way someone decides: why the field, then what it looks like,
-  // then what they build, then what comes after, then how to reach you.
-  { href: '/why-ai-automation', label: 'whyAiAutomation' },
-  { href: '/learn', label: 'learn' },
-  { href: '/what-you-build', label: 'whatYouBuild' },
-  { href: '/examples', label: 'examples' },
-  { href: '/after-the-course', label: 'afterTheCourse' },
-  { href: '/contact', label: 'contact' },
-  // Unlinked for now:
-  // { href: '/services', label: 'services' },
-  // { href: '/training', label: 'training' },
-  // { href: '/ai-solutions', label: 'aiSolutions' },
-  // { href: '/projects', label: 'projects' },
-  // { href: '/about', label: 'about' },
+  { href: '/#curriculum', label: 'curriculum' },
+  { href: '/#trainer', label: 'trainer' },
+  { href: '/#faq', label: 'faq' },
 ] as const;
 
 /** Footer link columns. Each `label`/`href` under footer.links.* */
@@ -30,11 +17,8 @@ export const footerColumns = [
   {
     title: 'company',
     links: [
-      { href: '/register', label: 'register' },
-      { href: '/qa-course', label: 'qaCourse' },
-      { href: '/course-info', label: 'courseInfo' },
-      { href: '/cv-check', label: 'cvCheck' },
-      { href: '/contact', label: 'contact' },
+      { href: '/#register', label: 'register' },
+      { href: '/#curriculum', label: 'curriculum' },
       { href: '/privacy', label: 'privacy' },
       { href: '/terms', label: 'terms' },
     ],

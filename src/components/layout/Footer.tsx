@@ -4,7 +4,6 @@ import { siteConfig, isLive } from '@/config/site';
 import { footerColumns } from '@/config/nav';
 import { Logo } from './Logo';
 import { Icon } from '@/components/ui/Icon';
-import { NewsletterField } from './NewsletterField';
 import { LanguageSwitcher } from './LanguageSwitcher';
 
 export function Footer() {
@@ -59,10 +58,7 @@ export function Footer() {
           </div>
 
           <div className="mt-10 grid gap-6 border-t border-[var(--glass-border-soft)] pt-6 md:grid-cols-2 md:items-center">
-            <div className="max-w-md">
-              <h3 className="text-sm font-bold text-ink mb-2">{t('footer.newsletter.title')}</h3>
-              <NewsletterField />
-            </div>
+            <p className="max-w-md text-sm leading-relaxed text-[var(--text-dim)]">{t('footer.disclaimer')}</p>
             <div className="flex items-center gap-3 md:justify-end">
               {socials.map((s) => (
                 <a
