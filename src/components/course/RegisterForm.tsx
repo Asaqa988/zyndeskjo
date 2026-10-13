@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { useLocale, useTranslations } from 'next-intl';
 import { Icon } from '@/components/ui/Icon';
 import { siteConfig } from '@/config/site';
+import { trackLead } from '@/lib/metaPixel';
 
 type State = 'idle' | 'sending' | 'sent' | 'error';
 type Field = 'name' | 'phone' | 'email';
@@ -21,8 +22,12 @@ const clean = (raw: string) => raw.replace(/[\s()-]/g, '');
  *
  * Errors are shown per field and only after a submit attempt — scolding
  * someone mid-typing is the fastest way to make them close the tab.
+ *
+ * `course` tags the registration so the lead sheet and the follow-up know
+ * which course the seat is for. Omitted, it is the AI Automation & n8n course,
+ * which is what /register has always meant.
  */
-export function RegisterForm() {
+export function RegisterForm({ course }: { course?: string } = {}) {
   const t = useTranslations('pages.register.form');
   const locale = useLocale();
 
@@ -52,8 +57,9 @@ export function RegisterForm() {
       const res = await fetch('/api/register', {
         method: 'POST',
         headers: { 'content-type': 'application/json' },
-        body: JSON.stringify({ ...values, locale, source: 'register' }),
+        body: JSON.stringify({ ...values, locale, source: course ?? 'register', course }),
       });
+      if (res.ok) trackLead({ content_name: course ?? 'ai-automation-n8n', source: 'register-form' });
       setState(res.ok ? 'sent' : 'error');
     } catch {
       setState('error');

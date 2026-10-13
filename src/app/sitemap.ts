@@ -13,6 +13,7 @@ const LOCALES = ['en', 'ar'] as const;
  */
 const ROUTES = [
   '',
+  '/qa-course',
   '/contact',
   '/privacy',
   '/terms',

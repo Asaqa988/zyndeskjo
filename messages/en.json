@@ -142,6 +142,10 @@
     "examplesLive": {
       "title": "What would you automate? — live screen",
       "description": "A Telegram bot that designs an automation for your job, and a screen that updates live with every message."
+    },
+    "qaCourse": {
+      "title": "QA Manual & Automation Course — Playwright, Docker, n8n & AI",
+      "description": "Live online on Zoom from 18 October 2026: 86 hours of manual testing, Playwright, Docker, CI/CD, n8n and AI-assisted testing. Thursdays & Saturdays, 6–9 pm. 130 JOD."
     }
   },
   "hero": {
@@ -816,7 +820,9 @@
       "privacy": "Privacy Policy",
       "terms": "Terms & Conditions",
       "cvCheck": "Check your CV",
-      "courseInfo": "Course details"
+      "courseInfo": "Course details",
+      "register": "Reserve a seat",
+      "qaCourse": "QA Manual & Automation course"
     },
     "newsletter": {
       "title": "Get occasional insights on AI & automation",

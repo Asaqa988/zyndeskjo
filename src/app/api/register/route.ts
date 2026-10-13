@@ -53,6 +53,9 @@ export async function POST(request: Request) {
   const note = String(body.note ?? '').trim().slice(0, 500);
   const locale = body.locale === 'en' ? 'en' : 'ar';
   const source = String(body.source ?? 'register').slice(0, 40);
+  // Which course the seat is for. Only known ids pass; anything else is the
+  // original AI Automation & n8n course, which is what /register has always meant.
+  const course = body.course === 'qa-manual-automation' ? 'qa-manual-automation' : 'ai-automation-n8n';
 
   if (name.length < 2) return NextResponse.json({ ok: false, error: 'name' }, { status: 422 });
   if (!PHONE.test(phone)) return NextResponse.json({ ok: false, error: 'phone' }, { status: 422 });
@@ -74,6 +77,7 @@ export async function POST(request: Request) {
       body: JSON.stringify({
         source,
         intent: 'course-registration',
+        course,
         name,
         phone,
         email,
@@ -88,7 +92,8 @@ export async function POST(request: Request) {
     return NextResponse.json({ ok: false, error: 'delivery_failed' }, { status: 502 });
   }
 
-  // Only once it is delivered: a seat nobody heard about is not taken.
-  countRegistration();
+  // Only once it is delivered: a seat nobody heard about is not taken. The seat
+  // counter belongs to the AI Automation cohort, so other courses don't move it.
+  if (course === 'ai-automation-n8n') countRegistration();
   return NextResponse.json({ ok: true });
 }
