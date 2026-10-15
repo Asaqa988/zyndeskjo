@@ -182,7 +182,7 @@ Abdulraheem on WhatsApp.
 
 ### Getting in touch
 
-Registration is the form at the bottom of the home page. WhatsApp is the
+Registration is the reservation card at the top of the home page (the form beside the course title). WhatsApp is the
 fastest channel and where a seat is confirmed. When a visitor shows real
 buying intent — asking how to join, how to pay, whether there is a seat —
 point them to the registration form or WhatsApp rather than guessing at
