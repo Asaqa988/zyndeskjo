@@ -54,7 +54,11 @@ function captureAttribution(): Record<string, string> {
  * which course the seat is for. Omitted, it is the AI Automation & n8n course,
  * which is what /register has always meant.
  */
-export function RegisterForm({ course }: { course?: string } = {}) {
+export function RegisterForm({
+  course,
+  variant = 'glass',
+}: { course?: string; variant?: 'glass' | 'plain' } = {}) {
+  const plain = variant === 'plain';
   const t = useTranslations('pages.register.form');
   const locale = useLocale();
 
@@ -107,7 +111,11 @@ export function RegisterForm({ course }: { course?: string } = {}) {
 
   if (state === 'sent') {
     return (
-      <div className="glass glass-strong flex flex-col gap-4 rounded-glass border-s-4 border-s-[#1f9d55] p-7 sm:p-8">
+      <div
+        className={`flex flex-col gap-4 border-s-4 border-s-[#1f9d55] ${
+          plain ? 'rounded-[14px] bg-[#f1faf4] p-5' : 'glass glass-strong rounded-glass p-7 sm:p-8'
+        }`}
+      >
         <div className="flex items-start gap-3">
           <Icon name="CircleCheck" size={26} className="mt-0.5 shrink-0 text-[#1f9d55]" />
           <div className="flex flex-col gap-1.5">
@@ -157,12 +165,13 @@ export function RegisterForm({ course }: { course?: string } = {}) {
     <form
       onSubmit={submit}
       noValidate
-      className="glass glass-strong flex flex-col gap-4 rounded-glass p-6 sm:p-8"
+      className={plain ? 'flex flex-col gap-3.5' : 'glass glass-strong flex flex-col gap-4 rounded-glass p-6 sm:p-8'}
     >
       {field('name', 'text')}
       {field('phone', 'tel', 'ltr')}
       {field('email', 'email', 'ltr')}
 
+      {!plain && (
       <div className="flex flex-col gap-1.5">
         <label htmlFor="note" className="text-sm font-bold text-ink">
           {t('noteLabel')}
@@ -177,6 +186,7 @@ export function RegisterForm({ course }: { course?: string } = {}) {
           className="rounded-[14px] border border-navy-ice bg-white/80 px-4 py-3 text-[15px] text-ink outline-none transition placeholder:text-navy-soft focus:border-cyan"
         />
       </div>
+      )}
 
       <button
         type="submit"

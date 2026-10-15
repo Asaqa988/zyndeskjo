@@ -6,7 +6,8 @@ import { AnimatePresence, motion } from 'framer-motion';
 import { Bot, Mic, PhoneOff, Send, X } from 'lucide-react';
 import { useVoiceCall } from './useVoiceCall';
 import { AgentAvatar } from './AgentAvatar';
-import { AGENT_OPEN_EVENT, type AgentOpenMode } from './openAgent';
+import { AGENT_OPEN_EVENT, type AgentOpenDetail } from './openAgent';
+import { QA_ASK } from '@/data/qa-course';
 
 interface Message {
   role: 'user' | 'assistant';
@@ -29,6 +30,7 @@ export function AgentWidget() {
   const [draft, setDraft] = useState('');
   const [sending, setSending] = useState(false);
   const [mode, setMode] = useState<'chat' | 'voice'>('chat');
+  const [teaser, setTeaser] = useState(false);
 
   const scrollRef = useRef<HTMLDivElement | null>(null);
   const voice = useVoiceCall(locale);
@@ -43,22 +45,50 @@ export function AgentWidget() {
     if (!open && voice.status !== 'idle') voice.hangUp();
   }, [open, voice]);
 
-  // Anything on the page can ask us to open — see openAgent.ts.
+  // Anything on the page can ask us to open — see openAgent.ts. A suggested
+  // question arrives with it and is sent straight away, so the visitor gets an
+  // answer instead of an empty box.
+  const sendRef = useRef<(text?: string) => void>(() => {});
   useEffect(() => {
     const onOpen = (e: Event) => {
-      const wanted = (e as CustomEvent<AgentOpenMode>).detail ?? 'chat';
+      const detail = ((e as CustomEvent<AgentOpenDetail>).detail ?? {}) as AgentOpenDetail;
       setOpen(true);
-      if (wanted === 'voice' && voice.status === 'idle') {
+      setTeaser(false);
+      if (detail.mode === 'voice' && voice.status === 'idle') {
         setMode('voice');
         void voice.call();
+      } else if (detail.question) {
+        setMode('chat');
+        sendRef.current(detail.question);
       }
     };
     window.addEventListener(AGENT_OPEN_EVENT, onOpen);
     return () => window.removeEventListener(AGENT_OPEN_EVENT, onOpen);
   }, [voice]);
 
-  const send = useCallback(async () => {
-    const text = draft.trim();
+  // A short nudge a few seconds in, once per visit: most visitors never notice
+  // a small launcher, and the questions people have are the ones Zyn can answer.
+  useEffect(() => {
+    let seen = false;
+    try {
+      seen = sessionStorage.getItem('zyn:teaser') === '1';
+    } catch {
+      /* private mode: show it, it is harmless */
+    }
+    if (seen) return;
+    const id = window.setTimeout(() => {
+      setTeaser(true);
+      try {
+        sessionStorage.setItem('zyn:teaser', '1');
+      } catch {
+        /* ignore */
+      }
+    }, 9000);
+    return () => window.clearTimeout(id);
+  }, []);
+
+  const send = useCallback(async (override?: string) => {
+    const text = (override ?? draft).trim();
     if (!text || sending) return;
 
     const history = [...messages, { role: 'user' as const, content: text }];
@@ -119,6 +149,7 @@ export function AgentWidget() {
       setSending(false);
     }
   }, [draft, sending, messages, locale, t]);
+  sendRef.current = (text) => void send(text);
 
   const shown: Message[] = mode === 'voice' ? voice.transcripts : messages;
   /** "thinking" is still mid-call — the composer stays hidden and hang-up stays shown. */
@@ -126,20 +157,56 @@ export function AgentWidget() {
 
   return (
     <>
+      {/* Teaser — a one-time nudge that says what Zyn is for */}
+      <AnimatePresence>
+        {teaser && !open && (
+          <motion.div
+            initial={{ opacity: 0, y: 10, scale: 0.96 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, y: 6 }}
+            className="fixed z-40 bottom-[12rem] md:bottom-[9rem] flex max-w-[min(17rem,calc(100vw-2.5rem))] items-start gap-2 rounded-glass border border-navy-ice bg-white p-3 pe-2 text-sm text-ink shadow-glass-lg"
+            style={{ insetInlineEnd: '1.25rem' }}
+            role="status"
+          >
+            <button
+              type="button"
+              className="text-start leading-snug"
+              onClick={() => {
+                setTeaser(false);
+                setOpen(true);
+              }}
+            >
+              {t('teaser')}
+            </button>
+            <button
+              type="button"
+              onClick={() => setTeaser(false)}
+              aria-label={t('closeTeaser')}
+              className="shrink-0 rounded-full p-1 text-navy-soft hover:bg-navy-ice"
+            >
+              <X size={14} aria-hidden />
+            </button>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
       {/* Launcher */}
       <motion.button
         type="button"
-        onClick={() => setOpen((v) => !v)}
+        onClick={() => {
+          setTeaser(false);
+          setOpen((v) => !v);
+        }}
         aria-label={t('open')}
         aria-expanded={open}
         initial={{ scale: 0, opacity: 0 }}
         animate={{ scale: 1, opacity: 1 }}
         transition={{ delay: 1.2, type: 'spring', stiffness: 260, damping: 20 }}
-        className="fixed z-40 bottom-[8.5rem] md:bottom-[5.5rem] inline-flex items-center gap-2 rounded-pill bg-navy px-4 py-3 text-white shadow-glass-lg hover:bg-navy-medium"
+        className="fixed z-40 bottom-[8.5rem] md:bottom-[5.5rem] inline-flex items-center gap-2 rounded-pill bg-navy px-4 py-3 text-white shadow-glass-lg ring-4 ring-cyan/30 hover:bg-navy-medium"
         style={{ insetInlineEnd: '1.25rem' }}
       >
         {open ? <X size={22} aria-hidden /> : <Bot size={22} aria-hidden />}
-        <span className="hidden sm:inline text-sm font-semibold">{t('label')}</span>
+        <span className="text-sm font-semibold">{t('label')}</span>
       </motion.button>
 
       <AnimatePresence>
@@ -201,9 +268,28 @@ export function AgentWidget() {
               )}
 
               {shown.length === 0 && (
-                <p className="pt-6 text-center text-sm text-navy-medium">
-                  {mode === 'voice' && inCall ? t('listening') : t('greeting')}
-                </p>
+                <div className="flex flex-col gap-3 pt-3">
+                  <p className="text-center text-sm text-navy-medium">
+                    {mode === 'voice' && inCall ? t('listening') : t('greeting')}
+                  </p>
+                  {!inCall && (
+                    <div className="flex flex-wrap justify-center gap-2">
+                      {QA_ASK.slice(0, 4).map((q) => (
+                        <button
+                          key={q.en}
+                          type="button"
+                          onClick={() => {
+                            setMode('chat');
+                            void send(isRtl ? q.ar : q.en);
+                          }}
+                          className="rounded-pill border border-navy-ice bg-white px-3 py-1.5 text-xs text-navy hover:border-cyan hover:bg-offwhite"
+                        >
+                          {isRtl ? q.ar : q.en}
+                        </button>
+                      ))}
+                    </div>
+                  )}
+                </div>
               )}
 
               {shown.map((m, i) => (

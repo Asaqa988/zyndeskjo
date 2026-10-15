@@ -29,7 +29,7 @@ export function StartsIn({ lang }: { lang: 'en' | 'ar' }) {
 
   if (!label) return null;
   return (
-    <span className="inline-flex items-center rounded-pill bg-cyan/15 px-3 py-1 text-xs font-bold text-navy">
+    <span className="inline-flex items-center rounded-pill bg-[#c4f24a]/20 px-3 py-1 text-xs font-bold text-[#c4f24a]">
       {label}
     </span>
   );

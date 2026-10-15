@@ -9,6 +9,7 @@
 export const navLinks = [
   { href: '/#curriculum', label: 'curriculum' },
   { href: '/#trainer', label: 'trainer' },
+  { href: '/#ask', label: 'ask' },
   { href: '/#faq', label: 'faq' },
 ] as const;
 

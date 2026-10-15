@@ -26,7 +26,7 @@ export function StickyCta({ label }: { label: string }) {
   if (formInView) return null;
   return (
     <div className="fixed inset-x-0 bottom-0 z-40 border-t border-[var(--glass-border-soft)] bg-white/90 p-3 backdrop-blur md:hidden">
-      <a href="#register" className="btn btn-primary w-full justify-center">
+      <a href="#register" className="btn-lime w-full">
         {label}
       </a>
     </div>

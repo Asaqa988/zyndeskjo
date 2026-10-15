@@ -42,7 +42,8 @@
     "register": "Reserve a seat",
     "examples": "Examples",
     "curriculum": "Curriculum",
-    "faq": "FAQ"
+    "faq": "FAQ",
+    "ask": "Ask Zyn"
   },
   "meta": {
     "home": {
@@ -1473,7 +1474,9 @@
     "stageLearn": "See the course and platform",
     "stageContact": "Or go to the contact page",
     "stageCv": "Or check your CV, free",
-    "stageCourseInfo": "Course details"
+    "stageCourseInfo": "Course details",
+    "teaser": "Questions about the course? Ask Zyn — price, dates, what you learn.",
+    "closeTeaser": "Close"
   },
   "learn": {
     "nav": {

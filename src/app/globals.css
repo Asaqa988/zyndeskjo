@@ -312,3 +312,85 @@ body {
   direction: ltr;
   unicode-bidi: embed;
 }
+
+/* ───────────── QA course landing — solid cards, one dark hero ─────────────
+   The landing is a single product page for paid traffic, so it trades the
+   frosted glass for flat white cards and strong contrast. Scoped to these
+   classes: the student platform under /learn keeps the glass system. */
+.qa-hero {
+  position: relative;
+  overflow: hidden;
+  border-radius: 28px;
+  color: #fff;
+  background:
+    radial-gradient(42rem 28rem at 85% -10%, rgba(56, 209, 224, 0.28), transparent 60%),
+    radial-gradient(36rem 26rem at 0% 110%, rgba(196, 242, 74, 0.14), transparent 60%),
+    linear-gradient(160deg, #0b1f33 0%, #102a43 55%, #163654 100%);
+}
+.qa-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+  background-size: 48px 48px;
+  mask-image: radial-gradient(circle at 30% 20%, #000, transparent 75%);
+}
+.qa-card {
+  background: #fff;
+  border: 1px solid rgba(41, 76, 115, 0.12);
+  border-radius: 18px;
+  box-shadow: 0 1px 2px rgba(16, 42, 67, 0.05), 0 10px 28px rgba(16, 42, 67, 0.06);
+}
+.qa-band {
+  background: #fff;
+  border-block: 1px solid rgba(41, 76, 115, 0.08);
+}
+.btn-lime {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  border-radius: 14px;
+  padding: 0.95rem 1.6rem;
+  font-weight: 800;
+  line-height: 1;
+  color: #0b1f33;
+  background: #c4f24a;
+  box-shadow: 0 10px 26px rgba(196, 242, 74, 0.28);
+  transition: transform 200ms ease, box-shadow 200ms ease, background 200ms ease;
+}
+.btn-lime:hover {
+  background: #d3f870;
+  transform: translateY(-2px);
+  box-shadow: 0 14px 34px rgba(196, 242, 74, 0.38);
+}
+.btn-ghost-light {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  border-radius: 14px;
+  padding: 0.95rem 1.4rem;
+  font-weight: 700;
+  line-height: 1;
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  transition: background 200ms ease, border-color 200ms ease;
+}
+.btn-ghost-light:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.6);
+}
+.qa-details > summary {
+  list-style: none;
+  cursor: pointer;
+}
+.qa-details > summary::-webkit-details-marker {
+  display: none;
+}
+.qa-details[open] .qa-chevron {
+  transform: rotate(180deg);
+}

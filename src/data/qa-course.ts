@@ -35,6 +35,11 @@ export const QA_COPY = {
     ar: 'من الصفر لمهندس أتمتة اختبار جاهز لسوق العمل. اختبار يدوي، Playwright، Docker، CI/CD، n8n وذكاء اصطناعي — كله عملي، وبتطلع بمشروع حقيقي بتعرضه على أي شركة.',
   },
   ctaRegister: { en: 'Reserve my seat', ar: 'احجز مقعدي' },
+  videoTitle: { en: 'See the course in under two minutes', ar: 'شوف الكورس بأقل من دقيقتين' },
+  videoSubtitle: {
+    en: 'From manual testing to a full automation pipeline — what you learn and how the pieces fit together.',
+    ar: 'من الاختبار اليدوي لحد pipeline أتمتة كامل — شو رح تتعلم وكيف الأدوات بتتكامل مع بعض.',
+  },
   startsIn: { en: 'Starts in', ar: 'يبدأ بعد' },
   startsToday: { en: 'Starts today', ar: 'يبدأ اليوم' },
   trainerTitle: { en: 'Your trainer', ar: 'مدربك' },
@@ -285,4 +290,78 @@ export const QA_FAQ: { q: L; a: L }[] = [
       ar: 'بعد ما تحجز، بتواصل معك عبدالرحيم على الواتساب يأكّدلك المقعد ويحكيلك طرق الدفع.',
     },
   },
+];
+
+/**
+ * Copy for the redesigned landing page. Kept apart from QA_COPY so the older
+ * keys stay untouched while the page is rebuilt around them.
+ */
+export const QA_UI = {
+  heroTitle: {
+    en: 'Learn software testing from zero — manual, automation and AI',
+    ar: 'تعلّم اختبار البرمجيات من الصفر — يدوي وأتمتة وذكاء اصطناعي',
+  },
+  heroSub: {
+    en: '86 live hours on Zoom, 58 of them hands-on. You finish with a real project on GitHub that you can show in interviews.',
+    ar: '٨٦ ساعة مباشرة على Zoom، منها ٥٨ ساعة تطبيق عملي. وبتطلع بمشروع حقيقي على GitHub بتعرضه بالمقابلات.',
+  },
+  heroPoints: [
+    { en: 'No testing or coding experience needed', ar: 'ما بتحتاج خبرة اختبار ولا برمجة' },
+    { en: 'Playwright, Docker, CI/CD, n8n and AI-assisted testing', ar: 'Playwright وDocker وCI/CD وn8n والاختبار بالذكاء الاصطناعي' },
+    { en: 'Zyndesk certificate of completion', ar: 'شهادة إتمام من Zyndesk' },
+  ] as L[],
+  cardTitle: { en: 'Reserve your seat', ar: 'احجز مقعدك' },
+  cardFee: { en: 'JOD · full course', ar: 'دينار أردني · الكورس كامل' },
+  cardNote: {
+    en: 'Nothing is charged here. Abdulraheem contacts you on WhatsApp to confirm the seat and explain payment.',
+    ar: 'ما في دفع على الموقع. عبدالرحيم بيتواصل معك على واتساب يأكّدلك المقعد ويشرحلك الدفع.',
+  },
+  stats: [
+    { value: '86', label: { en: 'live hours', ar: 'ساعة مباشرة' } },
+    { value: '58', label: { en: 'hands-on hours', ar: 'ساعة تطبيق عملي' } },
+    { value: '29', label: { en: 'sessions', ar: 'محاضرة' } },
+    { value: '9', label: { en: 'modules', ar: 'وحدات' } },
+  ] as { value: string; label: L }[],
+  stepsTitle: { en: 'How joining works', ar: 'كيف بتشارك' },
+  stepsSubtitle: { en: 'Three simple steps, no payment on the website.', ar: 'ثلاث خطوات بسيطة، وبدون دفع على الموقع.' },
+  steps: [
+    {
+      icon: 'ClipboardCheck',
+      title: { en: 'Leave your details', ar: 'سجّل بياناتك' },
+      body: { en: 'Name, WhatsApp number and email. It takes less than a minute.', ar: 'الاسم ورقم الواتساب والإيميل. بياخد أقل من دقيقة.' },
+    },
+    {
+      icon: 'MessageCircle',
+      title: { en: 'We confirm on WhatsApp', ar: 'منأكّد معك على واتساب' },
+      body: { en: 'Abdulraheem confirms your seat and explains the payment options. You also get the full course details by email.', ar: 'عبدالرحيم بيأكّدلك المقعد ويشرحلك طرق الدفع. وبيوصلك على الإيميل تفاصيل الكورس كاملة.' },
+    },
+    {
+      icon: 'Rocket',
+      title: { en: 'Start on 22 October', ar: 'بتبدأ يوم ٢٢ تشرين الأول' },
+      body: { en: 'We send a setup checklist before the first session so you arrive ready.', ar: 'بنبعتلك قائمة تجهيز قبل أول محاضرة عشان توصل جاهز.' },
+    },
+  ] as { icon: string; title: L; body: L }[],
+  askTitle: { en: 'Any question about the course? Ask Zyn', ar: 'عندك سؤال عن الكورس؟ اسأل Zyn' },
+  askSubtitle: {
+    en: 'Zyn is the course assistant. Ask by text or by voice and get an answer from the course details.',
+    ar: 'Zyn هو مساعد الكورس. اسأله كتابة أو بالصوت وبيجاوبك من تفاصيل الكورس.',
+  },
+  askVoice: { en: 'Talk to Zyn', ar: 'احكي مع Zyn' },
+  askType: { en: 'Or type your own question', ar: 'أو اكتب سؤالك' },
+  curriculumHint: { en: 'Tap a module to see what it covers.', ar: 'اضغط على أي وحدة لتشوف شو بتغطي.' },
+  finalTitle: { en: 'Ready to start on 22 October?', ar: 'جاهز تبدأ يوم ٢٢ تشرين الأول؟' },
+  finalBody: { en: 'Reserve your seat now. It takes a minute.', ar: 'احجز مقعدك هلأ، بياخد دقيقة.' },
+  finalCta: { en: 'Reserve my seat', ar: 'احجز مقعدي' },
+  whatsappCta: { en: 'Ask on WhatsApp', ar: 'اسأل على واتساب' },
+  trainerSince: { en: 'Instructor', ar: 'المدرّب' },
+};
+
+/** Questions people actually ask before joining; each is answered from the course facts. */
+export const QA_ASK: L[] = [
+  { en: 'How much is the course and when does it start?', ar: 'كم سعر الكورس ومتى بيبدأ؟' },
+  { en: 'I have no experience. Can I join?', ar: 'ما عندي خبرة، بقدر أشارك؟' },
+  { en: 'What will I learn, module by module?', ar: 'شو رح أتعلّم بكل وحدة؟' },
+  { en: 'What do I need to attend?', ar: 'شو بحتاج عشان أحضر؟' },
+  { en: 'Do I get a certificate?', ar: 'في شهادة؟' },
+  { en: 'How do I pay and confirm my seat?', ar: 'كيف بدفع وبأكّد مقعدي؟' },
 ];
